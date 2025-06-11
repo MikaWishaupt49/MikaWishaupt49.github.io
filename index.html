@@ -1,76 +1,209 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-
+<html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="bootstrap/bootstrap.css">
-  <script src="script/script.js" defer> </script>
-  <script src="script/jquery-3.6.0.min.js" defer></script>
-  <script src="bootstrap/bootstrap.js" defer></script>
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mika Portfolio</title>
 
-  <title>Mika Wishaupt portfolio</title>
-
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="libraries\bootstrap\bootstrap.min.css" />
+    <!-- Your custom CSS -->
+    <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
 
-  <div class="video-background">
-    <video autoplay muted loop id="myVideo">
-      <source src="content/BackgroundItchandPortfolio0001-0250.mp4" type="video/mp4">
-      Your browser does not support HTML5 video.
-    </video>
+<!-- Navigation bar -->
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+  <div class="container-fluid navbar-dark bg-dark">
+    <img class="navbar-brand" src="src/images-icons/navbar-icon.png" alt="Mimage">
+
+    <!-- Mobile toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar items-->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="pages\projects.html">Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="pages\contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="#virtual-portfolio">Virtual portfolio</a></li>
+      </ul>
 
 
-    <nav class="navbar navbar-expand-sm ">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon hamburgermenu"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="navbutton nav-link " href="#"><strong>Home</strong> </a>
-          </li>
-          <li class="nav-item active">
-            <a class="navbutton nav-link" href="projecten.html"><strong>Projects</strong></a>
-          </li>
-          <li class="nav-item active">
-            <a class="navbutton nav-link" href="contact.html"><strong>Contact</strong></a>
-          </li>
+    </div>
+  </div>
+</nav>
 
-        </ul>
+<!-- background canvas -->
 
-      </div>
-    </nav>
+<canvas class="zdog-canvas-custom" width="1920" height="1080"></canvas>
 
 
 
-    <h1 class="glow mb-0">Portfolio Mika Wishaupt</h1>
+<!-- Hero Section -->
+<div class="container my-5">
+  <div class="row align-items-center">
+    <div class="col-md-3">
+      <img class="img-fluid rounded foto-mika" src="src/images-icons/fotoMika.jpeg" alt="Mika photo" style="width: 80%; max-width: 50vw; height: auto;">
+    </div>
+    <div class="col-md-9 ">
+      <h1 class="display-4 text-light">Hi, I'm Mika Wishaupt</h1>
+      <p class="lead text-light">CMD graduate | Creative Technologist | Game Designer | Concept Developer | Tech savy | UX | OpenSource Lover | 3D designer + games + animation + XR</p>
+    </div>
+  </div>
+</div>
 
 
-    <header class="container-fluid-custom">
-      <h2>Wie ben ik?</h2>
-      <div class="container">
-        <div class="row justify-content-center align-items-center">
-          <div class="col-sm-12 col-md-6 col-lg-3 text-center">
-            <img class="fotoMikat img-fluid" src="content/fotoMikaTheGoodOne.png" alt="">
-          </div>
-          <div class="textw border1 col-sm-12 col-md-6 col-lg-5">
-            Mijn naam is Mika Wishaupt. Wat ik het liefst doe is het bedenken en creëren van concepten en ideeën.
-            Buiten iets te bedenken hou ik van coderen/programmeren, 3d modelleren en zou hiermee het liefst verder
-            willen gaan.
-            Ook kan ik me goed thuisvinden met het maken van video's en muziek. Ik hoop dat ik elke dag iets nieuws
-            kan leren en
-            kan bijdragen aan mooie projecten.
-          </div>
+<!-- About Section -->
+<div id="about" class="container my-5">
+  <h2 class="mb-4 text-center text-light">About Me</h2>
+  <div class="row">
+    <div class="col-lg-8 mx-auto text-light">
+      <p>
+        I'm a creative CMD student from Avans with a passion for tech, design, and challenging the norm. 
+        I focus on combining play, awareness, and critical thinking — especially in themes like planned obsolescence, nostalgia, and gamification.
+      </p>
+      <p>I love building small experimental prototypes — whether that’s a retro game, a VR experience, or a physical installation with Arduino and pumps.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- Projects Section -->
+<div id="carouselExampleIndicators" class="carousel slide container my-5" data-bs-ride="carousel">
+   <h2 class="mb-4 text-center text-light">Project showcase</h2>
+   <button type="button" class="btn btn-light">Click here for the full list</button>
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+<!-- Professions (software etc.) -->
+<div id="projects" class="container my-5 ">
+  <h2 class="mb-4 text-center text-light">professions - Software - Skills</h2>
+  <div class="row g-4 ">
+    <div class="col-md-4 ">
+      <div class="card h-100 bg-transparent">
+        <img src="src/images-icons/Blender_logo_no_text.svg.png" class="card-img-top image-content-profession " alt="Project 1">
+        <div class="card-body">
+          <h5 class="card-title text-white">Blender</h5>
+          <p class="card-text text-white">Brief description of your project. Mention technologies or themes like AI, retro, PO, etc.</p>
         </div>
       </div>
-    </header>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 bg-transparent">
+        <img src="src/images-icons/icon_color_outline.png" class="card-img-top image-content-profession" alt="Project 2">
+        <div class="card-body">
+          <h5 class="card-title text-white">Godot</h5>
+          <p class="card-text text-white">Explain what you created, what problem it solves, or what inspired it.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 bg-transparent">
+        <img src="src/images-icons/Adobe_Creative_Cloud_rainbow_icon.svg.png" class="card-img-top image-content-profession" alt="Project 3">
+        <div class="card-body">
+          <h5 class="card-title text-white">Design tools </h5>
+          <p class="card-text text-white">Adobe software - Gimp - Krita</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 bg-transparent">
+        <img src="src/images-icons/arduino.png" class="card-img-top image-content-profession" alt="Project 3">
+        <div class="card-body">
+          <h5 class="card-title text-white">Arduino </h5>
+          <p class="card-text text-white">Adobe software - Gimp - Krita</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 bg-transparent">
+        <img src="src/images-icons/Processing_2021_logo.svg" class="card-img-top image-content-profession" alt="Project 3">
+        <div class="card-body">
+          <h5 class="card-title text-white">Processing </h5>
+          <p class="card-text text-white">Adobe software - Gimp - Krita</p>
+        </div>
+      </div>
+    </div>
+        <div class="col-md-4">
+      <div class="card h-100 bg-transparent">
+        <img src="src/images-icons/png-transparent-unity-new-logo-tech-companies-thumbnail.png" class="card-img-top image-content-profession" alt="Project 3">
+        <div class="card-body">
+          <h5 class="card-title text-white">Unity </h5>
+          <p class="card-text text-white">Adobe software - Gimp - Krita</p>
+        </div>
+      </div>
+    </div>
+            <div class="col-md-4">
+      <div class="card h-100 bg-transparent">
+        <img src="src/images-icons/sparkar-by-facebook-logo-png_seeklogo-432569.png" class="card-img-top image-content-profession" alt="Project 3">
+        <div class="card-body">
+          <h5 class="card-title text-white">SparkAR</h5>
+          <p class="card-text text-white">Adobe software - Gimp - Krita</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
+<!-- Virtual portfolio -->
+<div id="about" class="container my-5">
+  <h2 class="mb-4 text-center text-light">Virtual portfolio</h2>
+  <div class="row">
+    <div class="col-lg-8 mx-auto text-light">
+      <p>
+        Check out my virtual portfolio!
+      </p>
+    </div>
   </div>
-  </div>
+</div>
+
+
+
+
+
+
+
+<!-- Bootstrap JS (with Popper) -->
+<script src="libraries\bootstrap\bootstrap.bundle.min.js"></script>
+
+<!-- Gsap -->
+<script src="libraries\gsap\gsap.min.js"></script>
+
+<!-- zdog -->
+<script src="libraries/zdog/zdog.dist.min.js"></script>
+
+<!-- Your custom JS -->
+<script src="main.js"></script>
 
 </body>
+</html>

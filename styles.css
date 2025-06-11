@@ -1,0 +1,35 @@
+/* Zdog */
+
+.zdog-canvas-custom {
+  background-color: rgb(12, 2, 12);
+    
+  position: fixed;   /* Fix to viewport */
+  top: 0;
+  left: 0;
+  width: 100vw;      /* Full viewport width */
+  height: 100vh;     /* Full viewport height */
+  z-index: -1;       /* Behind other elements */
+  display: block;    /* Remove inline canvas default */
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+
+
+
+
+/* custom css */
+
+.image-content-profession {
+
+  width: 50%;
+  height: auto;
+    margin-left: auto;
+  margin-right: auto;
+
+
+
+
+  
+}

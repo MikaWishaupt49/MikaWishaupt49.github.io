@@ -12,6 +12,8 @@
 </head>
 <body>
 
+
+
 <!-- Navigation bar -->
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
   <div class="container-fluid navbar-dark bg-dark">
@@ -28,9 +30,9 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="pages\projects.html">Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages\projects.html">Projects</a></li>
         <li class="nav-item"><a class="nav-link active" href="#">Contact</a></li>
-        <li class="nav-item"><a class="nav-link" href="#virtual-portfolio">Virtual portfolio</a></li>
+        <li class="nav-item"><a class="nav-link" href="../pages\playable-portfolio.html">Virtual portfolio</a></li>
       </ul>
 
 
@@ -44,19 +46,93 @@
 <canvas class="zdog-canvas-custom" width="1920" height="1080"></canvas>
 
 
-
 <!-- Contact -->
 
-<!-- Hero Section -->
-<div id="about" class="container my-5">
-  <h2 class="mb-4 text-center text-light">Contact</h2>
+<!-- Contact Form -->
+<div class="container my-5">
   <div class="row">
-    <div class="col-lg-8 mx-auto text-light">
-      <p>Be sure to leave a message :></p>
+    <div class="col-12">
+      <h2 class="text-light">Contact me</h2>
+      <p class="text-light">Swing by for a cup of coffee, or leave a message:</p>
+    </div>
+
+    <div class="col-md-8">
+      <form action="https://api.web3forms.com/submit" method="POST">
+
+        <!-- Replace with your actual Web3Forms access key -->
+        <input type="hidden" name="access_key" value="970ad954-f5fe-431f-8182-17bdaa35e638">
+
+        <!-- Honeypot Spam Protection -->
+        <input type="checkbox" name="botcheck" class="d-none" style="display: none;">
+
+        <!-- Name -->
+        <div class="mb-3">
+          <label for="name" class="form-label text-light">Name</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Your name..." required>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label text-light">Email</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
+        </div>
+
+        <!-- Message -->
+        <div class="mb-3">
+          <label for="message" class="form-label text-light">Message</label>
+          <textarea class="form-control" id="message" name="message" placeholder="Write your message..." rows="4" required></textarea>
+        </div>
+
+        <!-- Optional: Redirect after success -->
+        <!-- <input type="hidden" name="redirect" value="https://yourusername.github.io/thank-you.html"> -->
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary">Submit Form</button>
+      </form>
     </div>
   </div>
 </div>
 
+<script>
+const form = document.getElementById('form');
+const result = document.getElementById('result');
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const formData = new FormData(form);
+  const object = Object.fromEntries(formData);
+  const json = JSON.stringify(object);
+  result.innerHTML = "Please wait..."
+
+    fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: json
+        })
+        .then(async (response) => {
+            let json = await response.json();
+            if (response.status == 200) {
+                result.innerHTML = "Form submitted successfully";
+            } else {
+                console.log(response);
+                result.innerHTML = json.message;
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            result.innerHTML = "Something went wrong!";
+        })
+        .then(function() {
+            form.reset();
+            setTimeout(() => {
+                result.style.display = "none";
+            }, 3000);
+        });
+});
+</script>
 
 
 
@@ -69,6 +145,68 @@
 
 
 
+
+
+
+
+
+
+<!-- Ground image -->
+<div id="arduino"></div>
+
+  <!-- GSAP Script -->
+<script>
+window.addEventListener("load", () => {
+
+  // Dynamically add overflow-x hidden on body to prevent horizontal scroll
+  document.body.style.overflowX = 'hidden';
+  document.body.style.margin = '0';
+  document.body.style.position = 'relative';
+  document.body.style.width = '100vw';
+  document.body.style.height = '100vh';
+
+
+  const frameWidth = 50;
+  const frameHeight = 250;
+  const totalFrames = 4;
+  let currentFrame = 0;
+
+  gsap.set("#arduino", {
+    position: "absolute",
+    bottom: 0,
+    left: "-10%",
+    width: frameWidth,
+    height: frameHeight,
+    backgroundImage: "url('../src/walking-character/walking.png')",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "0 0",
+    imageRendering: "pixelated",
+    scaleX: 2,  // start facing right
+    scaleY: 2,
+  });
+
+  // Sprite walking animation (frame cycling)
+  gsap.timeline({ repeat: -1, repeatDelay: 0 })
+    .to({}, {
+      duration: 0.15,
+      repeat: totalFrames - 1,
+      onRepeat: () => {
+        currentFrame = (currentFrame + 1) % totalFrames;
+        gsap.set("#arduino", {
+          backgroundPosition: `-${currentFrame * frameWidth}px 0`
+        });
+      }
+    });
+
+  // Movement back and forth animation
+  gsap.to("#arduino", {
+    duration: 10,
+    x: window.innerWidth - frameWidth * -20, // move to the right edge minus width
+    ease: "linear",
+    repeat: -1,
+  });
+});
+</script>
 
 
 
@@ -76,7 +214,7 @@
 <script src="../libraries\bootstrap\bootstrap.bundle.min.js"></script>
 
 <!-- Gsap -->
-<script src="../libraries\gsap\gsap.min.js"></script>
+<script src="../libraries/gsap/gsap.min.js"></script>
 
 
 <!-- Your custom JS -->

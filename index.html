@@ -12,6 +12,7 @@
 </head>
 <body>
 
+
 <!-- Navigation bar -->
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
   <div class="container-fluid navbar-dark bg-dark">
@@ -30,7 +31,7 @@
         <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="pages\projects.html">Projects</a></li>
         <li class="nav-item"><a class="nav-link" href="pages\contact.html">Contact</a></li>
-        <li class="nav-item"><a class="nav-link" href="#virtual-portfolio">Virtual portfolio</a></li>
+        <li class="nav-item"><a class="nav-link" href="pages\playable-portfolio.html">Virtual portfolio</a></li>
       </ul>
 
 
@@ -39,10 +40,7 @@
 </nav>
 
 <!-- background canvas -->
-
 <canvas class="zdog-canvas-custom" width="1920" height="1080"></canvas>
-
-
 
 <!-- Hero Section -->
 <div class="container my-5">
@@ -74,42 +72,69 @@
 
 
 <!-- Projects Section -->
-<div id="carouselExampleIndicators" class="carousel slide container my-5" data-bs-ride="carousel">
-   <h2 class="mb-4 text-center text-light">Project showcase</h2>
-   <button type="button" class="btn btn-light">Click here for the full list</button>
+
+<div id="carouselExampleCaptions" class="carousel slide container my-5">
   <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
   </div>
   <div class="carousel-inner">
+
+    <!-- Slide 1 -->
     <div class="carousel-item active">
-      <img src="..." class="d-block w-100" alt="...">
+      <img src="pages\project-pages\wastefulresources\m-post-2.png" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>First slide label</h5>
+        <p>Some representative placeholder content for the first slide.</p>
+        <div class="container">
+          <button type="button" class="btn btn-light">Click here for the full list BUTTON TO PROJECT GRADUATION</button>
+        </div>
+      </div>
     </div>
+
+    <!-- Slide 2 -->
     <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
+      <img src="pages\project-pages\wastefulresources\m-post-2.png" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Second slide label</h5>
+        <p>Some representative placeholder content for the second slide.</p>
+        <div class="container">
+          <button type="button" class="btn btn-light">Click here for the full list</button>
+        </div>
+      </div>
     </div>
+
+    <!-- Slide 3 -->
     <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
+      <img src="pages\project-pages\wastefulresources\m-post-2.png" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Third slide label</h5>
+        <p>Some representative placeholder content for the third slide.</p>
+        <div class="container">
+          <button type="button" class="btn btn-light">Click here for the full list</button>
+        </div>
+      </div>
     </div>
+
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
 </div>
-
 
 <!-- Professions (software etc.) -->
 <div id="projects" class="container my-5 ">
   <h2 class="mb-4 text-center text-light">professions - Software - Skills</h2>
   <div class="row g-4 ">
     <div class="col-md-4 ">
-      <div class="card h-100 bg-transparent">
+      <div class="card h-100 bg-transparent border-0">
         <img src="src/images-icons/Blender_logo_no_text.svg.png" class="card-img-top image-content-profession " alt="Project 1">
         <div class="card-body">
           <h5 class="card-title text-white">Blender</h5>
@@ -118,7 +143,7 @@
       </div>
     </div>
     <div class="col-md-4">
-      <div class="card h-100 bg-transparent">
+      <div class="card h-100 bg-transparent border-0">
         <img src="src/images-icons/icon_color_outline.png" class="card-img-top image-content-profession" alt="Project 2">
         <div class="card-body">
           <h5 class="card-title text-white">Godot</h5>
@@ -127,7 +152,7 @@
       </div>
     </div>
     <div class="col-md-4">
-      <div class="card h-100 bg-transparent">
+      <div class="card h-100 bg-transparent border-0">
         <img src="src/images-icons/Adobe_Creative_Cloud_rainbow_icon.svg.png" class="card-img-top image-content-profession" alt="Project 3">
         <div class="card-body">
           <h5 class="card-title text-white">Design tools </h5>
@@ -136,7 +161,7 @@
       </div>
     </div>
     <div class="col-md-4">
-      <div class="card h-100 bg-transparent">
+      <div class="card h-100 bg-transparent border-0">
         <img src="src/images-icons/arduino.png" class="card-img-top image-content-profession" alt="Project 3">
         <div class="card-body">
           <h5 class="card-title text-white">Arduino </h5>
@@ -145,7 +170,7 @@
       </div>
     </div>
     <div class="col-md-4">
-      <div class="card h-100 bg-transparent">
+      <div class="card h-100 bg-transparent border-0">
         <img src="src/images-icons/Processing_2021_logo.svg" class="card-img-top image-content-profession" alt="Project 3">
         <div class="card-body">
           <h5 class="card-title text-white">Processing </h5>
@@ -154,7 +179,7 @@
       </div>
     </div>
         <div class="col-md-4">
-      <div class="card h-100 bg-transparent">
+      <div class="card h-100 bg-transparent border-0">
         <img src="src/images-icons/png-transparent-unity-new-logo-tech-companies-thumbnail.png" class="card-img-top image-content-profession" alt="Project 3">
         <div class="card-body">
           <h5 class="card-title text-white">Unity </h5>
@@ -163,7 +188,7 @@
       </div>
     </div>
             <div class="col-md-4">
-      <div class="card h-100 bg-transparent">
+      <div class="card h-100 bg-transparent border-0">
         <img src="src/images-icons/sparkar-by-facebook-logo-png_seeklogo-432569.png" class="card-img-top image-content-profession" alt="Project 3">
         <div class="card-body">
           <h5 class="card-title text-white">SparkAR</h5>

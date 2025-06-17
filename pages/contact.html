@@ -49,15 +49,12 @@
 
 <form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" class="container my-5">
 
-  <!-- Hidden inputs for Web3Forms setup -->
+  <!-- Required: Your Access Key -->
   <input type="hidden" name="access_key" value="970ad954-f5fe-431f-8182-17bdaa35e638">
+
+  <!-- Optional -->
   <input type="hidden" name="subject" value="New Submission from Web3Forms">
   <input type="hidden" name="from_name" value="Mikawishaupt49.github.io">
-  <!-- <input type="hidden" name="ccemail" value="partner@example.com"> -->
-  <input type="hidden" name="replyto" value="customer@example.com">
-  <input type="hidden" name="redirect" value="https://web3forms.com/success">
-  <input type="hidden" name="webhook" value="WEBHOOK_URL_HERE">
-  <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
 
   <!-- Honeypot (hidden spam protection) -->
   <input type="checkbox" name="botcheck" style="display:none">
@@ -80,12 +77,9 @@
     <textarea id="message" name="message" class="form-control" cols="30" rows="10" required></textarea>
   </div>
 
-
   <!-- Submit Button -->
   <button type="submit" class="btn btn-primary text-light">Submit Form</button>
 </form>
-
-
 
 
 

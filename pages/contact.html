@@ -45,24 +45,20 @@
 
 <canvas class="zdog-canvas-custom" width="1920" height="1080"></canvas>
 
-<!-- Contact -->
-  <!-- Submit -->
-  <input type="hidden" name="redirect" value="https://web3forms.com/success">
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
 
+<!-- Contact Form -->
 <form action="https://api.web3forms.com/submit" method="POST" class="container my-5">
 
-  <!-- ✅ REQUIRED: Your Web3Forms Access Key -->
+  <!-- Web3Forms Access Key -->
   <input type="hidden" name="access_key" value="970ad954-f5fe-431f-8182-17bdaa35e638">
 
-  <!-- ✅ OPTIONAL: Redirect after submission -->
-  <!-- <input type="hidden" name="redirect" value="https://yourdomain.com/thank-you.html"> -->
+  <!-- ✅ Correct Placement of Redirect -->
+  <input type="hidden" name="redirect" value="https://web3forms.com/success">
 
-  <!-- ✅ OPTIONAL: From name for email -->
+  <!-- From Name (optional) -->
   <input type="hidden" name="from_name" value="Your Website Name">
 
-  <!-- ✅ Honeypot (spam protection) -->
+  <!-- Honeypot -->
   <input type="checkbox" name="botcheck" style="display:none">
 
   <!-- Name -->
@@ -83,10 +79,8 @@
     <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
   </div>
 
-  <!-- Submit -->
-  <button type="submit" class="btn btn-primary">Send Message</button>
-</form>
-
+  <!-- Submit Button -->
+  <button type=
 
 
 

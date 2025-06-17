@@ -47,44 +47,55 @@
 
 
 <!-- Contact Form -->
-<form action="https://api.web3forms.com/submit" method="POST" class="container my-5">
 
-  <!-- Web3Forms Access Key -->
+<form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" class="container my-5">
+
+  <!-- Hidden inputs for Web3Forms setup -->
   <input type="hidden" name="access_key" value="970ad954-f5fe-431f-8182-17bdaa35e638">
-
-  <!-- ✅ Correct Placement of Redirect -->
-  <input type="hidden" name="redirect" value="https://web3forms.com/success">
-
-  <!-- From Name (optional) -->
+  <input type="hidden" name="subject" value="New Submission from Web3Forms">
   <input type="hidden" name="from_name" value="Your Website Name">
+  <input type="hidden" name="ccemail" value="partner@example.com">
+  <input type="hidden" name="replyto" value="customer@example.com">
+  <input type="hidden" name="redirect" value="https://web3forms.com/success">
+  <input type="hidden" name="webhook" value="WEBHOOK_URL_HERE">
+  <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
 
-  <!-- Honeypot -->
+  <!-- Honeypot (hidden spam protection) -->
   <input type="checkbox" name="botcheck" style="display:none">
-
-  <!-- Name -->
-  <div class="mb-3">
-    <label for="name" class="form-label">Name</label>
-    <input type="text" class="form-control" id="name" name="name" required>
-  </div>
 
   <!-- Email -->
   <div class="mb-3">
-    <label for="email" class="form-label">Email</label>
-    <input type="email" class="form-control" id="email" name="email" required>
+    <label for="email" class="form-label text-light">Email</label>
+    <input type="email" id="email" name="email" class="form-control" required>
+  </div>
+
+  <!-- First Name -->
+  <div class="mb-3">
+    <label for="firstName" class="form-label text-light">First Name</label>
+    <input type="text" id="firstName" name="First Name" class="form-control" required>
+  </div>
+
+  <!-- Phone Number -->
+  <div class="mb-3">
+    <label for="phoneNumber" class="form-label text-light">Phone Number</label>
+    <input type="text" id="phoneNumber" name="Phone Number" class="form-control" required>
   </div>
 
   <!-- Message -->
   <div class="mb-3">
-    <label for="message" class="form-label">Message</label>
-    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+    <label for="message" class="form-label text-light">Message</label>
+    <textarea id="message" name="message" class="form-control" cols="30" rows="10" required></textarea>
+  </div>
+
+  <!-- File Attachment (optional, PRO Plan only) -->
+  <div class="mb-3">
+    <label for="attachment" class="form-label text-light">Attachment (optional)</label>
+    <input type="file" id="attachment" name="attachment" class="form-control">
   </div>
 
   <!-- Submit Button -->
-  <button type=
-
-
-
-
+  <button type="submit" class="btn btn-primary text-light">Submit Form</button>
+</form>
 
 
 

@@ -50,7 +50,7 @@
     </div>
     <div class="col-md-9 ">
       <h1 class="display-4 text-light">Hi, I'm Mika Wishaupt</h1>
-      <p class="lead text-light">CMD graduate | Creative Technologist | Game Designer | Concept Developer | Tech savy | UX | OpenSource Lover | 3D designer + games + animation + XR</p>
+      <p class="lead text-light">CMD graduate (Engineer title) | Creative Technologist | Game Designer | Concept Developer | Tech savy | UX | OpenSource Lover | 3D designer + games + animation + XR</p>
     </div>
   </div>
 </div>
@@ -62,7 +62,7 @@
   <div class="row">
     <div class="col-lg-8 mx-auto text-light">
       <p>
-        I'm a creative CMD student from Avans with a passion for tech, design, and challenging the norm. 
+        I'm a creative CMD graduate from Avans with a passion for tech, design, and challenging the norm. 
         I focus on combining play, awareness, and critical thinking — especially in themes like planned obsolescence, nostalgia, and gamification.
       </p>
       <p>I love building small experimental prototypes — whether that’s a retro game, a VR experience, or a physical installation with Arduino and pumps.</p>
@@ -73,7 +73,7 @@
 
 <!-- Projects Section -->
 
-<div id="carouselExampleCaptions" class="carousel slide container my-5">
+<div id="carouselExampleCaptions" class="carousel slide container my-5 col-md-7">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -217,7 +217,6 @@
 
 
 
-
 <!-- Bootstrap JS (with Popper) -->
 <script src="libraries\bootstrap\bootstrap.bundle.min.js"></script>
 
@@ -229,6 +228,34 @@
 
 <!-- Your custom JS -->
 <script src="main.js"></script>
+
+
+
+<style>
+  /* Opacity page  */
+  body {
+    opacity: 0;
+  }
+
+
+</style>
+
+
+
+<script>
+// Opacity page
+  window.addEventListener("load", () => {
+    gsap.to("body", {
+      opacity: 1,
+      duration: 2,
+      ease: "power1.out"
+    });
+  });
+
+
+
+</script>
+
 
 </body>
 </html>

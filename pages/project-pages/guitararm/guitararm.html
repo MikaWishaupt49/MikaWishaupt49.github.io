@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mika Portfolio</title>
+
+    <!-- Bootstrap CSS -->
+<link rel="stylesheet" href="../../../libraries/bootstrap/bootstrap.min.css" />
+
+    <!-- Your custom CSS -->
+    <link rel="stylesheet" href="../../../styles.css" />
+</head>
+<body>
+
+<!-- Navigation bar -->
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+  <div class="container-fluid navbar-dark bg-dark">
+    <img class="navbar-brand" src="../../../src/images-icons/navbar-icon.png" alt="">
+
+    <!-- Mobile toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar items-->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" href="#">Guitar bracelet</a></li>
+        <li class="nav-item"><a class="nav-link" href="../../projects.html">Back</a></li>
+      </ul>
+
+
+    </div>
+  </div>
+</nav>
+
+
+<!-- background canvas -->
+
+<canvas class="zdog-canvas-custom" width="1920" height="1080"></canvas>
+
+
+
+<!-- Hero Section -->
+
+<div id="about" class="container my-5">
+  <h2 class="mb-4 text-center text-light">The future of music production</h2>
+</div>
+
+
+
+<!-- Carousel -->
+
+<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+  <!-- Indicators -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+
+  <!-- Slides -->
+
+  <style>
+    .contentsize{
+    width: 50vw; /* or a fixed value like 1000px */
+    height: 100%; /* choose a fixed height that suits your layout */
+    object-fit: cover; /* or 'contain' if you prefer full image visibility */
+
+    }
+  </style>
+
+
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="voorkant.jpg" class="d-block img-fluid mx-auto contentsize" alt="content1">
+    </div>
+    <div class="carousel-item">
+      <img src="zijkant.jpg" class="d-block img-fluid mx-auto  contentsize" alt="content2">
+    </div>
+    <div class="carousel-item">
+      <img src="achterkant armband.jpg" class="d-block img-fluid mx-auto  contentsize" alt="content3">
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+
+<!-- Text -->
+
+
+
+
+
+
+<div id="about" class="container my-5">
+ <h2 class="mb-12 text-center text-light">Context:</h2>
+ <div class="col-12 text-light"><p> For school we were tasked with designing our own product with principles of design for behaviour. <br><br>
+
+        The project: Guitar bracelet <br>  <br>
+
+        The concept was my way of visualizing the potential future of music creation. I looked back at myself with playing guitar and others and tried to 
+        find a new way to experience making music. The idea of the bracelet is to make music production more compact with the bracelet containing different 
+        tools some guitarists use like guitar pedals. With principles of design for behaviour I tried to make it enjoyable and intuitive to play.
+
+        <br> A real life product that shows the power of compactibility is the OP-1 where you can create a whole song with a small device that makes music production
+        more portable.
+
+        <br> See the pdf below for more details.
+
+
+      </p></div>
+</div>
+
+
+
+
+
+
+<!-- Links -->
+<div id="about" class="container my-5">
+  <div class="col-4 text-light">Pdf of project</div>
+ <div class="col-4 offset-5 text-light"></div>
+
+
+  <style>.button1 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #04AA6D;
+}
+
+.button1:hover {
+  background-color: #04AA6D;
+  color: white;
+}</style>
+
+
+<a href="DesignforBehaviour_MikaWishaupt_2168556.pdf" class="button button1 col-4 offset-5" target="_blank">Click here for the pdf</a>
+
+
+</div>
+
+
+
+
+
+<!-- Bootstrap JS (with Popper) -->
+<script src="../../../libraries/bootstrap/bootstrap.bundle.min.js"></script>
+
+<!-- Gsap -->
+<script src="../../../libraries\gsap\gsap.min.js"></script>
+
+
+<!-- Your custom JS -->
+<script src="../../../main.js"></script>
+
+</body>
+</html>

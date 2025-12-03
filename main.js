@@ -58,13 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-// Gsap
-
-// Animation image
-gsap.to(".foto-mika", {
-    rotation: 360,
-    duration: 2,
-});
+// Gsap all pages
 
 
 

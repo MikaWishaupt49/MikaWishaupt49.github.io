@@ -1,0 +1,332 @@
+/* ============================================================
+   PROJECT PAGES  (cards + detail pages written in index.html)
+   Load this AFTER style.css. It uses its own class names, so the old
+   ".project-..." styles in style.css are no longer used and can be deleted.
+   ============================================================ */
+
+/* ---------- the list of cards ---------- */
+
+.proj-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.proj-card {
+    display: grid;
+    grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: rgba(128, 128, 140, 0.08);
+    transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.proj-card:hover {
+    border-color: var(--text-soft);
+    background: rgba(128, 128, 140, 0.12);
+}
+
+.proj-img {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 140px;
+    padding: 8px;
+    border-right: 1px solid var(--line);
+    background: rgba(128, 128, 140, 0.12);
+    color: var(--text-soft);
+    font-size: 13px;
+    text-align: center;
+}
+
+.proj-img:empty::before {
+    content: "Project image";
+}
+
+.proj-img img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.proj-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px 24px;
+}
+
+.proj-info h2 {
+    margin-bottom: 8px;
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.4vw, 28px);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+}
+
+.proj-info p {
+    margin-bottom: 16px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--text-soft);
+}
+
+
+/* ---------- buttons (card button, links, downloads) ---------- */
+
+.proj-open,
+.proj-page .btn {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid var(--text);
+    border-radius: 20px;
+    background: none;
+    font-size: 13px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.proj-open:hover,
+.proj-page .btn:hover {
+    background: var(--text);
+    color: var(--bg);
+}
+
+.proj-open.is-empty {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+
+/* ---------- list <-> detail switching (done by project-pages.js) ---------- */
+
+.proj-page {
+    display: none;
+}
+
+.popup-body.showing-page .proj {
+    display: none;
+}
+
+.popup-body.showing-page .proj.is-open {
+    display: block;
+}
+
+.popup-body.showing-page .proj.is-open .proj-card {
+    display: none;
+}
+
+.popup-body.showing-page .proj.is-open .proj-page {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+}
+
+.proj-page > * {
+    max-width: 100%;
+}
+
+.proj-back {
+    padding: 8px 16px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: rgba(128, 128, 140, 0.12);
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.proj-back:hover {
+    background: rgba(128, 128, 140, 0.22);
+}
+
+
+/* ---------- inside a detail page: plain HTML is styled automatically ---------- */
+
+.proj-page h2 {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+}
+
+.proj-page h3 {
+    margin-top: 8px;
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.2vw, 24px);
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+.proj-page p,
+.proj-page li {
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--text-soft);
+}
+
+.proj-page .proj-sub {
+    margin-top: -10px;
+    font-size: 16px;
+}
+
+.proj-page b,
+.proj-page strong {
+    font-weight: 500;
+    color: var(--text);
+}
+
+.proj-page a:not(.btn) {
+    color: var(--text);
+    text-decoration: underline;
+}
+
+.proj-page ul,
+.proj-page ol {
+    padding-left: 20px;
+    line-height: 1.7;
+}
+
+.proj-page .proj-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 32px;
+    width: 100%;
+    padding: 14px 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.proj-page .proj-meta li {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text);
+}
+
+.proj-page .proj-meta span {
+    display: block;
+    margin-bottom: 2px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+}
+
+.proj-page img,
+.proj-page video {
+    display: block;
+    width: 100%;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+}
+
+.proj-page figure {
+    width: 100%;
+}
+
+.proj-page figcaption {
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-soft);
+}
+
+.proj-page .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    width: 100%;
+}
+
+.proj-page .gallery img {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+.proj-page iframe {
+    display: block;
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: #fff;
+}
+
+.proj-page .embed {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+
+.proj-page .embed iframe {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+}
+
+.proj-page iframe.pdf {
+    height: min(70vh, 640px);
+}
+
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 600px) {
+    .proj-card {
+        grid-template-columns: minmax(0, 34%) minmax(0, 1fr);
+    }
+
+    .proj-img {
+        min-height: 110px;
+    }
+
+    .proj-info {
+        padding: 12px 14px;
+    }
+
+    .proj-info h2 {
+        font-size: 20px;
+    }
+
+    .proj-info p {
+        margin-bottom: 10px;
+        font-size: 13px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .proj-open,
+    .proj-page .btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .proj-page iframe.pdf {
+        height: 50vh;
+    }
+}
+
+@media (max-width: 359px) {
+    .proj-card {
+        grid-template-columns: 1fr;
+    }
+
+    .proj-img {
+        min-height: 0;
+        aspect-ratio: 16 / 9;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+    }
+}

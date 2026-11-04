@@ -50,34 +50,28 @@ if (mobileToggle) {
 // POPUP PAGES
 // Every .star-orb opens the popup named in its data-popup attribute.
 // Only one popup is open at a time.
+// A popup starts near the top of the screen and covers the page text
+// (e.g. "Projects / A selection of things I made."). While a popup is
+// open, <body> gets the class "popup-open", which fades that text out.
 // ============================================================
 const starOrbs = Array.from(document.querySelectorAll(".star-orb[data-popup]"));
 const popups = Array.from(document.querySelectorAll(".fade-popup"));
 
 let activeOrb = null;
-const NAV_SPACE = 88;        // keep in sync with "bottom" of .fade-popup in style.css
-const MIN_POPUP_HEIGHT = 260;
 
-// The popup starts just below the page text of the current section
-// (e.g. "Projects / A selection of things I made.") and ends above the nav.
-function positionPopup(orb) {
-    const section = orb.closest(".orb-layer")?.dataset.section;
-    const panel = document.querySelector('.intro[data-panel="' + section + '"]');
-    if (!panel) return;
-
-    const textBottom = panel.offsetTop + panel.offsetHeight;
-    const latestTop = window.innerHeight - NAV_SPACE - MIN_POPUP_HEIGHT;
-    const top = Math.max(16, Math.min(textBottom + 16, latestTop));
-
-    root.style.setProperty("--popup-top", top + "px");
+// Distance from the top of the screen to the popup. Change 16 to leave more room.
+function positionPopup() {
+    root.style.setProperty("--popup-top", "16px");
 }
 
 window.addEventListener("resize", () => {
-    if (activeOrb) positionPopup(activeOrb);
+    if (activeOrb) positionPopup();
 });
 
 function closeAllPopups({ restoreFocus = false } = {}) {
     let opener = null;
+
+    document.body.classList.remove("popup-open");
 
     starOrbs.forEach((orb) => {
         if (orb.classList.contains("active")) opener = orb;
@@ -101,8 +95,9 @@ starOrbs.forEach((orb) => {
 
         if (!wasOpen) {
             activeOrb = orb;
-            positionPopup(orb);
+            positionPopup();
             popup.classList.add("open");
+            document.body.classList.add("popup-open");
             orb.classList.add("active");
             orb.setAttribute("aria-expanded", "true");
             popup.focus({ preventScroll: true });
@@ -410,24 +405,20 @@ const CONTACT = {
 
 
 
-
-// ============================================================
-// TELESCOPE CHARACTER (PNG sprite sheet)
-// Frame 0 on load. Plays forward when you open About / Projects / Contact
-// and holds on the last frame. Plays backwards when you go Home.
-// It always continues from the frame it is on, so it never jumps.
-// ============================================================
+// Telescope interaction and animations
 (() => {
-    // ---- SETTINGS ------------------------------------------------
+    //  Setup
     const SHEET = "Assets%20zelfgemaakt/telescope_spritesheet.png";
-    const FRAME_W = 960;       // size of ONE frame in the sheet (px)
-    const FRAME_H = 540;
+    const FRAME_W = 960;       // One frame size X
+    const FRAME_H = 540;       // One frame size Y
     const COLUMNS = 10;        // frames per row in the sheet
     const ROWS = 10;           // rows in the sheet
-    const FRAME_COUNT = 95;    // total frames (last row is not full)
-    const FPS = 24;            // playback speed - lower = slower
+    const FRAME_COUNT = 95;    // total frames 
+    const FPS = 24;            // playback speed
     const WIDTH = "clamp(200px, 28vw, 520px)";   // size on screen - make bigger/smaller here
-    // --------------------------------------------------------------
+
+
+
 
     const el = document.createElement("div");
     el.setAttribute("aria-hidden", "true");
@@ -503,3 +494,80 @@ const CONTACT = {
 })();
 
 
+
+
+
+
+
+
+
+// Intro website
+
+// ============================================================
+// ENTER SCREEN
+// Rotating text: fades in from the right, fades out to the left.
+// ============================================================
+(() => {
+    const ROLES = [
+        "CMD graduate (Engineer title)",
+        "Game Designer",
+        "Concept Developer",
+        "UX",
+        "OpenSource Lover",
+        "I make 3D, games, animation and XR where creativity meets serious tech.",
+        "Creative Technologist",
+    ];
+
+    const HOLD_MS = 2000;       // how long each text stays readable
+    const MOVE_MS = 600;        // duration of fade in / fade out
+    const DISTANCE = 600;        // px the text travels
+
+    const splash = document.getElementById("splash");
+    const roleEl = document.getElementById("splashRole");
+    const enterButton = document.getElementById("splashEnter");
+    if (!splash || !roleEl || !enterButton) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const travel = reduceMotion ? 0 : DISTANCE;
+
+    let running = true;
+
+    const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    const animate = (el, keyframes) =>
+        el.animate(keyframes, { duration: MOVE_MS, easing: "ease", fill: "both" }).finished;
+
+    async function rotateRoles() {
+        let i = 0;
+
+        while (running) {
+            roleEl.getAnimations().forEach((a) => a.cancel());
+            roleEl.textContent = ROLES[i];
+
+            // in: from the right
+            await animate(roleEl, [
+                { opacity: 0, transform: `translateX(${travel}px)` },
+                { opacity: 1, transform: "translateX(0)" },
+            ]);
+            await wait(HOLD_MS);
+
+            // out: to the left
+            await animate(roleEl, [
+                { opacity: 1, transform: "translateX(0)" },
+                { opacity: 0, transform: `translateX(${-travel}px)` },
+            ]);
+
+            i = (i + 1) % ROLES.length;
+        }
+    }
+
+    function enter() {
+        running = false;
+        splash.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, easing: "ease", fill: "forwards" })
+            .finished.then(() => { splash.hidden = true; });
+    }
+
+    enterButton.addEventListener("click", enter);
+    enterButton.focus({ preventScroll: true });
+    rotateRoles();
+})();

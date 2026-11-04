@@ -1,9 +1,7 @@
 (() => {
   const THREE = window.THREE;
 
-  // ============================================================
-  // 1. SETTINGS — EASY CUSTOMIZATION
-  // ============================================================
+// Settings most of 3D environment
 
   const SETTINGS = {
     cameraSpeed: 0.025,
@@ -28,9 +26,7 @@
     directionalColor: 0x9aa9ff,
   };
 
-  // ============================================================
-  // 2. LANDSCAPE POSITION — CHANGE THIS FIRST
-  // ============================================================
+// Landscape position
 
   const LANDSCAPE_POSITION = {
     x: 0,

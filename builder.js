@@ -56,21 +56,33 @@
         </div>`;
     }
 
+    // A screenshot can be a plain filename OR { file, caption }
+    const normalizeImages = (project) =>
+        (project.images || []).map((img) =>
+            typeof img === "string"
+                ? { file: img, caption: "" }
+                : { file: img.file, caption: img.caption || "" });
+
+    // strips HTML so a caption can safely be used inside alt=""
+    const plain = (html) => String(html).replace(/<[^>]*>/g, "").replace(/"/g, "&quot;");
+
     // Compact carousel: each screenshot sits inside a button, so it can be
     // enlarged with a click, Enter or Space (and reached with Tab).
+    // The caption sits under every screenshot.
     function carouselHTML(project, id) {
-        const total = project.images.length;
+        const shots = normalizeImages(project);
+        const total = shots.length;
 
-        const slides = project.images.map((name, i) => `
+        const slides = shots.map((shot, i) => `
             <div class="carousel-item ${i === 0 ? "active" : ""}">
                 <button type="button" class="carousel-zoom"
                         aria-label="Enlarge screenshot ${i + 1} of ${total}">
-                    <img src="${file(project, name)}"
+                    <img src="${file(project, shot.file)}"
                          class="carousel-img"
-                         alt="Screenshot ${i + 1} of ${project.title}"
+                         alt="${plain(shot.caption || `Screenshot ${i + 1} of ${project.title}`)}"
                          loading="lazy">
                 </button>
-                <p class="carousel-description">Screenshot ${i + 1} of ${total}</p>
+                <p class="carousel-description">${shot.caption || `Screenshot ${i + 1}`}<small>${i + 1} / ${total}</small></p>
             </div>
         `).join("");
 
@@ -157,6 +169,12 @@
             body.classList.add("showing-page");
             body.scrollTop = 0;
         };
+
+        // Lets other code (the tool bubbles) jump straight to a project
+        popup.addEventListener("show-project", (e) => {
+            const p = projects[e.detail.index];
+            if (p?.querySelector(".proj-page")) showPage(p);
+        });
 
         projects.forEach((project) => {
             const open = project.querySelector(".proj-open");

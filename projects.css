@@ -9,15 +9,15 @@
 .proj-list {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
 }
 
 .proj-card {
     display: grid;
-    grid-template-columns: minmax(0, 42%) minmax(0, 1fr);
-    min-height: 300px;                    /* taller cards */
+    grid-template-columns: 280px 1fr;     /* Locks the image column to a fixed, equal width */
+    align-items: center;                  /* Keeps everything neatly aligned */
     overflow: hidden;
-    border-radius: 24px;
+    border-radius: 20px;
     background: rgba(128, 128, 140, 0.08);
     transition: border-color 0.25s ease, background 0.25s ease;
 }
@@ -29,29 +29,23 @@
 
 .proj-img {
     position: relative;
-    display: grid;
-    place-items: center;
-    min-height: 220px;
-    padding: 0;
-    border-right: 0;
-    background: rgba(128, 128, 140, 0.12);
-    color: var(--text-soft);
-    font-size: 15px;
-    text-align: center;
+    width: 100%;
+    height: 160px;                        /* Locks every single image box to the exact same height */
     overflow: hidden;
+    background: rgba(128, 128, 140, 0.12);
 }
 
 .proj-img:empty::before {
     content: "Project image";
 }
 
-/* "contain" shows the WHOLE image (no zoomed-in crop) */
+/* "cover" fills the box completely with zero empty padding space */
 .proj-img img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
 }
 
@@ -60,23 +54,23 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    padding: 32px 40px;
+    padding: 20px 24px;
 }
 
 .proj-info h2 {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     font-family: var(--font-display);
-    font-size: clamp(30px, 3.4vw, 44px);
+    font-size: clamp(22px, 2.4vw, 28px);
     font-weight: 500;
     line-height: 1.1;
     letter-spacing: -0.01em;
 }
 
 .proj-info p {
-    margin-bottom: 24px;
-    font-size: clamp(16px, 1.5vw, 19px);
+    margin-bottom: 16px;
+    font-size: clamp(14px, 1.3vw, 16px);
     font-weight: 300;
-    line-height: 1.6;
+    line-height: 1.5;
     color: var(--text-soft);
 }
 
@@ -86,11 +80,11 @@
 .proj-open,
 .proj-page .btn {
     display: inline-block;
-    padding: 12px 28px;
+    padding: 8px 20px;
     border: 1px solid var(--text);
-    border-radius: 28px;
+    border-radius: 24px;
     background: none;
-    font-size: 16px;
+    font-size: 14px;
     white-space: nowrap;
     cursor: pointer;
     transition: background 0.2s ease, color 0.2s ease;
@@ -291,9 +285,7 @@
 /* ---------- carousel ---------- */
 
 .project-carousel {
-    /* one place to change the screenshot height */
     --shot-h: clamp(220px, 50vh, 520px);
-
     position: relative;
     width: 100%;
     overflow: hidden;
@@ -305,8 +297,6 @@
     text-align: center;
 }
 
-/* The screenshot is a button (click / Tab+Enter opens the viewer).
-   Fixed-height frame: the whole image is visible, never cropped. */
 .project-carousel .carousel-zoom {
     position: relative;
     display: flex;
@@ -322,18 +312,15 @@
     cursor: zoom-in;
 }
 
-/* beats ".proj-page img" so the image keeps its own proportions */
 .project-carousel .carousel-zoom .carousel-img {
     display: block;
-    width: auto;
-    max-width: 100%;
+    width: 100%;
     height: 100%;
     object-fit: contain;
     border: 0;
     border-radius: 0;
 }
 
-/* small "Enlarge" hint */
 .project-carousel .carousel-zoom::after {
     content: "⤢ Enlarge";
     position: absolute;
@@ -359,7 +346,6 @@
     outline-offset: -4px;
 }
 
-/* Description underneath the image */
 .project-carousel .carousel-description {
     position: static;
     margin: 14px 0 8px;
@@ -372,8 +358,6 @@
     background: transparent;
 }
 
-/* Navigation arrows: hidden until hover on desktop.
-   They only cover the image area, not the caption. */
 .project-carousel .carousel-control-prev,
 .project-carousel .carousel-control-next {
     position: absolute;
@@ -389,7 +373,6 @@
     z-index: 5;
 }
 
-/* Desktop hover and keyboard focus */
 @media (hover: hover) and (pointer: fine) {
     .project-carousel:hover .carousel-control-prev,
     .project-carousel:hover .carousel-control-next,
@@ -399,7 +382,6 @@
     }
 }
 
-/* Arrow appearance */
 .project-carousel .carousel-control-prev-icon,
 .project-carousel .carousel-control-next-icon {
     width: 40px;
@@ -417,7 +399,6 @@
     transform: scale(1.1);
 }
 
-/* Touchscreens: keep arrows and the Enlarge hint visible (no hover) */
 @media (hover: none), (pointer: coarse) {
     .project-carousel .carousel-control-prev,
     .project-carousel .carousel-control-next {
@@ -435,7 +416,6 @@
     }
 }
 
-/* Keyboard focus */
 .project-carousel .carousel-control-prev:focus-visible,
 .project-carousel .carousel-control-next:focus-visible {
     opacity: 1;
@@ -453,7 +433,7 @@ html.lightbox-open {
 .lightbox {
     position: fixed;
     inset: 0;
-    z-index: 100000;            /* above the popups */
+    z-index: 100000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -480,7 +460,6 @@ html.lightbox-open {
     cursor: zoom-in;
 }
 
-/* click the image to toggle real size; scroll the stage to look around */
 .lb-img.zoomed {
     max-width: none;
     max-height: none;
@@ -538,40 +517,37 @@ html.lightbox-open {
 /* ---------- tablets and phones ---------- */
 
 @media (max-width: 800px) {
-    /* stack: image on top, text below */
     .proj-card {
         grid-template-columns: 1fr;
-        min-height: 0;
     }
 
     .proj-img {
-        min-height: 0;
-        aspect-ratio: 16 / 10;
+        height: 180px;
     }
 
     .proj-info {
-        padding: 22px 24px 26px;
+        padding: 16px 20px;
     }
 }
 
 @media (max-width: 600px) {
     .proj-list {
-        gap: 18px;
+        gap: 14px;
     }
 
     .proj-info h2 {
-        font-size: 26px;
+        font-size: 20px;
     }
 
     .proj-info p {
-        margin-bottom: 18px;
-        font-size: 15px;
+        margin-bottom: 12px;
+        font-size: 13px;
     }
 
     .proj-open,
     .proj-page .btn {
-        padding: 10px 20px;
-        font-size: 14px;
+        padding: 6px 14px;
+        font-size: 13px;
     }
 
     .proj-page iframe.pdf {
@@ -591,7 +567,6 @@ html.lightbox-open {
         width: 100%;
     }
 
-    /* viewer: more room for the image, arrows move to the bottom */
     .lb-stage {
         padding: 56px 8px 56px;
     }

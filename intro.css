@@ -62,3 +62,30 @@
     background-color: rgba(255, 254, 254, 0.74);
     color: var(--bg);
 }
+
+
+/* ============================================================
+   TELESCOPE SIZING
+   ============================================================ */
+
+.telescope {
+    --nav-clear: 0px;                                  /* space reserved for the nav */
+    bottom: var(--nav-clear);
+    width: clamp(200px, 28vw, 520px);
+}
+
+/* Phones (portrait): the nav is a ~48px button sitting 18px from the bottom */
+@media (max-width: 600px) {
+    .telescope {
+        --nav-clear: calc(env(safe-area-inset-bottom, 0px) + 78px);
+        width: min(96vw, 520px);                       /* was ~200px */
+    }
+}
+
+/* Phones (landscape): the full nav bar is ~64px tall */
+@media (max-height: 520px) and (min-width: 601px) {
+    .telescope {
+        --nav-clear: 68px;
+        width: min(42vw, 520px);
+    }
+}

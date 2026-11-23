@@ -85,6 +85,22 @@ function closeAllPopups({ restoreFocus = false } = {}) {
     if (restoreFocus && opener) opener.focus({ preventScroll: true });
 }
 
+// Opens one popup (also used by about.js to jump to a project)
+function openPopup(popup, orb = null) {
+    closeAllPopups();
+    activeOrb = orb;
+    positionPopup();
+    popup.classList.add("open");
+    document.body.classList.add("popup-open");
+    if (orb) {
+        orb.classList.add("active");
+        orb.setAttribute("aria-expanded", "true");
+    }
+    popup.focus({ preventScroll: true });
+}
+
+window.PORTFOLIO = { openPopup, closeAllPopups };
+
 starOrbs.forEach((orb) => {
     const popup = document.getElementById(orb.dataset.popup);
     if (!popup) return;
@@ -92,16 +108,7 @@ starOrbs.forEach((orb) => {
     orb.addEventListener("click", () => {
         const wasOpen = popup.classList.contains("open");
         closeAllPopups();
-
-        if (!wasOpen) {
-            activeOrb = orb;
-            positionPopup();
-            popup.classList.add("open");
-            document.body.classList.add("popup-open");
-            orb.classList.add("active");
-            orb.setAttribute("aria-expanded", "true");
-            popup.focus({ preventScroll: true });
-        }
+        if (!wasOpen) openPopup(popup, orb);
     });
 });
 
@@ -130,23 +137,17 @@ document.querySelectorAll(".nav-button[data-go]").forEach((button) => {
 
 // ============================================================
 // CONTACT FORM
-// Set ONE of these:
-//   email    -> opens the visitor's email app with the message filled in
-//   endpoint -> posts the form to a form service (e.g. Formspree:
-//               "https://formspree.io/f/yourFormId") so it is sent
-//               straight to your inbox without opening an email app
+// Settings (CONTACT.email and CONTACT.formspreeId) are in content.js.
+// With a Formspree ID the message goes straight to your inbox.
+// Without one, the visitor's email app opens as a fallback.
 // ============================================================
-const CONTACT = {
-    email: "your@email.com",   // <-- CHANGE THIS
-    endpoint: ""               // <-- optional, see above
-};
-
 (() => {
     const form = document.getElementById("contactForm");
     const status = document.getElementById("formStatus");
     if (!form || !status) return;
 
     const button = form.querySelector(".send-button");
+    const live = CONTACT.formspreeId && CONTACT.formspreeId !== "yourFormId";
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -154,37 +155,38 @@ const CONTACT = {
         const data = Object.fromEntries(new FormData(form));
         status.textContent = "";
 
-        if (CONTACT.endpoint) {
-            button.disabled = true;
-            status.textContent = "Sending…";
-
-            try {
-                const response = await fetch(CONTACT.endpoint, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json"
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                if (!response.ok) throw new Error("Request failed");
-
-                status.textContent = "Thanks! Your message has been sent.";
-                form.reset();
-            } catch (err) {
-                status.textContent = "Something went wrong. Please try again.";
-            } finally {
-                button.disabled = false;
-            }
-        } else {
+        // Fallback until Formspree is set up
+        if (!live) {
             const subject = encodeURIComponent("Portfolio message from " + data.name);
             const body = encodeURIComponent(
                 data.message + "\n\n— " + data.name + " (" + data.email + ")"
             );
-
             status.textContent = "Opening your email app…";
-            window.location.href = "mailto:" + CONTACT.email + "?subject=" + subject + "&body=" + body;
+            window.location.href = `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
+            return;
+        }
+
+        button.disabled = true;
+        status.textContent = "Sending…";
+
+        try {
+            const response = await fetch(`https://formspree.io/f/${CONTACT.formspreeId}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) throw new Error("Request failed");
+
+            status.textContent = "Thanks! Your message has been sent.";
+            form.reset();
+        } catch (err) {
+            status.innerHTML = `Something went wrong. You can also email me at <a href="mailto:${CONTACT.email}">${CONTACT.email}</a>.`;
+        } finally {
+            button.disabled = false;
         }
     });
 })();
@@ -401,11 +403,9 @@ const CONTACT = {
 })();
 
 
-
-
-
-
+// ============================================================
 // Telescope interaction and animations
+// ============================================================
 (() => {
     //  Setup
     const SHEET = "Assets%20zelfgemaakt/telescope_spritesheet.png";
@@ -413,12 +413,9 @@ const CONTACT = {
     const FRAME_H = 540;       // One frame size Y
     const COLUMNS = 10;        // frames per row in the sheet
     const ROWS = 10;           // rows in the sheet
-    const FRAME_COUNT = 95;    // total frames 
+    const FRAME_COUNT = 95;    // total frames
     const FPS = 24;            // playback speed
     const WIDTH = "clamp(200px, 28vw, 520px)";   // size on screen - make bigger/smaller here
-
-
-
 
     const el = document.createElement("div");
     el.setAttribute("aria-hidden", "true");
@@ -494,33 +491,26 @@ const CONTACT = {
 })();
 
 
-
-
-
-
-
-
-
-// Intro website
-
 // ============================================================
 // ENTER SCREEN
-// Rotating text: fades in from the right, fades out to the left.
+// Rotating text: fades in from the right, moves to the left, and fades out.
 // ============================================================
 (() => {
     const ROLES = [
-        "CMD graduate (Engineer title)",
+        "BSc Communication & Multimedia Design",
+        "MA Data-Driven Design",
         "Game Designer",
         "Concept Developer",
         "UX",
         "OpenSource Lover",
-        "I make 3D, games, animation and XR where creativity meets serious tech.",
+        "XR experience",
         "Creative Technologist",
+        "R&D explorer",
     ];
 
-    const HOLD_MS = 2000;       // how long each text stays readable
-    const MOVE_MS = 600;        // duration of fade in / fade out
-    const DISTANCE = 600;        // px the text travels
+    const HOLD_MS = 2500;       // How long each role stays readable in the center
+    const MOVE_MS = 700;        // Duration of the slide and fade transition
+    const DISTANCE = 250;       // Pixel distance for the smooth train-like slide
 
     const splash = document.getElementById("splash");
     const roleEl = document.getElementById("splashRole");
@@ -535,7 +525,11 @@ const CONTACT = {
     const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     const animate = (el, keyframes) =>
-        el.animate(keyframes, { duration: MOVE_MS, easing: "ease", fill: "both" }).finished;
+        el.animate(keyframes, {
+            duration: MOVE_MS,
+            easing: "cubic-bezier(0.25, 1, 0.5, 1)",   // smooth "train braking/accelerating" feel
+            fill: "both"
+        }).finished;
 
     async function rotateRoles() {
         let i = 0;
@@ -544,14 +538,16 @@ const CONTACT = {
             roleEl.getAnimations().forEach((a) => a.cancel());
             roleEl.textContent = ROLES[i];
 
-            // in: from the right
+            // 1. ENTER: fades in while sliding from the right (Right -> Center)
             await animate(roleEl, [
                 { opacity: 0, transform: `translateX(${travel}px)` },
                 { opacity: 1, transform: "translateX(0)" },
             ]);
+
+            // 2. HOLD: stays visible in the center
             await wait(HOLD_MS);
 
-            // out: to the left
+            // 3. EXIT: fades out while sliding to the left (Center -> Left)
             await animate(roleEl, [
                 { opacity: 1, transform: "translateX(0)" },
                 { opacity: 0, transform: `translateX(${-travel}px)` },

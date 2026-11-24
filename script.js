@@ -171,13 +171,14 @@ document.querySelectorAll(".nav-button[data-go]").forEach((button) => {
             });
 
             const result = await response.json();
-            if (!response.ok || String(result.success) !== "true") throw new Error("Failed");
+            if (!response.ok || String(result.success) !== "true") throw new Error(result.message || "Failed");
 
             status.textContent = "Thanks! Your message has been sent.";
             form.reset();
-        } catch (err) {
-            status.innerHTML = `Something went wrong. You can also email me at <a href="mailto:${CONTACT.email}">${CONTACT.email}</a>.`;
-        } finally {
+} catch (err) {
+    console.error("Form error:", err);
+    status.innerHTML = `Could not send (${err.message}). You can also email me at <a href="mailto:${CONTACT.email}">${CONTACT.email}</a>.`;
+} finally {
             button.disabled = false;
         }
     });

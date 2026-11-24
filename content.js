@@ -1,12 +1,11 @@
 // ------------------------------------------------------------
 // CONTACT (Web3Forms)
-// 1. Go to https://web3forms.com and enter m.wishaupt@hotmail.nl
-// 2. They email you an Access Key. Paste it below.
+// 1. https://app.web3forms.com/dashboard with email
 // email -> shown as fallback if sending fails
 // ------------------------------------------------------------
 const CONTACT = {
     email: "m.wishaupt@hotmail.nl",
-    accessKey: "Pbd0eeaa3-e9ff-4066-a7ea-60e12619d031",   // <-- CHANGE THIS
+    accessKey: "bd0eeaa3-e9ff-4066-a7ea-60e12619d031",
     endpoint: "https://api.web3forms.com/submit",
 };
 

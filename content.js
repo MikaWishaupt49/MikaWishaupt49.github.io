@@ -1,13 +1,13 @@
 // ------------------------------------------------------------
-// CONTACT
-// email    -> shown as fallback if sending fails
-// endpoint -> FormSubmit forwards the form to your inbox.
-//             The first submission sends an activation email to
-//             m.wishaupt@hotmail.nl: click the link in it (check spam).
+// CONTACT (Web3Forms)
+// 1. Go to https://web3forms.com and enter m.wishaupt@hotmail.nl
+// 2. They email you an Access Key. Paste it below.
+// email -> shown as fallback if sending fails
 // ------------------------------------------------------------
 const CONTACT = {
     email: "m.wishaupt@hotmail.nl",
-    endpoint: "https://formsubmit.co/ajax/m.wishaupt@hotmail.nl",
+    accessKey: "Pbd0eeaa3-e9ff-4066-a7ea-60e12619d031",   // <-- CHANGE THIS
+    endpoint: "https://api.web3forms.com/submit",
 };
 
 

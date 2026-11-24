@@ -137,8 +137,8 @@ document.querySelectorAll(".nav-button[data-go]").forEach((button) => {
 
 // ============================================================
 // CONTACT FORM
-// Sends the message to your inbox through FormSubmit.
-// Settings (CONTACT.email and CONTACT.endpoint) are in content.js.
+// Sends the message to your inbox through Web3Forms.
+// Settings (CONTACT.email, CONTACT.accessKey, CONTACT.endpoint) are in content.js.
 // ============================================================
 (() => {
     const form = document.getElementById("contactForm");
@@ -151,7 +151,12 @@ document.querySelectorAll(".nav-button[data-go]").forEach((button) => {
         e.preventDefault();
 
         const data = Object.fromEntries(new FormData(form));
-        if (data._honey) return;                       // bot
+        if (data.botcheck) return;                     // bot
+
+        if (!CONTACT.accessKey || CONTACT.accessKey.startsWith("PASTE")) {
+            status.textContent = "The form is not set up yet (missing access key).";
+            return;
+        }
 
         button.disabled = true;
         status.textContent = "Sending…";
@@ -161,24 +166,24 @@ document.querySelectorAll(".nav-button[data-go]").forEach((button) => {
                 method: "POST",
                 headers: { "Content-Type": "application/json", "Accept": "application/json" },
                 body: JSON.stringify({
+                    access_key: CONTACT.accessKey,
+                    subject: "Portfolio message from " + data.name,
+                    from_name: "Portfolio",
                     name: data.name,
                     email: data.email,          // used as reply-to
                     message: data.message,
-                    _subject: "Portfolio message from " + data.name,
-                    _template: "table",
-                    _captcha: "false",
                 }),
             });
 
             const result = await response.json();
-            if (!response.ok || String(result.success) !== "true") throw new Error(result.message || "Failed");
+            if (!response.ok || !result.success) throw new Error(result.message || "Failed");
 
             status.textContent = "Thanks! Your message has been sent.";
             form.reset();
-} catch (err) {
-    console.error("Form error:", err);
-    status.innerHTML = `Could not send (${err.message}). You can also email me at <a href="mailto:${CONTACT.email}">${CONTACT.email}</a>.`;
-} finally {
+        } catch (err) {
+            console.error("Form error:", err);
+            status.innerHTML = `Could not send (${err.message}). You can also email me at <a href="mailto:${CONTACT.email}">${CONTACT.email}</a>.`;
+        } finally {
             button.disabled = false;
         }
     });

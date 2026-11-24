@@ -48,12 +48,11 @@
         }).join("");
 
         skillsBody.innerHTML = `
+            <p class="about-intro">My creative journey, from the top down. Click a node to read its story. The journey continues.</p>
             <svg class="pt-svg" viewBox="0 0 ${T.width} ${T.height}" role="group" aria-label="My creative journey as a skill tree">
                 ${links}${trails}${nodes}
             </svg>
-            <div class="about-detail" id="skillDetail" aria-live="polite">
-                <p class="detail-hint">My creative journey, from the top down. Click a node to read its story. The tree is not finished yet.</p>
-            </div>`;
+            <div class="about-detail" id="skillDetail" aria-live="polite"></div>`;
 
         const detail = document.getElementById("skillDetail");
 
@@ -131,6 +130,7 @@
         const info = (tool) => (typeof TOOL_INFO !== "undefined" && TOOL_INFO[tool.key]) || {};
 
         toolsBody.innerHTML = `
+            <p class="about-intro">Click a bubble to see what I use it for. Bigger bubble = used in more projects.</p>
             <div class="tool-field">
                 ${tools.map((tool, i) => {
                     const count = tool.projects.length;
@@ -148,9 +148,7 @@
                     </button>`;
                 }).join("")}
             </div>
-            <div class="about-detail" id="toolDetail" aria-live="polite">
-                <p class="detail-hint">Click a bubble to see what I use it for. Bigger bubble = used in more projects.</p>
-            </div>`;
+            <div class="about-detail" id="toolDetail" aria-live="polite"></div>`;
 
         const detail = document.getElementById("toolDetail");
 

@@ -137,9 +137,8 @@ document.querySelectorAll(".nav-button[data-go]").forEach((button) => {
 
 // ============================================================
 // CONTACT FORM
-// Settings (CONTACT.email and CONTACT.formspreeId) are in content.js.
-// With a Formspree ID the message goes straight to your inbox.
-// Without one, the visitor's email app opens as a fallback.
+// Sends the message to your inbox through FormSubmit.
+// Settings (CONTACT.email and CONTACT.endpoint) are in content.js.
 // ============================================================
 (() => {
     const form = document.getElementById("contactForm");
@@ -147,39 +146,32 @@ document.querySelectorAll(".nav-button[data-go]").forEach((button) => {
     if (!form || !status) return;
 
     const button = form.querySelector(".send-button");
-    const live = CONTACT.formspreeId && CONTACT.formspreeId !== "yourFormId";
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const data = Object.fromEntries(new FormData(form));
-        status.textContent = "";
-
-        // Fallback until Formspree is set up
-        if (!live) {
-            const subject = encodeURIComponent("Portfolio message from " + data.name);
-            const body = encodeURIComponent(
-                data.message + "\n\n— " + data.name + " (" + data.email + ")"
-            );
-            status.textContent = "Opening your email app…";
-            window.location.href = `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
-            return;
-        }
+        if (data._honey) return;                       // bot
 
         button.disabled = true;
         status.textContent = "Sending…";
 
         try {
-            const response = await fetch(`https://formspree.io/f/${CONTACT.formspreeId}`, {
+            const response = await fetch(CONTACT.endpoint, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                },
-                body: JSON.stringify(data)
+                headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                body: JSON.stringify({
+                    name: data.name,
+                    email: data.email,          // used as reply-to
+                    message: data.message,
+                    _subject: "Portfolio message from " + data.name,
+                    _template: "table",
+                    _captcha: "false",
+                }),
             });
 
-            if (!response.ok) throw new Error("Request failed");
+            const result = await response.json();
+            if (!response.ok || String(result.success) !== "true") throw new Error("Failed");
 
             status.textContent = "Thanks! Your message has been sent.";
             form.reset();

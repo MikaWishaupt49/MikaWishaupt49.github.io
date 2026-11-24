@@ -1,13 +1,13 @@
 // ------------------------------------------------------------
 // CONTACT
-// email       -> shown as fallback if sending fails
-// formspreeId -> create a free form at formspree.io (recipient:
-//                m.wishaupt@hotmail.nl), then copy the part after /f/
-//                from its URL (formspree.io/f/abcd1234)
+// email    -> shown as fallback if sending fails
+// endpoint -> FormSubmit forwards the form to your inbox.
+//             The first submission sends an activation email to
+//             m.wishaupt@hotmail.nl: click the link in it (check spam).
 // ------------------------------------------------------------
 const CONTACT = {
     email: "m.wishaupt@hotmail.nl",
-    formspreeId: "yourFormId",        // <-- CHANGE THIS to your real Formspree ID
+    endpoint: "https://formsubmit.co/ajax/m.wishaupt@hotmail.nl",
 };
 
 
@@ -214,19 +214,21 @@ const PROJECTS = {
 // size:  "minor" | "notable" | "keystone"
 // state: "done" | "current" | "locked"
 // from:  ids of the nodes this one connects to (draws the lines)
-// x / y: position in a 480 x 880 box
+// x / y: position in a 480 x 960 box
 // open:  true = draws a dashed trail below it (the tree is not finished)
 // ------------------------------------------------------------
 const SKILL_TREE = {
     width: 480,
-    height: 880,
+    height: 960,
     branches: {
-        start:  { color: "#fde68a" },
-        origin: { color: "#f59e0b" },
-        cmd:    { color: "#06b6d4" },
-        minor:  { color: "#ec4899" },
-        master: { color: "#a78bfa" },
-        future: { color: "#94a3b8" },
+        start:   { color: "#fde68a" },
+        origin:  { color: "#f59e0b" },
+        cmd:     { color: "#06b6d4" },
+        minor:   { color: "#ec4899" },
+        grad:    { color: "#22d3ee" },
+        master:  { color: "#a78bfa" },
+        journey: { color: "#34d399" },
+        future:  { color: "#94a3b8" },
     },
     nodes: [
         { id: "start", name: "The spark", icon: "✦", x: 240, y: 34, size: "keystone", state: "done", branch: "start",
@@ -254,53 +256,56 @@ const SKILL_TREE = {
         { id: "mu2", name: "Sound design", x: 432, y: 158, size: "minor", state: "done", branch: "origin", from: ["mu"],
           about: "Shaping sound and audio for games and animation." },
 
-        // ---- CMD ----
-        { id: "cmd", name: "Communication Specialist", sub: "with Multimedia Design", icon: "🎓", x: 240, y: 255,
+        // ---- Bachelor CMD ----
+        { id: "cmd", name: "Bachelor", sub: "Communication & Multimedia Design", icon: "🎓", x: 240, y: 255,
           size: "keystone", state: "done", branch: "cmd", from: ["yt2", "an1", "an2", "mu1"],
           about: "BSc Communication & Multimedia Design (Engineer title). All my creative hobbies came together here and became a profession." },
-        { id: "ux", name: "UX design", x: 100, y: 322, size: "minor", state: "done", branch: "cmd", from: ["cmd"],
+        { id: "ux", name: "UX design", x: 50, y: 310, size: "minor", state: "done", branch: "cmd", from: ["cmd"],
           about: "Designing with and for real users." },
-        { id: "cd", name: "Concept development", x: 185, y: 345, size: "minor", state: "done", branch: "cmd", from: ["cmd"],
+        { id: "cd", name: "Concept development", x: 110, y: 345, size: "minor", state: "done", branch: "cmd", from: ["cmd"],
           about: "Turning a loose idea into a concept that can be built and tested." },
-        { id: "mm", name: "3D & multimedia", x: 295, y: 345, size: "minor", state: "done", branch: "cmd", from: ["cmd"],
+        { id: "mm", name: "3D & multimedia", x: 370, y: 345, size: "minor", state: "done", branch: "cmd", from: ["cmd"],
           about: "3D, animation and interactive media." },
-        { id: "rs", name: "Research", x: 380, y: 322, size: "minor", state: "done", branch: "cmd", from: ["cmd"],
+        { id: "rs", name: "Research", x: 430, y: 310, size: "minor", state: "done", branch: "cmd", from: ["cmd"],
           about: "Researching a topic and adding my own approach to it." },
 
-        // ---- Minor ----
-        { id: "minor", name: "High-end Video Game", sub: "Minor · game design & development", icon: "🎮", x: 240, y: 430,
-          size: "keystone", state: "done", branch: "minor", from: ["cd", "mm"],
-          period: "2023",
+        // ---- Minor (part of the bachelor) ----
+        { id: "minor", name: "Create a High-end Video Game", sub: "Minor", icon: "🎮", x: 120, y: 450,
+          size: "keystone", state: "done", branch: "minor", from: ["cmd"], period: "2023",
           about: "The minor Create a High-end Video Game: game design and game development, from my own concepts to a big production." },
-        { id: "gd", name: "Game design", x: 105, y: 495, size: "minor", state: "done", branch: "minor", from: ["minor"],
+        { id: "gd", name: "Game design", x: 40, y: 520, size: "minor", state: "done", branch: "minor", from: ["minor"],
           about: "UX and what makes a game fun for different audiences." },
-        { id: "dev", name: "Game development", x: 195, y: 515, size: "minor", state: "done", branch: "minor", from: ["minor"],
+        { id: "dev", name: "Game development", x: 95, y: 555, size: "minor", state: "done", branch: "minor", from: ["minor"],
           about: "Prototyping and programming in Unity." },
-        { id: "env", name: "Environment art", x: 285, y: 515, size: "minor", state: "done", branch: "minor", from: ["minor"],
+        { id: "env", name: "Environment art", x: 150, y: 555, size: "minor", state: "done", branch: "minor", from: ["minor"],
           about: "3D modelling animal enclosures and buildings for the Crazy Croc game." },
-        { id: "tm", name: "Teamwork (30+ people)", x: 375, y: 495, size: "minor", state: "done", branch: "minor", from: ["minor"],
+        { id: "tm", name: "Teamwork (30+ people)", x: 205, y: 520, size: "minor", state: "done", branch: "minor", from: ["minor"],
           about: "Working in a team of more than 30 people with different workflows and communication styles." },
 
-        // ---- Graduation ----
-        { id: "gr", name: "Graduation", sub: "Planned obsolescence & AI", icon: "🧩", x: 240, y: 600,
-          size: "notable", state: "done", branch: "cmd", from: ["dev", "env"], period: "2025",
+        // ---- Graduation (part of the bachelor) ----
+        { id: "gr", name: "Graduation", sub: "Planned obsolescence & AI", icon: "🧩", x: 360, y: 450,
+          size: "keystone", state: "done", branch: "grad", from: ["cmd"], period: "2025",
           about: "A critical design project on planned obsolescence, humans and AI, with a physical office and two games." },
-        { id: "gr1", name: "AI & ethics", x: 150, y: 660, size: "minor", state: "done", branch: "cmd", from: ["gr"],
+        { id: "gr1", name: "AI & ethics", x: 330, y: 555, size: "minor", state: "done", branch: "grad", from: ["gr"],
           about: "Looking at where AI helps and where it harms." },
-        { id: "gr2", name: "Prototyping & testing", x: 330, y: 660, size: "minor", state: "done", branch: "cmd", from: ["gr"],
+        { id: "gr2", name: "Prototyping & testing", x: 400, y: 520, size: "minor", state: "done", branch: "grad", from: ["gr"],
           about: "Designing, building and testing games with real players." },
 
         // ---- Master ----
-        { id: "ma", name: "Data-Driven Design", sub: "Master · in progress", icon: "📊", x: 240, y: 735,
-          size: "keystone", state: "current", branch: "master", from: ["gr1", "gr2"],
-          about: "MA Data-Driven Design: combining creativity with data and emerging tech." },
+        { id: "ma", name: "Master", sub: "Data-Driven Design", icon: "📊", x: 240, y: 670,
+          size: "keystone", state: "done", branch: "master", from: ["env", "gr1"],
+          about: "MA Data-Driven Design: combining creativity with data and emerging tech. Completed." },
 
-        // ---- Still open ----
-        { id: "f1", name: "Machine learning", icon: "🧠", x: 105, y: 810, size: "notable", state: "locked", branch: "future", from: ["ma"], open: true,
+        // ---- New journey ----
+        { id: "nj", name: "A new Journey", icon: "🚀", x: 240, y: 790,
+          size: "keystone", state: "current", branch: "journey", from: ["ma"],
+          about: "The next chapter starts here." },
+
+        { id: "f1", name: "Machine learning", icon: "🧠", x: 105, y: 875, size: "notable", state: "locked", branch: "future", from: ["nj"], open: true,
           about: "Next on my list." },
-        { id: "f2", name: "XR", icon: "🥽", x: 240, y: 822, size: "notable", state: "locked", branch: "future", from: ["ma"], open: true,
+        { id: "f2", name: "XR", icon: "🥽", x: 240, y: 885, size: "notable", state: "locked", branch: "future", from: ["nj"], open: true,
           about: "More XR experiences." },
-        { id: "f3", name: "???", x: 375, y: 810, size: "notable", state: "locked", branch: "future", from: ["ma"], open: true,
+        { id: "f3", name: "???", x: 375, y: 875, size: "notable", state: "locked", branch: "future", from: ["nj"], open: true,
           about: "Not decided yet. The tree stays open." },
     ],
 };
@@ -337,7 +342,7 @@ const HOBBIES = [
 // ------------------------------------------------------------
 const ORBS = {
     about: [
-        { point: 0, label: "right", popup: "myPopup2", color: "orb-flow",  name: "Skills" },
+        { point: 0, label: "right", popup: "myPopup2", color: "orb-flow",  name: "Skilltree" },
         { point: 6, label: "below", popup: "myPopup1", color: "orb-tools", name: "Favourite tools" },
         { point: 7, label: "below", popup: "myPopup3", color: "orb-tech",  name: "Hobbies" },
     ],

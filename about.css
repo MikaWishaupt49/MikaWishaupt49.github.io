@@ -67,14 +67,27 @@
 }
 
 
-/* ---------- shared detail panel ---------- */
+/* ---------- shared text (no background) ---------- */
+.about-intro,
+.about-detail p {
+    max-width: 580px;
+    font-size: 15px;              /* same as the About page text */
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--text-soft);
+}
+
+.about-intro { margin-bottom: 18px; }
+
 .about-detail {
     margin-top: 22px;
-    padding: 18px 20px;
-    min-height: 90px;
-    border-radius: 20px;
-    background: rgba(128, 128, 140, 0.1);
+    padding: 0;
+    min-height: 0;
+    background: none;
+    border-radius: 0;
 }
+
+.about-detail:empty { display: none; }
 
 .about-detail h4 {
     font-family: var(--font-display);
@@ -91,8 +104,6 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
 }
-
-.about-detail .detail-hint { opacity: 0.7; }
 
 
 /* ---------- skill tree (passive-tree style) ---------- */

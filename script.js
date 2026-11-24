@@ -153,8 +153,17 @@ document.querySelectorAll(".nav-button[data-go]").forEach((button) => {
         const data = Object.fromEntries(new FormData(form));
         if (data.botcheck) return;                     // bot
 
-        if (!CONTACT.accessKey || CONTACT.accessKey.startsWith("PASTE")) {
+        // Remove spaces, line breaks and quotes that can sneak in when copy-pasting
+        const key = String(CONTACT.accessKey || "").replace(/[\s"'“”‘’]/g, "");
+        const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+        if (!key || key.startsWith("PASTE")) {
             status.textContent = "The form is not set up yet (missing access key).";
+            return;
+        }
+
+        if (!uuid.test(key)) {
+            status.textContent = `The access key in content.js looks wrong (${key.length} characters, it should be 36 like xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).`;
             return;
         }
 
@@ -162,17 +171,18 @@ document.querySelectorAll(".nav-button[data-go]").forEach((button) => {
         status.textContent = "Sending…";
 
         try {
+            const payload = new FormData();
+            payload.append("access_key", key);
+            payload.append("subject", "Portfolio message from " + data.name);
+            payload.append("from_name", "Portfolio");
+            payload.append("name", data.name);
+            payload.append("email", data.email);        // used as reply-to
+            payload.append("message", data.message);
+
             const response = await fetch(CONTACT.endpoint, {
                 method: "POST",
-                headers: { "Content-Type": "application/json", "Accept": "application/json" },
-                body: JSON.stringify({
-                    access_key: CONTACT.accessKey,
-                    subject: "Portfolio message from " + data.name,
-                    from_name: "Portfolio",
-                    name: data.name,
-                    email: data.email,          // used as reply-to
-                    message: data.message,
-                }),
+                headers: { "Accept": "application/json" },
+                body: payload,
             });
 
             const result = await response.json();

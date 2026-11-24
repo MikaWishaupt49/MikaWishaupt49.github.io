@@ -3,11 +3,11 @@
 -------------------- */
 
 :root {
-    --bg: #ffffff;
-    --text: #111111;
-    --text-soft: #4a4a52;
-    --line: rgba(0, 0, 0, 0.1);
-    --glass: rgba(255, 255, 255, 0.85);
+    --bg: #0d0e12;
+    --text: #f2f2f4;
+    --text-soft: #b4b4bd;
+    --line: rgba(255, 255, 255, 0.12);
+    --glass: rgba(20, 21, 27, 0.8);
 
     --font-display: "Roboto", Arial, Helvetica, sans-serif;
     --font-body: "Roboto", Arial, Helvetica, sans-serif;
@@ -18,17 +18,6 @@
     /* Space left and right of the page. The title text AND the popups both
        use this, so their left and right edges line up exactly. */
     --gutter: max(clamp(22px, 6vw, 110px), calc((100vw - var(--scene-width)) / 2 + 40px));
-    --fade-x: 22%;
-    --fade-top: 14%;
-    --fade-bottom: 32%;
-}
-
-:root[data-theme="dark"] {
-    --bg: #0d0e12;
-    --text: #f2f2f4;
-    --text-soft: #b4b4bd;
-    --line: rgba(255, 255, 255, 0.12);
-    --glass: rgba(20, 21, 27, 0.8);
 }
 
 
@@ -112,14 +101,6 @@ body.popup-open .intro {
     display: none;
 }
 
-.title-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px 14px;
-    margin-bottom: 18px;
-}
-
 /* h1 = Roboto Bold (big text) */
 h1 {
     font-family: var(--font-display);
@@ -141,15 +122,6 @@ h3 {
     font-weight: 300;
 }
 
-.status {
-    padding: 4px 12px;
-    border: 1px solid var(--text-soft);
-    border-radius: 20px;
-    font-size: 12px;
-    white-space: nowrap;
-    background: var(--glass);
-}
-
 .intro p {
     max-width: 580px;
     font-weight: 300;
@@ -162,77 +134,6 @@ h3 {
     font-size: 1.35em;
     line-height: 1;
     color: var(--text);
-}
-
-
-/* --------------------
-    LINKS
--------------------- */
-
-.links {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    margin-top: 26px;
-}
-
-.talk-button,
-.github {
-    transition: transform 0.2s ease;
-}
-
-.talk-button:hover {
-    transform: translateY(-2px);
-}
-
-.github:hover {
-    transform: scale(1.08);
-}
-
-.github svg {
-    width: 38px;
-    fill: currentColor;
-}
-
-/* Black pill with a slowly turning colour glow around it */
-@property --angle {
-    syntax: "<angle>";
-    inherits: false;
-    initial-value: 0deg;
-}
-
-@keyframes spin {
-    to {
-        --angle: 360deg;
-    }
-}
-
-.talk-button {
-    position: relative;
-    isolation: isolate;
-    padding: 12px 22px;
-    border-radius: 30px;
-    color: var(--bg);
-    font-family: var(--font-display);
-    font-size: 18px;
-    letter-spacing: 0.2px;
-}
-
-.talk-button::before,
-.talk-button::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    z-index: -1;
-    background: var(--text);
-}
-
-.talk-button::before {
-    inset: -2px;
-    background: conic-gradient(from var(--angle),
-            #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb, #d4fc79, #ff9a9e);
-    animation: spin 5s linear infinite;
 }
 
 
@@ -429,18 +330,7 @@ h3 {
 
 
 /* --------------------
-    REDUCED MOTION
--------------------- */
-
-@media (prefers-reduced-motion: reduce) {
-    .talk-button::before {
-        animation: none;
-    }
-}
-
-
-/* --------------------
-    STAR ORBS (on the person constellation)
+    STAR ORBS (on the constellations)
 -------------------- */
 
 .orb-layer {
@@ -719,7 +609,6 @@ h3 {
     justify-content: space-between;
     gap: 16px;
     padding: 14px 14px 12px 24px;
-    border-bottom: 0;                     /* no line under the title */
 }
 
 .popup-head h3 {
@@ -780,291 +669,6 @@ h3 {
     font-weight: 300;
     line-height: 1.65;
     color: var(--text-soft);
-}
-
-
-/* --------------------
-    PROJECT PAGES (list of cards)
-    Each project is a row: image on the left, title + short text + button
-    on the right. Generated from projects.js
--------------------- */
-
-.project-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.project-card {
-    display: grid;
-    grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
-    overflow: hidden;
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    background: rgba(128, 128, 140, 0.08);
-    transition: border-color 0.25s ease, background 0.25s ease;
-}
-
-.project-card:hover {
-    border-color: var(--text-soft);
-    background: rgba(128, 128, 140, 0.12);
-}
-
-.project-media {
-    position: relative;
-    display: grid;
-    place-items: center;
-    min-height: 140px;
-    padding: 8px;
-    border-right: 1px solid var(--line);
-    background: rgba(128, 128, 140, 0.12);
-    color: var(--text-soft);
-    font-size: 13px;
-    text-align: center;
-}
-
-.project-media img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.project-body {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 20px 24px;
-}
-
-/* project title = h2 = Roboto Medium */
-.project-title {
-    margin-bottom: 8px;
-    font-family: var(--font-display);
-    font-size: clamp(22px, 2.4vw, 28px);
-    font-weight: 500;
-    line-height: 1.1;
-    letter-spacing: -0.01em;
-}
-
-.popup-body .project-desc {
-    margin-bottom: 16px;
-    font-size: 14px;
-}
-
-/* works for both <a> and <button> */
-.project-link {
-    display: inline-block;
-    padding: 8px 18px;
-    border: 1px solid var(--text);
-    border-radius: 20px;
-    background: none;
-    font-size: 13px;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
-}
-
-.project-link:hover {
-    background: var(--text);
-    color: var(--bg);
-}
-
-.project-link.is-empty {
-    opacity: 0.4;
-    pointer-events: none;
-}
-
-
-/* --------------------
-    PROJECT DETAIL PAGES (open inside the popup)
--------------------- */
-
-.popup-body .project-detail {
-    display: none;
-}
-
-.popup-body.showing-detail .project-grid {
-    display: none;
-}
-
-.popup-body.showing-detail .project-detail {
-    display: block;
-}
-
-.detail-back {
-    margin-bottom: 18px;
-    padding: 8px 16px;
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    background: rgba(128, 128, 140, 0.12);
-    font-size: 13px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-}
-
-.detail-back:hover {
-    background: rgba(128, 128, 140, 0.22);
-}
-
-.detail-cover {
-    overflow: hidden;
-    margin-bottom: 20px;
-    border-radius: 18px;
-    border: 1px solid var(--line);
-}
-
-.detail-cover img {
-    display: block;
-    width: 100%;
-    max-height: 340px;
-    object-fit: cover;
-}
-
-/* detail title = h2 = Roboto Medium */
-.detail-title {
-    font-family: var(--font-display);
-    font-size: clamp(26px, 3vw, 36px);
-    font-weight: 500;
-    line-height: 1.1;
-    letter-spacing: -0.01em;
-}
-
-.popup-body .detail-subtitle {
-    margin-top: 8px;
-    font-size: 16px;
-}
-
-.detail-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 32px;
-    margin-top: 18px;
-    padding: 14px 0;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-}
-
-.detail-meta dt {
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-soft);
-}
-
-.detail-meta dd {
-    margin-top: 2px;
-    font-size: 15px;
-}
-
-.detail-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 18px;
-    margin-top: 24px;
-}
-
-.detail-content > * {
-    max-width: 100%;
-}
-
-/* block headings = h3 = Roboto Light */
-.d-heading {
-    margin-top: 8px;
-    font-family: var(--font-display);
-    font-size: clamp(20px, 2.2vw, 24px);
-    font-weight: 300;
-    line-height: 1.2;
-}
-
-.d-text {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-}
-
-.d-text a {
-    color: var(--text);
-    text-decoration: underline;
-}
-
-.d-list {
-    padding-left: 20px;
-    font-weight: 300;
-    line-height: 1.7;
-    color: var(--text-soft);
-}
-
-.d-figure {
-    width: 100%;
-}
-
-.d-figure img,
-.d-video {
-    display: block;
-    width: 100%;
-    border-radius: 16px;
-    border: 1px solid var(--line);
-}
-
-.d-figure figcaption {
-    margin-top: 8px;
-    font-size: 13px;
-    font-weight: 300;
-    color: var(--text-soft);
-}
-
-.d-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 12px;
-    width: 100%;
-}
-
-.d-gallery img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    border-radius: 14px;
-    border: 1px solid var(--line);
-}
-
-.d-embed,
-.d-pdf {
-    width: 100%;
-}
-
-.d-embed iframe,
-.d-pdf iframe {
-    display: block;
-    width: 100%;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    background: #fff;
-}
-
-.d-ratio {
-    position: relative;
-    aspect-ratio: 16 / 9;
-}
-
-.d-ratio iframe {
-    position: absolute;
-    inset: 0;
-    height: 100%;
-}
-
-.d-pdf iframe {
-    height: min(70vh, 640px);
-}
-
-.d-pdf-row {
-    margin-top: 10px;
 }
 
 
@@ -1161,41 +765,6 @@ h3 {
 -------------------- */
 
 @media (max-width: 600px) {
-    .project-card {
-        grid-template-columns: minmax(0, 34%) minmax(0, 1fr);
-    }
-
-    .project-media {
-        min-height: 110px;
-    }
-
-    .project-body {
-        padding: 12px 14px;
-    }
-
-    .project-title {
-        font-size: 20px;
-    }
-
-    .popup-body .project-desc {
-        margin-bottom: 10px;
-        font-size: 13px;
-        display: -webkit-box;
-        line-clamp: inherit;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    .project-link {
-        padding: 6px 12px;
-        font-size: 12px;
-    }
-
-    .d-pdf iframe {
-        height: 50vh;
-    }
-
     .fade-popup {
         border-radius: 22px;
     }
@@ -1212,18 +781,5 @@ h3 {
 @media (prefers-reduced-motion: reduce) {
     .fade-popup {
         transition: opacity 0.2s ease, visibility 0.2s ease;
-    }
-}
-
-@media (max-width: 359px) {
-    .project-card {
-        grid-template-columns: 1fr;
-    }
-
-    .project-media {
-        min-height: 0;
-        aspect-ratio: 16 / 9;
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
     }
 }

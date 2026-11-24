@@ -1,12 +1,13 @@
 (() => {
   const THREE = window.THREE;
 
-// Settings most of 3D environment
+  // ============================================================
+  // 1. SETTINGS (most of the 3D environment)
+  // ============================================================
 
   const SETTINGS = {
     cameraSpeed: 0.025,
     mouseParallax: 0.1,
-    constellationRotation: 0,
     cameraOffset: [0, 0, 10],
 
     starCount: 1100,
@@ -26,7 +27,9 @@
     directionalColor: 0x9aa9ff,
   };
 
-// Landscape position
+  // ============================================================
+  // 2. LANDSCAPE POSITION
+  // ============================================================
 
   const LANDSCAPE_POSITION = {
     x: 0,
@@ -35,7 +38,7 @@
   };
 
   // ============================================================
-  // 3. CAMERA POSITION
+  // 3. HOME CAMERA POSITION
   // ============================================================
 
   const CAMERA = {
@@ -46,13 +49,13 @@
   };
 
   // ============================================================
-  // 3b. [CHANGED] CONSTELLATION SIZE ON SCREEN
-  //     The shapes now scale automatically so they are big on desktop
+  // 3b. CONSTELLATION SIZE ON SCREEN
+  //     The shapes scale automatically so they are big on desktop
   //     and still fit on a phone (portrait or landscape).
   // ============================================================
 
   const CONSTELLATION_VIEW = {
-    desktopScale: 2.0,            // max size of the shapes (was 0.8) - make bigger/smaller here
+    desktopScale: 2.0,            // max size of the shapes - make bigger/smaller here
     maxWidthFraction: 0.8,        // a shape may use at most 80% of the screen width
     maxHeightFraction: 0.5,       // ...and at most 50% of the screen height
     portraitLowerBy: 0.12,        // phones (portrait): push the shape down 12% so it clears the text
@@ -63,42 +66,32 @@
   // 4. ZODIAC / NAVIGATION POSITIONS
   // ============================================================
 
-  // [CHANGED] x and y are close together, the depth (z) is far apart,
+  // x and y are close together, the depth (z) is far apart,
   // so the three zodiacs sit behind each other and all show up on a phone.
-  // Smaller x/y numbers = closer together, bigger z gap = more depth.
 
   const SECTIONS = {
-    home: {
-      shape: "mountain",
-      color: 0x312e81,
-      at: [
-        LANDSCAPE_POSITION.x,
-        LANDSCAPE_POSITION.y,
-        LANDSCAPE_POSITION.z,
-      ],
-    },
+    home: {},   // the home camera is set from LANDSCAPE_POSITION + CAMERA
 
     about: {
       shape: "person",
       color: 0x06b6d4,
       at: [5, 6, -30],      // nearest to the camera
-      scale: 0.8,
     },
 
     projects: {
       shape: "folder",
       color: 0xec4899,
       at: [-5, 9, -42],     // in the middle
-      scale: 0.8,
     },
 
     contact: {
       shape: "envelope",
       color: 0xf59e0b,
       at: [0, 3, -54],      // furthest away
-      scale: 0.8,
     },
   };
+
+  const CONSTELLATION_SECTIONS = ["about", "projects", "contact"];
 
   // ============================================================
   // 5. MOUNTAIN DESIGN
@@ -271,7 +264,7 @@
   scene.add(directionalLight);
 
   // ============================================================
-  // 8. BACKGROUND STARS (FIXED DEPTH & GLITCHING)
+  // 8. BACKGROUND STARS
   // ============================================================
 
   const starGeometry = new THREE.BufferGeometry();
@@ -637,16 +630,13 @@
     return group;
   }
 
-  for (const name of ["about", "projects", "contact"]) {
+  // (their size is set in applyConstellationScale, which runs on resize)
+  for (const name of CONSTELLATION_SECTIONS) {
     const section = SECTIONS[name];
 
     const constellation = createConstellation(
       section.shape,
       section.color
-    );
-
-    constellation.scale.setScalar(
-      section.scale ?? 0.8
     );
 
     constellation.position.set(...section.at);
@@ -728,11 +718,11 @@
     y: 0,
   };
 
-  // [CHANGED] which section we are on + screen-dependent camera shift
+  // which section we are on + screen-dependent camera shift
   let currentSection = "home";
   const viewShift = { x: 0, y: 0 };
 
-  // [CHANGED] Sizes the three constellations to the screen and works out
+  // Sizes the three constellations to the screen and works out
   // how far to shift the camera so they never sit under the text.
   function applyConstellationScale() {
     const distance = SETTINGS.cameraOffset[2];
@@ -750,7 +740,7 @@
       (visibleHeight * CONSTELLATION_VIEW.maxHeightFraction) / tallestShape
     );
 
-    for (const name of ["about", "projects", "contact"]) {
+    for (const name of CONSTELLATION_SECTIONS) {
       meshes[name].scale.setScalar(scale);
     }
 
@@ -766,7 +756,7 @@
     }
   }
 
-  // [CHANGED] Camera goals are now recalculated here (also on resize)
+  // Camera goals are recalculated here (also on resize)
   function updateGoals() {
     const section = SECTIONS[currentSection];
 
@@ -858,7 +848,7 @@
 
     camera.updateProjectionMatrix();
 
-    // [CHANGED] re-fit the constellations + camera to the new screen size
+    // re-fit the constellations + camera to the new screen size
     applyConstellationScale();
     updateGoals();
   }
@@ -867,79 +857,10 @@
   resize();
 
   // ============================================================
-  // 15. OPTIONAL TWEAK PANEL
+  // 15. START AT HOME
   // ============================================================
 
-  if (window.lil) {
-    const gui = new window.lil.GUI({
-      title: "Scene settings",
-    });
-
-    gui.add(
-      SETTINGS,
-      "starSize",
-      0.3,
-      2.5,
-      0.1
-    )
-      .name("Star size")
-      .onChange((value) => {
-        starMaterial.uniforms.uStarSize.value = value;
-      });
-
-    // [CHANGED] now controls the real size setting
-    gui.add(
-      CONSTELLATION_VIEW,
-      "desktopScale",
-      0.5,
-      3,
-      0.05
-    )
-      .name("Symbol size")
-      .onChange(() => {
-        applyConstellationScale();
-        updateGoals();
-      });
-
-    for (const name of ["about", "projects", "contact"]) {
-      const materials =
-        meshes[name].userData.constellationMaterials;
-
-      const folder = gui.addFolder(name);
-
-      folder.addColor(
-        {
-          color: "#" + materials.line.color.getHexString(),
-        },
-        "color"
-      ).onChange((value) => {
-        materials.line.color.set(value);
-        materials.halo.color.set(value);
-      });
-
-      folder.add(
-        materials.line,
-        "opacity",
-        0.0,
-        1,
-        0.05
-      ).name("Line brightness");
-
-      folder.add(
-        materials.halo,
-        "opacity",
-        0,
-        0.8,
-        0.05
-      ).name("Star glow");
-    }
-  }
-
-  // ============================================================
-  // 16. START AT HOME
-  // ============================================================
-
-  // [CHANGED] Hook so script.js can place the HTML star-orbs on the 3D person
+  // Hook so script.js can place the HTML star-orbs on the 3D shapes
   window.WORLD = {
     THREE,
     camera,
@@ -956,15 +877,15 @@
   camera.lookAt(look);
 
   // ============================================================
-  // 17. ANIMATION LOOP
+  // 16. ANIMATION LOOP
   // ============================================================
 
-  // [CHANGED] the constellations you are NOT looking at fade down (on Home all are bright)
+  // the constellations you are NOT looking at fade down (on Home all are bright)
   const INACTIVE_BRIGHTNESS = 0.3;   // 0 = invisible, 1 = no dimming
   const fadeLevel = { about: 1, projects: 1, contact: 1 };
   const baseOpacity = {};
 
-  for (const name of ["about", "projects", "contact"]) {
+  for (const name of CONSTELLATION_SECTIONS) {
     const m = meshes[name].userData.constellationMaterials;
     baseOpacity[name] = {
       line: m.line.opacity,
@@ -976,7 +897,7 @@
   renderer.setAnimationLoop((now) => {
     uTime.value = now * 0.001;
 
-    for (const name of ["about", "projects", "contact"]) {
+    for (const name of CONSTELLATION_SECTIONS) {
       const target =
         currentSection === "home" || currentSection === name
           ? 1
@@ -990,11 +911,6 @@
       m.line.opacity = b.line * fadeLevel[name];
       m.halo.opacity = b.halo * fadeLevel[name];
       m.star.opacity = b.star * fadeLevel[name];
-    }
-
-    for (const name of ["about", "projects", "contact"]) {
-      meshes[name].rotation.z =
-        uTime.value * SETTINGS.constellationRotation;
     }
 
     const target = goalPos.clone().add(
@@ -1019,7 +935,7 @@
 
     renderer.render(scene, camera);
 
-    // [CHANGED] let script.js update the orb positions after every frame
+    // let script.js update the orb positions after every frame
     if (window.WORLD && window.WORLD.onFrame) {
       window.WORLD.onFrame();
     }

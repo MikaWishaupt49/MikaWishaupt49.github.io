@@ -1,26 +1,4 @@
-// ============================================================
-// Theme toggle
-// ============================================================
 const root = document.documentElement;
-const themeButton = document.getElementById("themeButton");
-
-try {
-    const saved = localStorage.getItem("theme");
-    if (saved) root.dataset.theme = saved;
-} catch (e) { /* storage unavailable */ }
-
-if (themeButton) {
-    themeButton.addEventListener("click", () => {
-        const current = root.dataset.theme === "dark" ? "" : "dark";
-        const next = current === "dark" ? "dark" : "";
-        if (next) {
-            root.dataset.theme = "dark";
-        } else {
-            delete root.dataset.theme;
-        }
-        try { localStorage.setItem("theme", next); } catch (e) {}
-    });
-}
 
 
 // ============================================================

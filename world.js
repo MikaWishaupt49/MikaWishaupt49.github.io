@@ -535,6 +535,20 @@
   // 11. CREATE ZODIAC CONSTELLATIONS
   // ============================================================
 
+  // Soft round glow used when you hover / touch a constellation
+  const glowTexture = (() => {
+    const c = document.createElement("canvas");
+    c.width = c.height = 64;
+    const g = c.getContext("2d");
+    const grad = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+    grad.addColorStop(0, "rgba(255,255,255,1)");
+    grad.addColorStop(0.35, "rgba(255,255,255,0.35)");
+    grad.addColorStop(1, "rgba(255,255,255,0)");
+    g.fillStyle = grad;
+    g.fillRect(0, 0, 64, 64);
+    return new THREE.CanvasTexture(c);
+  })();
+
   function createConstellation(name, color) {
     const data = CONSTELLATIONS[name];
     const group = new THREE.Group();
@@ -621,10 +635,30 @@
       )
     );
 
+    // Hover glow: starts invisible, fades in when the shape is hovered / touched
+    const glowMaterial = new THREE.PointsMaterial({
+      color,
+      map: glowTexture,
+      size: 0.55,
+      transparent: true,
+      opacity: 0,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      sizeAttenuation: true,
+    });
+
+    group.add(
+      new THREE.Points(
+        pointsGeometry,
+        glowMaterial
+      )
+    );
+
     group.userData.constellationMaterials = {
       line: lineMaterial,
       halo: haloMaterial,
       star: coreMaterial,
+      glow: glowMaterial,
     };
 
     return group;
@@ -857,6 +891,104 @@
   resize();
 
   // ============================================================
+  // 14b. CLICK / HOVER ON THE CONSTELLATIONS (Home screen only)
+  //      Hover (mouse) or touch makes the shape glow, a click / tap
+  //      goes to that section, same as the bottom navigation.
+  // ============================================================
+
+  const HIT_PADDING = 28;          // px of extra clickable room around a shape
+  const hoverLevel = { about: 0, projects: 0, contact: 0 };
+  let hovered = null;
+  const tmpVec = new THREE.Vector3();
+
+  // Where a constellation sits on the screen, in pixels
+  function screenBounds(name) {
+    const group = meshes[name];
+    const points = CONSTELLATIONS[SECTIONS[name].shape].points;
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+
+    for (const [px, py] of points) {
+      tmpVec.set(px, py, 0);
+      group.localToWorld(tmpVec);
+      tmpVec.project(camera);
+
+      const x = (tmpVec.x * 0.5 + 0.5) * window.innerWidth;
+      const y = (-tmpVec.y * 0.5 + 0.5) * window.innerHeight;
+
+      minX = Math.min(minX, x);
+      maxX = Math.max(maxX, x);
+      minY = Math.min(minY, y);
+      maxY = Math.max(maxY, y);
+    }
+
+    return { minX, minY, maxX, maxY };
+  }
+
+  // Which constellation (if any) is under this screen position
+  function sectionAt(x, y) {
+    if (currentSection !== "home") return null;
+
+    let best = null;
+    let bestDistance = Infinity;
+
+    for (const name of CONSTELLATION_SECTIONS) {
+      const b = screenBounds(name);
+
+      if (
+        x < b.minX - HIT_PADDING || x > b.maxX + HIT_PADDING ||
+        y < b.minY - HIT_PADDING || y > b.maxY + HIT_PADDING
+      ) continue;
+
+      const distance = Math.hypot(
+        x - (b.minX + b.maxX) / 2,
+        y - (b.minY + b.maxY) / 2
+      );
+
+      if (distance < bestDistance) {
+        bestDistance = distance;
+        best = name;
+      }
+    }
+
+    return best;
+  }
+
+  function setHover(name) {
+    hovered = name;
+    canvas.style.cursor = name ? "pointer" : "";
+  }
+
+  // Only react when the pointer is over the 3D scene itself
+  // (not over the nav, a popup or the enter screen)
+  function hoverFromEvent(event) {
+    setHover(event.target === canvas ? sectionAt(event.clientX, event.clientY) : null);
+  }
+
+  window.addEventListener("pointermove", hoverFromEvent);
+
+  window.addEventListener("pointerdown", (event) => {
+    hoverFromEvent(event);
+
+    // On touch screens there is no hover, so let the glow fade out again
+    if (event.pointerType !== "mouse") {
+      setTimeout(() => setHover(null), 350);
+    }
+  });
+
+  document.documentElement.addEventListener("mouseleave", () => setHover(null));
+
+  window.addEventListener("click", (event) => {
+    if (event.target !== canvas) return;
+
+    const name = sectionAt(event.clientX, event.clientY);
+    if (!name) return;
+
+    // Same as pressing the button in the bottom nav, so the panel, orbs,
+    // telescope and camera all follow
+    document.querySelector(`.nav-button[data-go="${name}"]`)?.click();
+  });
+
+  // ============================================================
   // 15. START AT HOME
   // ============================================================
 
@@ -897,6 +1029,8 @@
   renderer.setAnimationLoop((now) => {
     uTime.value = now * 0.001;
 
+    if (currentSection !== "home" && hovered) setHover(null);
+
     for (const name of CONSTELLATION_SECTIONS) {
       const target =
         currentSection === "home" || currentSection === name
@@ -908,9 +1042,15 @@
       const m = meshes[name].userData.constellationMaterials;
       const b = baseOpacity[name];
 
-      m.line.opacity = b.line * fadeLevel[name];
+      // hover glow fades in / out smoothly
+      const hoverTarget = currentSection === "home" && hovered === name ? 1 : 0;
+      hoverLevel[name] += (hoverTarget - hoverLevel[name]) * 0.12;
+      const glow = hoverLevel[name];
+
+      m.line.opacity = Math.min(1, (b.line + glow * 0.28) * fadeLevel[name]);
       m.halo.opacity = b.halo * fadeLevel[name];
       m.star.opacity = b.star * fadeLevel[name];
+      m.glow.opacity = glow * 0.8 * fadeLevel[name];
     }
 
     const target = goalPos.clone().add(

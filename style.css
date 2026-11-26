@@ -138,6 +138,28 @@ h3 {
 
 
 /* --------------------
+    TAGLINE (top left, intro / enter screen only)
+-------------------- */
+
+.site-tagline {
+    font-family: var(--font-body);
+    font-size: clamp(20px, 2.4vw, 30px);   /* tagline size: change here */
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    line-height: 1.35;
+    color: var(--text);
+}
+
+.splash .site-tagline {
+    position: absolute;
+    top: clamp(36px, 5vw, 64px);
+    left: var(--gutter);
+    max-width: min(560px, calc(100% - 44px));
+    text-align: left;
+}
+
+
+/* --------------------
     BOTTOM NAVIGATION
 -------------------- */
 

@@ -17,7 +17,7 @@ const CONTACT = {
 // tools: comma separated. These feed the "Favourite tools" bubbles
 // (keep the spelling consistent: "Blender", not "Blender 3D").
 //
-// TEMPLATE for a new project (copy this into Page 2, 3 or 4):
+// TEMPLATE for a new project (copy this into Page 2 or 3):
 // {
 //     title: "Project name",
 //     summary: "One-line description.",
@@ -187,9 +187,69 @@ const PROJECTS = {
 
     // Page 2
     2: [
-        { title: "Project four", summary: "A short description of the project goes here." },
-        { title: "Project five", summary: "A short description of the project goes here." },
-        { title: "Project six", summary: "A short description of the project goes here." },
+        {
+            title: "Internship Arfected",
+            summary: "Internship at Arfected about learning how to design and create filters for social media platforms",
+            folder: "Assets zelfgemaakt/projects/ARfectedIntern/",
+            cover: "ARicon.png",
+            role: "Designer, Artist & developer",
+            year: "2023",
+            tools: "Blender, VS Code, Indesign, Illustrator, Audacity, Spark AR, Lens Studio, Substance Painter",
+            about: [
+                `During my internship at Arfected I worked for clients as well as made my own filters to learn the ins and outs of the world of Augmented Reality`,
+            ],
+            highlights: [
+                "Learn to design with emerging technology for different clients",
+                "Deeper understanding and use case for Blender",
+            ],
+            // CHECK these captions: I wrote them from the filenames and your project text.
+            images: [
+                { file: "exa1.JPG",
+                  caption: "example 1" },
+                { file: "exa2.PNG",
+                  caption: "example2" },
+                { file: "exa3.JPG",
+                  caption: "example 3" },
+                { file: "exa4.JPG",
+                  caption: "example 4" },
+                { file: "exa5.JPG",
+                  caption: "example 5" },
+                { file: "exa6.JPG",
+                  caption: "example 6" },
+                { file: "exa7.JPG",
+                  caption: "example 7" },
+                { file: "exa8-own.png",
+                  caption: "example 8" },
+                { file: "exa9-own.png",
+                  caption: "example 9" },
+            ],
+            video: "13HSDn3ub58",
+        },
+
+        {
+            title: "Internship Arfected",
+            summary: "Internship at Arfected about learning how to design and create filters for social media platforms",
+            folder: "Assets zelfgemaakt/projects/ARfectedIntern/",
+            cover: "ARicon.png",
+            role: "Designer, Artist & developer",
+            year: "2025",
+            tools: "Blender, VS Code, Indesign, Illustrator, Audacity, Spark AR, Lens Studio, Substance Painter",
+            about: [
+                `During my internship at Arfected I worked for clients as well as made my own filters to learn the ins and outs of the world of Augmented Reality`,
+            ],
+            highlights: [
+                "Learn to design with emerging technology for different clients",
+                "Deeper understanding and use case for Blender",
+            ],
+            // CHECK these captions: I wrote them from the filenames and your project text.
+            images: [
+                { file: "exa1.JPG",
+                  caption: "example 1" },
+                { file: "exa2.PNG",
+                  caption: "example2" },
+            ],
+            video: "13HSDn3ub58",
+        },
     ],
 
     // Page 3
@@ -199,13 +259,41 @@ const PROJECTS = {
         { title: "Project nine", summary: "A short description of the project goes here." },
     ],
 
-    // Page 4
-    4: [
-        { title: "Project ten", summary: "A short description of the project goes here." },
-        { title: "Project eleven", summary: "A short description of the project goes here." },
-        { title: "Project twelve", summary: "A short description of the project goes here." },
-    ],
+    // Page 4 (no project cards: this page shows the two link buttons instead, see OTHER_LINKS below)
+    4: [],
 };
+
+
+// ------------------------------------------------------------
+// OTHER PROJECT PAGES: the animated buttons
+// Change the text (label) and the link (url). Add or remove lines
+// to get more or fewer buttons.
+// ------------------------------------------------------------
+const OTHER_LINKS = [
+    { label: "Itch.io",  url: "https://mikawishaupt49.itch.io/" },
+    { label: "YouTube",  url: "https://www.youtube.com/@Mikania-vt5rq" },
+];
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Skill tree
+
+
+
+
+
+
+
 
 
 // ------------------------------------------------------------
@@ -213,12 +301,12 @@ const PROJECTS = {
 // size:  "minor" | "notable" | "keystone"
 // state: "done" | "current" | "locked"
 // from:  ids of the nodes this one connects to (draws the lines)
-// x / y: position in a 480 x 960 box
+// x / y: position in a 480 x 1400 box
 // open:  true = draws a dashed trail below it (the tree is not finished)
 // ------------------------------------------------------------
 const SKILL_TREE = {
     width: 480,
-    height: 960,
+    height: 1400,
     branches: {
         start:   { color: "#fde68a" },
         origin:  { color: "#f59e0b" },
@@ -300,13 +388,55 @@ const SKILL_TREE = {
           size: "keystone", state: "current", branch: "journey", from: ["ma"],
           about: "The next chapter starts here." },
 
-        { id: "f1", name: "Machine learning", icon: "🧠", x: 105, y: 875, size: "notable", state: "locked", branch: "future", from: ["nj"], open: true,
-          about: "Next on my list." },
-        { id: "f2", name: "XR", icon: "🥽", x: 240, y: 885, size: "notable", state: "locked", branch: "future", from: ["nj"], open: true,
-          about: "More XR experiences." },
-        { id: "f3", name: "???", x: 375, y: 875, size: "notable", state: "locked", branch: "future", from: ["nj"], open: true,
+        // ---- Paths of the new journey (left column) ----
+        { id: "p1", name: "AI use cases", sub: "& ethics", icon: "🧠", x: 110, y: 890, size: "notable", state: "locked", branch: "future", from: ["nj"],
+          about: "Write something about AI use cases and ethics." },
+        { id: "p2", name: "XR", icon: "🥽", x: 110, y: 975, size: "notable", state: "locked", branch: "future", from: ["nj"],
+          about: "Write something about XR." },
+        { id: "p3", name: "Game design", sub: "& development", icon: "🎮", x: 110, y: 1060, size: "notable", state: "locked", branch: "future", from: ["nj"],
+          about: "Write something about game design and development." },
+        { id: "p4", name: "Concept designing", sub: "& management", icon: "💡", x: 110, y: 1145, size: "notable", state: "locked", branch: "future", from: ["nj"],
+          about: "Write something about concept designing and management." },
+        { id: "p5", name: "Teamwork", sub: "& professional exosphere", icon: "🤝", x: 110, y: 1230, size: "notable", state: "locked", branch: "future", from: ["nj"],
+          about: "Write something about teamwork and the professional exosphere." },
+
+        // ---- Paths of the new journey (right column) ----
+        { id: "p6", name: "Design generals", icon: "🧭", x: 370, y: 890, size: "notable", state: "locked", branch: "future", from: ["nj"],
+          about: "Write something about design in general." },
+        { id: "p7", name: "UX/UI Design", icon: "🖱️", x: 370, y: 975, size: "notable", state: "locked", branch: "future", from: ["nj"],
+          about: "Write something about UX/UI design." },
+        { id: "p8", name: "Data", icon: "📊", x: 370, y: 1060, size: "notable", state: "locked", branch: "future", from: ["nj"],
+          about: "Write something about data." },
+        { id: "p9", name: "Digital logistics", icon: "🚚", x: 370, y: 1145, size: "notable", state: "locked", branch: "future", from: ["nj"],
+          about: "Write something about digital logistics." },
+        { id: "p10", name: "Physical design", sub: "& prototyping", icon: "🛠️", x: 370, y: 1230, size: "notable", state: "locked", branch: "future", from: ["nj"],
+          about: "Write something about physical design and prototyping." },
+
+        // ---- The tree stays open ----
+        { id: "f3", name: "???", x: 240, y: 1310, size: "notable", state: "locked", branch: "future", from: ["nj"], open: true,
           about: "Not decided yet. The tree stays open." },
     ],
+};
+
+
+// ------------------------------------------------------------
+// SKILL TREE STORIES (small text window on the big nodes)
+// Key = the node id from SKILL_TREE. Write your own text in `text`.
+// To give another node a story window, add its id here.
+// ------------------------------------------------------------
+const SKILL_STORIES = {
+    start: { title: "The spark",
+             text: "I liked to draw, make videos, make music... Basically I liked to create things from a young age which is for me the start of the journey" },
+    cmd:   { title: "Bachelor: Communication & Multimedia Design",
+             text: "With Communication & Multimedia Design I learned to redirect creativity into concepts from small to big within criteria from school to companies" },
+    minor: { title: "Create a High-end Video Game",
+             text: "During the minor I learned to work out appealing game concepts while also working with a big team with my own tasks" },
+    gr:    { title: "Graduation",
+             text: "During graduation I learned and showed people the importance of creativity coming from humans in the growing world of AI usage" },
+    ma:    { title: "Master: Data-Driven Design",
+             text: "After graduation I wanted to grow my ideas further of human importance but also look into use cases of AI and data where I learned about creating concepts with data fundamentals while also working on the ethical aspect of new emerging technologies" },
+    nj:    { title: "A new Journey",
+             text: "My story doesn't end with school. Creativity and technology are major parts of my life which I want to keep growing in" },
 };
 
 
@@ -317,11 +447,11 @@ const SKILL_TREE = {
 // Key = tool name in lowercase. icon = image path ("" for none yet).
 // ------------------------------------------------------------
 const TOOL_INFO = {
-    "blender":   { icon: "", about: "Why you like Blender, what you use it for." },
-    "godot":     { icon: "", about: "Why you like Godot, what you use it for." },
-    "unity":     { icon: "", about: "Why you like Unity, what you use it for." },
-    "inkscape":  { icon: "", about: "Why you like Inkscape, what you use it for." },
-    "lm studio": { icon: "", about: "Why you like LM Studio, what you use it for." },
+    "blender":   { icon: "", about: "Blender lets me create various kinds of things, from animations to assets for major projects and is one of my favourite tools" },
+    "godot":     { icon: "", about: "Godot makes it possibile to create unique interactive things from simple prototypes to test with an audience to full fletched games" },
+    "unity":     { icon: "", about: "Just like Godot, Unity makes it more accessible to create unique interactive things" },
+    "inkscape":  { icon: "", about: "A free tool that let's me make unique vector art all the way to complete posters to show my research" },
+    "lm studio": { icon: "", about: "During my master's, I looked further into ownership and the importance of AI freedom, which led me to LM Studio, which showed me that using AI is not always necessary to rely on major companies. You can host your own AI for prototypes to assist" },
     // tools without an entry still get a bubble, with a default text
 };
 
@@ -330,9 +460,9 @@ const TOOL_INFO = {
 // HOBBIES
 // ------------------------------------------------------------
 const HOBBIES = [
-    { icon: "🎮", name: "Gaming",  about: "Write something about this hobby." },
-    { icon: "🧊", name: "3D art",  about: "Write something about this hobby." },
-    { icon: "🥾", name: "Hobby 3", about: "Write something about this hobby." },
+    { icon: "🎮", name: "Gaming",  about: "A term that means so much to me. From playing something to creating something on my own. Games are for me so much more than just 'fun' and showed me multiple use cases like an interactive way to educate people in certain topics" },
+    { icon: "🧊", name: "3D art",  about: "Creating things in 3D gives me the space to create whole digital worlds, also it's nice to know how to make something to 3D print like hinges for a closet" },
+    { icon: "🥾", name: "Calisthenics", about: "A new hobby for me that showed me that my capabilities are not bound to just my brain" },
 ];
 
 

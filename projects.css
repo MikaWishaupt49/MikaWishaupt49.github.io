@@ -488,6 +488,74 @@ html.lightbox-open {
 }
 
 
+/* ---------- other project pages: link buttons ---------- */
+
+.link-buttons {
+    /* gradient colours: change these four to restyle the hover */
+    --g1: #f472b6;
+    --g2: #fcd34d;
+    --g3: #5eead4;
+    --g4: #c084fc;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-height: 200px;
+    padding: 24px 0;
+}
+
+.link-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    padding: 18px 44px;
+    overflow: hidden;
+    isolation: isolate;
+    border: 1px solid var(--text);
+    border-radius: 40px;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    transition: color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+}
+
+.link-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(120deg, var(--g1), var(--g2), var(--g3), var(--g4), var(--g1));
+    background-size: 200% 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    animation: link-gradient 3s linear infinite;
+}
+
+.link-btn:hover,
+.link-btn:focus-visible {
+    color: var(--bg);
+    border-color: transparent;
+    transform: translateY(-2px);
+}
+
+.link-btn:hover::before,
+.link-btn:focus-visible::before { opacity: 1; }
+
+@keyframes link-gradient {
+    to { background-position: 200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .link-btn::before { animation: none; }
+}
+
+
 /* ---------- tablets and phones ---------- */
 
 @media (max-width: 800px) {

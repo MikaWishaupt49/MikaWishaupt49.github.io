@@ -150,6 +150,19 @@
         body.innerHTML = `<div class="proj-list">${articles}</div>`;
     });
 
+    // Page 4: animated link buttons instead of project cards (see OTHER_LINKS in content.js)
+    const linkBody = document.querySelector("#projPopup4 .popup-body");
+
+    if (linkBody && typeof OTHER_LINKS !== "undefined") {
+        linkBody.innerHTML = `
+            <div class="link-buttons">
+                ${OTHER_LINKS.map((l) => `
+                    <a class="link-btn" href="${encodeURI(l.url)}" target="_blank" rel="noopener">
+                        <span>${l.label}</span>
+                    </a>`).join("")}
+            </div>`;
+    }
+
 
     // ---------- list <-> detail page switching ----------
 

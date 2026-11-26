@@ -56,10 +56,61 @@
 
         const detail = document.getElementById("skillDetail");
 
+        // small story window that pops up on the big nodes (text: SKILL_STORIES in content.js)
+        const popupEl = skillsBody.closest(".fade-popup");
+        const story = document.createElement("div");
+        story.className = "pt-story";
+        story.hidden = true;
+        story.setAttribute("role", "dialog");
+        story.setAttribute("aria-label", "Story");
+        story.innerHTML = `
+            <div class="pt-story-card" tabindex="-1">
+                <button type="button" class="pt-story-close" aria-label="Close">×</button>
+                <h4></h4>
+                <p></p>
+            </div>`;
+        popupEl.append(story);
+
+        const storyCard = story.querySelector(".pt-story-card");
+        const closeStory = () => { story.hidden = true; };
+
+        const openStory = (n, s) => {
+            story.style.setProperty("--c", colorOf(n));
+            story.querySelector("h4").textContent = s.title || n.name;
+            story.querySelector("p").innerHTML = s.text || "";
+            story.hidden = false;
+            storyCard.focus({ preventScroll: true });
+        };
+
+        story.addEventListener("click", (e) => {
+            if (e.target === story || e.target.closest(".pt-story-close")) closeStory();
+        });
+
+        // Esc closes only the story window, not the whole popup behind it
+        document.addEventListener("keydown", (e) => {
+            if (e.key !== "Escape" || story.hidden) return;
+            e.stopPropagation();
+            closeStory();
+        }, true);
+
+        // closing the skill tree popup also closes the story
+        new MutationObserver(() => {
+            if (!popupEl.classList.contains("open")) closeStory();
+        }).observe(popupEl, { attributes: true, attributeFilter: ["class"] });
+
         const select = (el) => {
             skillsBody.querySelectorAll(".pt-node.selected").forEach((n) => n.classList.remove("selected"));
             el.classList.add("selected");
             const n = byId[el.dataset.id];
+
+            // big nodes with a story: show the small window instead of the text below the tree
+            const s = typeof SKILL_STORIES !== "undefined" && SKILL_STORIES[n.id];
+            if (s) {
+                detail.innerHTML = "";
+                openStory(n, s);
+                return;
+            }
+
             detail.innerHTML = `
                 <h4>${n.name}${n.sub ? ` <small>· ${n.sub}</small>` : ""}</h4>
                 <p class="detail-level">${STATE_TEXT[n.state]}${n.period ? " · " + n.period : ""}</p>

@@ -148,7 +148,9 @@
                     if (!map.has(key)) map.set(key, { key, name, projects: [] });
 
                     const entry = map.get(key);
-                    if (!entry.projects.some((p) => p.page === page && p.index === index)) {
+
+                    // same project title = same project (so a duplicate entry is only listed once)
+                    if (!entry.projects.some((p) => p.title === project.title)) {
                         entry.projects.push({ page, index, title: project.title, year: project.year });
                     }
                 });
@@ -178,7 +180,12 @@
         const MIN_SIZE = 78;    // px, smallest bubble
         const MAX_SIZE = 150;   // px, biggest bubble
 
-        const info = (tool) => (typeof TOOL_INFO !== "undefined" && TOOL_INFO[tool.key]) || {};
+        // Lowercase every TOOL_INFO key, so "VS Code" and "vs code" both match
+        const toolInfo = Object.fromEntries(
+            Object.entries(typeof TOOL_INFO !== "undefined" ? TOOL_INFO : {})
+                .map(([key, value]) => [key.trim().toLowerCase(), value])
+        );
+        const info = (tool) => toolInfo[tool.key] || {};
 
         toolsBody.innerHTML = `
             <p class="about-intro">Click a bubble to see what I use it for. Bigger bubble = used in more projects.</p>

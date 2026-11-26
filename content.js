@@ -5,7 +5,7 @@
 // ------------------------------------------------------------
 const CONTACT = {
     email: "m.wishaupt@hotmail.nl",
-    accessKey: "bd0eeaa3-e9ff-4066-a7ea-60e12619d031",
+    accessKey: "",
     endpoint: "https://api.web3forms.com/submit",
 };
 
@@ -305,10 +305,10 @@ const OTHER_LINKS = [
 // open:  true = draws a dashed trail below it (the tree is not finished)
 // ------------------------------------------------------------
 const SKILL_TREE = {
-    width: 480,
-    height: 1400,
+    width: 450,
+    height: 1500,
     branches: {
-        start:   { color: "#fde68a" },
+        start:   { color: "rgb(255, 230, 131)" },
         origin:  { color: "#f59e0b" },
         cmd:     { color: "#06b6d4" },
         minor:   { color: "#ec4899" },
@@ -452,6 +452,14 @@ const TOOL_INFO = {
     "unity":     { icon: "", about: "Just like Godot, Unity makes it more accessible to create unique interactive things" },
     "inkscape":  { icon: "", about: "A free tool that let's me make unique vector art all the way to complete posters to show my research" },
     "lm studio": { icon: "", about: "During my master's, I looked further into ownership and the importance of AI freedom, which led me to LM Studio, which showed me that using AI is not always necessary to rely on major companies. You can host your own AI for prototypes to assist" },
+    "VS Code":     { icon: "", about: "A code editor that helps me out with developing projects from games to websites" },
+    "Audacity":     { icon: "", about: "An audio editing tool that allows me to improve audio from video's to generating new sound" },
+    "Indesign":     { icon: "", about: "A page layout program that helps me create things from unique documents to infographics" },
+    "Illustrator":     { icon: "", about: "A tool that I mostly used for vector art and schematics for wood laser cutter" },
+    "Lens Studio": {icon: "", about:"Software to create stunning Augmented Reality filters for Snapchat"},
+    "Spark AR": {icon: "", about:"Software to create stunning Augmented Reality filters for Instagram"},
+    "Spark AR": {icon: "", about: "Software to create stunning Augmented Reality filters for Instagram"},
+    "Git": {icon: "", about: "With Git and Github I can easily manage small to big projects from solo to having a big team"},
     // tools without an entry still get a bubble, with a default text
 };
 
@@ -462,7 +470,7 @@ const TOOL_INFO = {
 const HOBBIES = [
     { icon: "🎮", name: "Gaming",  about: "A term that means so much to me. From playing something to creating something on my own. Games are for me so much more than just 'fun' and showed me multiple use cases like an interactive way to educate people in certain topics" },
     { icon: "🧊", name: "3D art",  about: "Creating things in 3D gives me the space to create whole digital worlds, also it's nice to know how to make something to 3D print like hinges for a closet" },
-    { icon: "🥾", name: "Calisthenics", about: "A new hobby for me that showed me that my capabilities are not bound to just my brain" },
+    { icon: "🤸", name: "Calisthenics", about: "A new hobby for me that showed me that my capabilities are not bound to just my brain" },
 ];
 
 

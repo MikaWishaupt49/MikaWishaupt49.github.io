@@ -8,15 +8,13 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Roboto:wght@300;400;500;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-    <!-- Bootstrap first, so our own CSS can override it (only used for the image carousel) -->
+    <!-- Bootstrap first so our CSS can override it (only used for the image carousel) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="projects.css">
-    <link rel="stylesheet" href="intro.css">
     <link rel="stylesheet" href="about.css">
 </head>
 
@@ -25,22 +23,18 @@
     <!-- 3D world -->
     <canvas id="world-canvas" aria-hidden="true"></canvas>
 
-
-    <!-- ENTER SCREEN: photo, name, rotating text (see script.js) -->
+    <!-- ENTER SCREEN (rotating roles: ROLES in content.js) -->
     <section class="splash" id="splash">
         <img class="splash-photo" src="Assets%20zelfgemaakt/Foto_portfolio.png" alt="Mika Wishaupt">
         <h1>Mika Wishaupt</h1>
-        <div class="splash-roles" aria-live="off">
-            <p class="splash-role" id="splashRole"></p>
-        </div>
+        <div class="splash-roles" aria-live="off"><p class="splash-role" id="splashRole"></p></div>
         <button class="splash-enter" id="splashEnter">Start exploring</button>
     </section>
 
 
     <!-- ============================================================
-         PANELS (the text at the top of each section)
+         PANELS (text at the top of each section)
          ============================================================ -->
-
     <main class="intro" data-panel="home">
         <h1 class="home-title">
             Reach for the stars
@@ -71,7 +65,6 @@
     <!-- ============================================================
          BOTTOM NAVIGATION
          ============================================================ -->
-
     <nav class="bottom-nav">
         <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
             <span class="toggle-icon">☰</span>
@@ -80,42 +73,29 @@
 
         <div class="nav-menu" id="navMenu">
             <a href="#home" class="nav-button active" data-go="home" aria-label="Home">
-                <span class="nav-icon"><svg viewBox="0 0 24 24">
-                    <path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z" />
-                </svg></span>
-                <span class="nav-label">Home</span>
-                <span class="tooltip">Home</span>
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z" /></svg></span>
+                <span class="nav-label">Home</span><span class="tooltip">Home</span>
             </a>
 
             <div class="nav-divider"></div>
 
             <a href="#about" class="nav-button" data-go="about" aria-label="About">
-                <span class="nav-icon"><svg viewBox="0 0 24 24">
-                    <circle cx="12" cy="8" r="4" />
-                    <path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" />
-                </svg></span>
-                <span class="nav-label">About</span>
-                <span class="tooltip">About</span>
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" /></svg></span>
+                <span class="nav-label">About</span><span class="tooltip">About</span>
             </a>
 
             <div class="nav-divider"></div>
 
             <a href="#projects" class="nav-button" data-go="projects" aria-label="Projects">
-                <span class="nav-icon"><svg viewBox="0 0 24 24">
-                    <path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z" />
-                </svg></span>
-                <span class="nav-label">Projects</span>
-                <span class="tooltip">Projects</span>
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z" /></svg></span>
+                <span class="nav-label">Projects</span><span class="tooltip">Projects</span>
             </a>
 
             <div class="nav-divider"></div>
 
             <a href="#contact" class="nav-button" data-go="contact" aria-label="Contact">
-                <span class="nav-icon"><svg viewBox="0 0 24 24">
-                    <path d="M3 6h18v12H3zm0 0l9 7 9-7" />
-                </svg></span>
-                <span class="nav-label">Contact</span>
-                <span class="tooltip">Contact</span>
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 6h18v12H3zm0 0l9 7 9-7" /></svg></span>
+                <span class="nav-label">Contact</span><span class="tooltip">Contact</span>
             </a>
         </div>
     </nav>
@@ -123,13 +103,11 @@
 
     <!-- ============================================================
          POPUPS
-         The star orbs are generated from ORBS in content.js.
-         The project lists inside Page 1-3 are generated from PROJECTS
-         in content.js. Page 4 shows the OTHER_LINKS buttons.
-         The About popups are filled by about.js.
+         Star orbs: ORBS in content.js.  Project pages 1-4: PROJECTS / OTHER_LINKS.
+         About popups (tools, skilltree, hobbies): filled by about.js.
          ============================================================ -->
 
-    <!-- ABOUT (filled by about.js) -->
+    <!-- ABOUT -->
     <div id="myPopup1" class="fade-popup" role="dialog" aria-label="Favourite tools" tabindex="-1">
         <div class="popup-head"><h3>Favourite tools</h3><button class="popup-close" aria-label="Close">×</button></div>
         <div class="popup-body" id="toolsBody"></div>
@@ -145,7 +123,7 @@
         <div class="popup-body" id="hobbiesBody"></div>
     </div>
 
-    <!-- PROJECTS (content comes from content.js) -->
+    <!-- PROJECTS -->
     <div id="projPopup1" class="fade-popup" role="dialog" aria-label="Page 1" tabindex="-1">
         <div class="popup-head"><h3>Page 1</h3><button class="popup-close" aria-label="Close">×</button></div>
         <div class="popup-body"></div>
@@ -176,20 +154,14 @@
                 <!-- spam trap: real visitors never see or fill this -->
                 <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">
 
-                <label class="field">
-                    <span>Name</span>
-                    <input type="text" name="name" autocomplete="name" placeholder="Your name" required>
-                </label>
+                <label class="field"><span>Name</span>
+                    <input type="text" name="name" autocomplete="name" placeholder="Your name" required></label>
 
-                <label class="field">
-                    <span>Email</span>
-                    <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required>
-                </label>
+                <label class="field"><span>Email</span>
+                    <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required></label>
 
-                <label class="field">
-                    <span>Message</span>
-                    <textarea name="message" rows="6" placeholder="What would you like to talk about?" required></textarea>
-                </label>
+                <label class="field"><span>Message</span>
+                    <textarea name="message" rows="6" placeholder="What would you like to talk about?" required></textarea></label>
 
                 <div class="form-actions">
                     <button type="submit" class="send-button">Send message</button>
@@ -204,11 +176,11 @@
          SCRIPTS (order matters)
          ============================================================ -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
-    <script src="world.js?v=4"></script>      <!-- 3D scene -->
-    <script src="content.js?v=5"></script>    <!-- YOUR content: projects, skills, tools, hobbies, contact -->
-    <script src="builder.js?v=2"></script>    <!-- builds the HTML from content.js -->
-    <script src="script.js?v=3"></script>     <!-- popups, nav, form, telescope -->
-    <script src="about.js?v=3"></script>      <!-- skill tree, tool bubbles, hobbies -->
+    <script src="world.js?v=5"></script>      <!-- 3D scene -->
+    <script src="content.js?v=6"></script>    <!-- YOUR content: projects, skills, tools, hobbies, contact -->
+    <script src="builder.js?v=3"></script>    <!-- builds HTML from content.js -->
+    <script src="script.js?v=4"></script>     <!-- popups, nav, form, telescope, enter screen -->
+    <script src="about.js?v=4"></script>      <!-- skill tree, tool bubbles, hobbies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

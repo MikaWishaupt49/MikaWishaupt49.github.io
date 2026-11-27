@@ -261,11 +261,7 @@ document.querySelectorAll(".nav-button[data-go]").forEach((button) => {
 
 // ============================================================
 // STAR ORBS: glued to the stars of the 3D constellations
-// World.js exposes window.WORLD and calls WORLD.onFrame() every frame.
-// For each section (about / projects / contact) there is one .orb-layer.
-// We project the 3D star positions to screen pixels and move the HTML
-// buttons there. A layer is only visible while its section is active.
-// ============================================================
+// Using three.js. Make sure it functions properly else major parts of the website will fail
 (() => {
     // which constellation belongs to which section
     const SHAPES = {

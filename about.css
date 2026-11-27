@@ -1,139 +1,52 @@
 /* ============================================================
-   ABOUT POPUPS: skill tree, tool bubbles, hobbies
+   ABOUT.CSS: skill tree, tool bubbles, hobbies
    ============================================================ */
 
-
-/* ---------- shared text (no background) ---------- */
-.about-intro,
-.about-detail p {
-    max-width: 580px;
-    font-size: 15px;              /* same as the About page text */
-    font-weight: 300;
-    line-height: 1.65;
-    color: var(--text-soft);
-}
-
+/* ---------- shared text ---------- */
+.about-intro, .about-detail p { max-width: 580px; font-size: 15px; font-weight: 300; line-height: 1.65; color: var(--text-soft); }
 .about-intro { margin-bottom: 18px; }
 
-.about-detail {
-    margin-top: 22px;
-    padding: 0;
-    min-height: 0;
-    background: none;
-    border-radius: 0;
-}
-
+.about-detail { margin-top: 22px; }
 .about-detail:empty { display: none; }
-
-.about-detail h4 {
-    font-family: var(--font-display);
-    font-size: clamp(20px, 2vw, 24px);
-    font-weight: 500;
-    line-height: 1.2;
-}
-
+.about-detail h4, .pt-story-card h4, .hobby-card h4 { font-family: var(--font-display); font-weight: 500; line-height: 1.2; }
+.about-detail h4, .pt-story-card h4 { font-size: clamp(20px, 2vw, 24px); }
 .about-detail h4 small { font-size: 0.6em; font-weight: 300; opacity: 0.7; }
-
-.about-detail .detail-level {
-    margin: 4px 0 10px;
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-}
+.about-detail .detail-level { margin: 4px 0 10px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
 
 
-/* ---------- skill tree (passive-tree style) ---------- */
-.pt-svg {
-    display: block;
-    width: 100%;
-    max-width: 520px;
-    height: auto;
-    margin: 0 auto;
-    overflow: visible;
-}
+/* ---------- skill tree ---------- */
+.pt-svg { display: block; width: 100%; max-width: 520px; height: auto; margin: 0 auto; overflow: visible; }
 
-.pt-link {
-    fill: none;
-    stroke: var(--c);
-    stroke-width: 2.5;
-    stroke-linecap: round;
-    filter: drop-shadow(0 0 4px var(--c));
-}
-
-.pt-link.locked {
-    stroke: rgba(148, 163, 184, 0.45);
-    stroke-width: 1.5;
-    stroke-dasharray: 3 5;
-    filter: none;
-}
-
+.pt-link { fill: none; stroke: var(--c); stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 4px var(--c)); }
+.pt-link.locked { stroke: rgba(148, 163, 184, 0.45); stroke-width: 1.5; stroke-dasharray: 3 5; filter: none; }
 .pt-link.trail { opacity: 0.6; }
 
 .pt-node { cursor: pointer; outline: none; }
-.pt-hit  { fill: transparent; }
+.pt-hit { fill: transparent; }
 
-.pt-core {
-    fill: color-mix(in srgb, var(--c) 35%, var(--bg));
-    stroke: var(--c);
-    stroke-width: 2;
-    transition: fill 0.2s ease;
-}
+.pt-core { fill: color-mix(in srgb, var(--c) 35%, var(--bg)); stroke: var(--c); stroke-width: 2; transition: fill 0.2s ease; }
+.pt-ring { fill: none; stroke: var(--c); stroke-width: 1; opacity: 0.35; transition: opacity 0.2s ease; }
+.pt-frame { fill: none; stroke: var(--c); stroke-width: 1.5; stroke-dasharray: 2 4; opacity: 0.8; }
 
-.pt-ring {
-    fill: none;
-    stroke: var(--c);
-    stroke-width: 1;
-    opacity: 0.35;
-    transition: opacity 0.2s ease;
-}
-
-.pt-frame {
-    fill: none;
-    stroke: var(--c);
-    stroke-width: 1.5;
-    stroke-dasharray: 2 4;
-    opacity: 0.8;
-}
-
-.pt-node.keystone .pt-core,
-.pt-node.notable .pt-core { filter: drop-shadow(0 0 6px var(--c)); }
-
-.pt-node:hover .pt-ring,
-.pt-node:focus-visible .pt-ring,
-.pt-node.selected .pt-ring { opacity: 1; stroke-width: 2; }
-
-.pt-node:hover .pt-core,
-.pt-node.selected .pt-core { fill: var(--c); }
+.pt-node.keystone .pt-core, .pt-node.notable .pt-core { filter: drop-shadow(0 0 6px var(--c)); }
+.pt-node:hover .pt-ring, .pt-node:focus-visible .pt-ring, .pt-node.selected .pt-ring { opacity: 1; stroke-width: 2; }
+.pt-node:hover .pt-core, .pt-node.selected .pt-core { fill: var(--c); }
 
 .pt-icon { pointer-events: none; fill: var(--text); }
-
-.pt-label {
-    pointer-events: none;
-    font-size: 11px;
-    font-weight: 500;
-    fill: var(--text);
-    stroke: var(--bg);
-    stroke-width: 3px;
-    paint-order: stroke;
-    stroke-linejoin: round;
-}
-
+.pt-label { pointer-events: none; font-size: 11px; font-weight: 500; fill: var(--text); stroke: var(--bg); stroke-width: 3px; paint-order: stroke; stroke-linejoin: round; }
 .pt-node.keystone .pt-label { font-size: 13px; font-weight: 700; }
 .pt-sub { font-size: 9.5px; font-weight: 300; fill: var(--text-soft); }
 
-/* small nodes only show their name on hover / selection */
+/* small nodes show their name only on hover / selection */
 .pt-node.minor .pt-label { opacity: 0; transition: opacity 0.15s ease; }
-.pt-node.minor:hover .pt-label,
-.pt-node.minor:focus-visible .pt-label,
-.pt-node.minor.selected .pt-label { opacity: 1; }
+.pt-node.minor:hover .pt-label, .pt-node.minor:focus-visible .pt-label, .pt-node.minor.selected .pt-label { opacity: 1; }
 
 /* locked = still open */
 .pt-node.locked { opacity: 0.55; }
 .pt-node.locked .pt-core { fill: var(--bg); stroke-dasharray: 3 3; }
-.pt-node.locked .pt-core,
-.pt-node.locked .pt-ring { stroke: #94a3b8; filter: none; }
+.pt-node.locked .pt-core, .pt-node.locked .pt-ring { stroke: #94a3b8; filter: none; }
 
-/* current = in progress, gently pulsing */
+/* current = in progress, pulsing */
 .pt-node.current .pt-ring { animation: pt-pulse 2.4s ease-in-out infinite; }
 @keyframes pt-pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
@@ -151,7 +64,6 @@
     -webkit-backdrop-filter: blur(3px);
     backdrop-filter: blur(3px);
 }
-
 .pt-story[hidden] { display: none; }
 
 .pt-story-card {
@@ -168,22 +80,8 @@
     outline: none;
     animation: pt-story-in 0.25s ease;
 }
-
-.pt-story-card h4 {
-    margin-bottom: 10px;
-    padding-right: 36px;
-    font-family: var(--font-display);
-    font-size: clamp(20px, 2vw, 24px);
-    font-weight: 500;
-    line-height: 1.2;
-}
-
-.pt-story-card p {
-    font-size: 15px;
-    font-weight: 300;
-    line-height: 1.65;
-    color: var(--text-soft);
-}
+.pt-story-card h4 { margin-bottom: 10px; padding-right: 36px; }
+.pt-story-card p { font-size: 15px; font-weight: 300; line-height: 1.65; color: var(--text-soft); }
 
 .pt-story-close {
     position: absolute;
@@ -201,25 +99,13 @@
     cursor: pointer;
     transition: background 0.2s ease, opacity 0.2s ease;
 }
+.pt-story-close:hover { background: var(--tint); opacity: 1; }
 
-.pt-story-close:hover { background: rgba(128, 128, 140, 0.15); opacity: 1; }
-
-@keyframes pt-story-in {
-    from { opacity: 0; transform: translateY(8px) scale(0.97); }
-    to   { opacity: 1; transform: none; }
-}
+@keyframes pt-story-in { from { opacity: 0; transform: translateY(8px) scale(0.97); } to { opacity: 1; transform: none; } }
 
 
 /* ---------- tool bubbles ---------- */
-.tool-field {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 22px;
-    min-height: 200px;
-    padding: 14px 0;
-}
+.tool-field { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 22px; min-height: 200px; padding: 14px 0; }
 
 .tool-ball {
     display: grid;
@@ -234,38 +120,19 @@
     color: #fff;
     text-align: center;
     cursor: pointer;
-    background: radial-gradient(circle at 32% 28%,
-        hsl(var(--hue) 80% 75% / 0.95),
-        hsl(var(--hue) 65% 45% / 0.9) 60%,
-        hsl(var(--hue) 60% 25% / 0.95));
-    box-shadow: 0 8px 24px hsl(var(--hue) 70% 40% / 0.35),
-                inset 0 -6px 14px rgba(0, 0, 0, 0.25);
+    background: radial-gradient(circle at 32% 28%, hsl(var(--hue) 80% 75% / 0.95), hsl(var(--hue) 65% 45% / 0.9) 60%, hsl(var(--hue) 60% 25% / 0.95));
+    box-shadow: 0 8px 24px hsl(var(--hue) 70% 40% / 0.35), inset 0 -6px 14px rgba(0, 0, 0, 0.25);
     animation: tool-float var(--dur, 6s) ease-in-out var(--delay, 0s) infinite alternate;
     transition: filter 0.2s ease;
 }
-
 .tool-ball:hover { filter: brightness(1.15); }
 .tool-ball.selected { outline: 3px solid var(--text); outline-offset: 4px; }
 .tool-ball img { width: 45%; height: 45%; object-fit: contain; }
+.tool-ball-name { font-size: var(--fs, 13px); font-weight: 500; line-height: 1.1; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5); }
+@keyframes tool-float { to { transform: translate(var(--dx, 8px), var(--dy, -10px)); } }
 
-.tool-ball-name {
-    font-size: var(--fs, 13px);
-    font-weight: 500;
-    line-height: 1.1;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-}
-
-@keyframes tool-float {
-    to { transform: translate(var(--dx, 8px), var(--dy, -10px)); }
-}
-
-/* project buttons: a row that wraps; a column on phones */
-.tool-projects {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 14px;
-}
+/* project buttons: a wrapping row, a column on phones */
+.tool-projects { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
 
 .tool-project {
     display: flex;
@@ -280,7 +147,6 @@
     cursor: pointer;
     transition: background 0.2s ease, color 0.2s ease;
 }
-
 .tool-project:hover { background: var(--text); color: var(--bg); }
 .tool-project strong { font-weight: 500; font-size: 15px; }
 .tool-project span { font-size: 12px; opacity: 0.7; }
@@ -292,29 +158,11 @@
 
 
 /* ---------- hobbies ---------- */
-.hobby-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 14px;
-}
-
-.hobby-card {
-    padding: 18px 20px;
-    border-radius: 20px;
-    background: rgba(128, 128, 140, 0.1);
-}
-
+.hobby-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+.hobby-card { padding: 18px 20px; border-radius: 20px; background: var(--tint); }
 .hobby-icon { display: block; margin-bottom: 8px; font-size: 32px; }
-
-.hobby-card h4 {
-    margin-bottom: 4px;
-    font-family: var(--font-display);
-    font-size: 20px;
-    font-weight: 500;
-}
+.hobby-card h4 { margin-bottom: 4px; font-size: 20px; }
 
 @media (prefers-reduced-motion: reduce) {
-    .tool-ball { animation: none; }
-    .pt-node.current .pt-ring { animation: none; }
-    .pt-story-card { animation: none; }
+    .tool-ball, .pt-node.current .pt-ring, .pt-story-card { animation: none; }
 }

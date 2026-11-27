@@ -1,16 +1,10 @@
 /* ============================================================
-   PROJECT PAGES (cards + detail pages built by builder.js)
-   Load this AFTER style.css.
+   PROJECTS.CSS: project cards, detail pages, carousel,
+   screenshot viewer, link buttons. Load AFTER style.css.
    ============================================================ */
 
-
-/* ---------- the list of cards ---------- */
-
-.proj-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
+/* ---------- card list ---------- */
+.proj-list { display: flex; flex-direction: column; gap: 12px; }
 
 .proj-card {
     display: grid;
@@ -21,60 +15,15 @@
     background: rgba(128, 128, 140, 0.08);
     transition: background 0.25s ease;
 }
+.proj-card:hover { background: var(--tint); }
 
-.proj-card:hover {
-    background: rgba(128, 128, 140, 0.12);
-}
+.proj-img { position: relative; width: 100%; height: 120px; overflow: hidden; background: var(--tint); }
+.proj-img:empty::before { content: "Project image"; }
+.proj-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 
-.proj-img {
-    position: relative;
-    width: 100%;
-    height: 120px;
-    overflow: hidden;
-    background: rgba(128, 128, 140, 0.12);
-}
-
-.proj-img:empty::before {
-    content: "Project image";
-}
-
-/* "cover" fills the box completely with zero empty padding space */
-.proj-img img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-}
-
-.proj-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 14px 20px;
-}
-
-.proj-info h2 {
-    margin-bottom: 4px;
-    font-family: var(--font-display);
-    font-size: clamp(18px, 1.6vw, 22px);   /* card title */
-    font-weight: 500;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-}
-
-.proj-info p {
-    margin-bottom: 12px;
-    font-size: clamp(14px, 1.1vw, 16px);   /* card text */
-    font-weight: 300;
-    line-height: 1.5;
-    color: var(--text-soft);
-}
-
-
-/* ---------- button ---------- */
+.proj-info { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 14px 20px; }
+.proj-info h2 { margin-bottom: 4px; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.2; letter-spacing: -0.01em; }
+.proj-info p { margin-bottom: 12px; font-size: clamp(14px, 1.1vw, 16px); line-height: 1.5; }
 
 .proj-open {
     display: inline-block;
@@ -87,107 +36,30 @@
     cursor: pointer;
     transition: background 0.2s ease, color 0.2s ease;
 }
-
-.proj-open:hover {
-    background: var(--text);
-    color: var(--bg);
-}
-
-.proj-open.is-empty {
-    opacity: 0.4;
-    pointer-events: none;
-}
+.proj-open:hover { background: var(--text); color: var(--bg); }
+.proj-open.is-empty { opacity: 0.4; pointer-events: none; }
 
 
 /* ---------- list <-> detail switching ---------- */
+.proj-page { display: none; }
+.popup-body.showing-page .proj { display: none; }
+.popup-body.showing-page .proj.is-open { display: block; }
+.popup-body.showing-page .proj.is-open .proj-card { display: none; }
+.popup-body.showing-page .proj.is-open .proj-page { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
+.proj-page > * { max-width: 100%; }
 
-.proj-page {
-    display: none;
-}
-
-.popup-body.showing-page .proj {
-    display: none;
-}
-
-.popup-body.showing-page .proj.is-open {
-    display: block;
-}
-
-.popup-body.showing-page .proj.is-open .proj-card {
-    display: none;
-}
-
-.popup-body.showing-page .proj.is-open .proj-page {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 22px;
-}
-
-.proj-page > * {
-    max-width: 100%;
-}
-
-.proj-back {
-    padding: 10px 20px;
-    border-radius: 24px;
-    background: rgba(128, 128, 140, 0.12);
-    font-size: 15px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-}
-
-.proj-back:hover {
-    background: rgba(128, 128, 140, 0.22);
-}
+.proj-back { padding: 10px 20px; border-radius: 24px; background: var(--tint); font-size: 15px; cursor: pointer; transition: background 0.2s ease; }
+.proj-back:hover { background: rgba(128, 128, 140, 0.22); }
 
 
-/* ---------- detail page typography ---------- */
-
-.proj-page h2 {
-    font-family: var(--font-display);
-    font-size: clamp(32px, 4vw, 52px);
-    font-weight: 500;
-    line-height: 1.1;
-    letter-spacing: -0.01em;
-}
-
-.proj-page h3 {
-    margin-top: 12px;
-    font-family: var(--font-display);
-    font-size: clamp(24px, 2.8vw, 32px);
-    font-weight: 300;
-    line-height: 1.2;
-}
-
-.proj-page p,
-.proj-page li {
-    font-size: clamp(16px, 1.4vw, 19px);
-    font-weight: 300;
-    line-height: 1.7;
-    color: var(--text-soft);
-}
-
-.proj-page .proj-sub {
-    margin-top: -10px;
-    font-size: clamp(18px, 1.7vw, 22px);
-}
-
-.proj-page b,
-.proj-page strong {
-    font-weight: 500;
-    color: var(--text);
-}
-
-.proj-page a {
-    color: var(--text);
-    text-decoration: underline;
-}
-
-.proj-page ul {
-    padding-left: 24px;
-    line-height: 1.75;
-}
+/* ---------- detail page text ---------- */
+.proj-page h2 { font-size: clamp(32px, 4vw, 52px); line-height: 1.1; letter-spacing: -0.01em; }
+.proj-page h3 { margin-top: 12px; font-size: clamp(24px, 2.8vw, 32px); line-height: 1.2; }
+.proj-page p, .proj-page li { font-size: clamp(16px, 1.4vw, 19px); font-weight: 300; line-height: 1.7; color: var(--text-soft); }
+.proj-page .proj-sub { margin-top: -10px; font-size: clamp(18px, 1.7vw, 22px); }
+.proj-page b, .proj-page strong { font-weight: 500; color: var(--text); }
+.proj-page a { color: var(--text); text-decoration: underline; }
+.proj-page ul { padding-left: 24px; line-height: 1.75; }
 
 .proj-page .proj-meta {
     display: flex;
@@ -199,70 +71,24 @@
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
 }
-
-.proj-page .proj-meta li {
-    font-size: 17px;
-    font-weight: 400;
-    color: var(--text);
-}
-
-.proj-page .proj-meta span {
-    display: block;
-    margin-bottom: 4px;
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-soft);
-}
+.proj-page .proj-meta li { font-size: 17px; font-weight: 400; color: var(--text); }
+.proj-page .proj-meta span { display: block; margin-bottom: 4px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-soft); }
 
 
-/* ---------- images and video ---------- */
+/* ---------- images + video ---------- */
+.proj-page img { display: block; width: 100%; border-radius: 16px; border: 1px solid var(--line); }
+.proj-page iframe { display: block; width: 100%; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
 
-.proj-page img {
-    display: block;
-    width: 100%;
-    border-radius: 16px;
-    border: 1px solid var(--line);
-}
-
-.proj-page iframe {
-    display: block;
-    width: 100%;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    background: #fff;
-}
-
-/* Video: larger, but still capped so it never fills the whole popup. */
-.proj-page .embed {
-    position: relative;
-    align-self: center;
-    width: min(100%, calc(60vh * 16 / 9));
-    aspect-ratio: 16 / 9;
-}
-
-.proj-page .embed iframe {
-    position: absolute;
-    inset: 0;
-    height: 100%;
-}
+/* video: large, but capped so it never fills the whole popup */
+.proj-page .embed { position: relative; align-self: center; width: min(100%, calc(60vh * 16 / 9)); aspect-ratio: 16 / 9; }
+.proj-page .embed iframe { position: absolute; inset: 0; height: 100%; }
 
 
 /* ---------- carousel ---------- */
+.project-carousel { --shot-h: clamp(220px, 50vh, 520px); position: relative; width: 100%; overflow: hidden; border-radius: 16px; }
+.project-carousel .carousel-item { text-align: center; }
 
-.project-carousel {
-    --shot-h: clamp(220px, 50vh, 520px);
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    border-radius: 16px;
-}
-
-.project-carousel .carousel-item {
-    text-align: center;
-}
-
-.project-carousel .carousel-zoom {
+.carousel-zoom {
     position: relative;
     display: flex;
     align-items: center;
@@ -270,23 +96,16 @@
     width: 100%;
     height: var(--shot-h);
     padding: 0;
+    overflow: hidden;
     border: 1px solid var(--line);
     border-radius: 16px;
     background: rgba(128, 128, 140, 0.06);
-    overflow: hidden;
     cursor: zoom-in;
 }
+.carousel-zoom .carousel-img { display: block; width: 100%; height: 100%; object-fit: contain; border: 0; border-radius: 0; }
+.carousel-zoom:focus-visible { outline: 2px solid var(--text); outline-offset: -4px; }
 
-.project-carousel .carousel-zoom .carousel-img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border: 0;
-    border-radius: 0;
-}
-
-.project-carousel .carousel-zoom::after {
+.carousel-zoom::after {
     content: "⤢ Enlarge";
     position: absolute;
     right: 12px;
@@ -300,20 +119,11 @@
     transition: opacity 0.2s ease;
     pointer-events: none;
 }
+.carousel-zoom:hover::after, .carousel-zoom:focus-visible::after { opacity: 1; }
 
-.project-carousel .carousel-zoom:hover::after,
-.project-carousel .carousel-zoom:focus-visible::after {
-    opacity: 1;
-}
-
-.project-carousel .carousel-zoom:focus-visible {
-    outline: 2px solid var(--text);
-    outline-offset: -4px;
-}
-
-/* caption under every screenshot (left-aligned for long text) */
+/* caption under every screenshot */
 .project-carousel .carousel-description {
-    max-width: 70ch;            /* keeps long lines readable; remove for full width */
+    max-width: 70ch;                      /* readable line length; remove for full width */
     margin: 14px 0 8px;
     padding: 0 4px;
     text-align: left;
@@ -322,15 +132,7 @@
     line-height: 1.6;
     color: var(--text-soft);
 }
-
-.project-carousel .carousel-description small {
-    display: block;
-    margin-top: 4px;
-    font-size: 12px;
-    letter-spacing: 0.05em;
-    text-align: left;
-    opacity: 0.6;
-}
+.carousel-description small { display: block; margin-top: 4px; font-size: 12px; letter-spacing: 0.05em; opacity: 0.6; }
 
 .project-carousel .carousel-control-prev,
 .project-carousel .carousel-control-next {
@@ -347,98 +149,44 @@
     z-index: 5;
 }
 
-@media (hover: hover) and (pointer: fine) {
-    .project-carousel:hover .carousel-control-prev,
-    .project-carousel:hover .carousel-control-next,
-    .project-carousel:focus-within .carousel-control-prev,
-    .project-carousel:focus-within .carousel-control-next {
-        opacity: 1;
-    }
-}
-
 .project-carousel .carousel-control-prev-icon,
 .project-carousel .carousel-control-next-icon {
     width: 40px;
     height: 40px;
     background-size: 55% 55%;
-    filter: invert(0.5);
-    border-radius: 50%;
     background-color: rgba(128, 128, 140, 0.15);
+    border-radius: 50%;
+    filter: invert(0.5);
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.project-carousel .carousel-control-prev:hover .carousel-control-prev-icon,
-.project-carousel .carousel-control-next:hover .carousel-control-next-icon {
-    background-color: rgba(128, 128, 140, 0.3);
-    transform: scale(1.1);
+@media (hover: hover) and (pointer: fine) {
+    .project-carousel:hover .carousel-control-prev, .project-carousel:hover .carousel-control-next,
+    .project-carousel:focus-within .carousel-control-prev, .project-carousel:focus-within .carousel-control-next { opacity: 1; }
+    .carousel-control-prev:hover .carousel-control-prev-icon,
+    .carousel-control-next:hover .carousel-control-next-icon { background-color: rgba(128, 128, 140, 0.3); transform: scale(1.1); }
 }
 
+/* touch: arrows and "Enlarge" are always visible */
 @media (hover: none), (pointer: coarse) {
-    .project-carousel .carousel-control-prev,
-    .project-carousel .carousel-control-next {
-        opacity: 0.85;
-    }
-
-    .project-carousel .carousel-control-prev-icon,
-    .project-carousel .carousel-control-next-icon {
-        width: 34px;
-        height: 34px;
-    }
-
-    .project-carousel .carousel-zoom::after {
-        opacity: 1;
-    }
+    .project-carousel .carousel-control-prev, .project-carousel .carousel-control-next { opacity: 0.85; }
+    .project-carousel .carousel-control-prev-icon, .project-carousel .carousel-control-next-icon { width: 34px; height: 34px; }
+    .carousel-zoom::after { opacity: 1; }
 }
 
 .project-carousel .carousel-control-prev:focus-visible,
-.project-carousel .carousel-control-next:focus-visible {
-    opacity: 1;
-    outline: 2px solid var(--text);
-    outline-offset: -4px;
-}
+.project-carousel .carousel-control-next:focus-visible { opacity: 1; outline: 2px solid var(--text); outline-offset: -4px; }
 
 
 /* ---------- screenshot viewer (lightbox) ---------- */
+html.lightbox-open { overflow: hidden; }
 
-html.lightbox-open {
-    overflow: hidden;
-}
+.lightbox { position: fixed; inset: 0; z-index: 100000; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.92); }
+.lightbox[hidden], .lb-btn[hidden] { display: none; }
 
-.lightbox {
-    position: fixed;
-    inset: 0;
-    z-index: 100000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.92);
-}
-
-.lightbox[hidden] {
-    display: none;
-}
-
-.lb-stage {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    overflow: auto;
-    padding: 56px 64px 48px;
-}
-
-.lb-img {
-    margin: auto;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    cursor: zoom-in;
-}
-
-.lb-img.zoomed {
-    max-width: none;
-    max-height: none;
-    cursor: zoom-out;
-}
+.lb-stage { position: absolute; inset: 0; display: flex; overflow: auto; padding: 56px 64px 48px; }
+.lb-img { margin: auto; max-width: 100%; max-height: 100%; object-fit: contain; cursor: zoom-in; }
+.lb-img.zoomed { max-width: none; max-height: none; cursor: zoom-out; }
 
 .lb-btn {
     position: absolute;
@@ -456,47 +204,19 @@ html.lightbox-open {
     cursor: pointer;
     transition: background 0.2s ease;
 }
+.lb-btn:hover { background: rgba(255, 255, 255, 0.3); }
+.lb-btn:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
 
-.lb-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-.lb-btn:focus-visible {
-    outline: 3px solid #fff;
-    outline-offset: 2px;
-}
-
-.lb-btn[hidden] {
-    display: none;
-}
-
-.lb-close { top: 12px;   right: 12px; }
-.lb-prev  { left: 12px;  top: 50%; transform: translateY(-50%); }
+.lb-close { top: 12px; right: 12px; }
+.lb-prev  { left: 12px; top: 50%; transform: translateY(-50%); }
 .lb-next  { right: 12px; top: 50%; transform: translateY(-50%); }
 
-.lb-caption {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 10px;
-    z-index: 2;
-    margin: 0;
-    text-align: center;
-    font-size: 13px;
-    color: #ddd;
-    pointer-events: none;
-}
+.lb-caption { position: absolute; left: 0; right: 0; bottom: 10px; z-index: 2; margin: 0; text-align: center; font-size: 13px; color: #ddd; pointer-events: none; }
 
 
-/* ---------- other project pages: link buttons ---------- */
-
+/* ---------- "other project pages": animated link buttons ---------- */
 .link-buttons {
-    /* gradient colours: change these four to restyle the hover */
-    --g1: #f472b6;
-    --g2: #fcd34d;
-    --g3: #5eead4;
-    --g4: #c084fc;
-
+    --g1: #f472b6; --g2: #fcd34d; --g3: #5eead4; --g4: #c084fc;   /* hover gradient colours */
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -517,89 +237,42 @@ html.lightbox-open {
     isolation: isolate;
     border: 1px solid var(--text);
     border-radius: 40px;
-    font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 500;
+    font: 500 22px var(--font-display);
     color: var(--text);
     cursor: pointer;
     transition: color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
 }
-
 .link-btn::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(120deg, var(--g1), var(--g2), var(--g3), var(--g4), var(--g1));
-    background-size: 200% 100%;
+    background: linear-gradient(120deg, var(--g1), var(--g2), var(--g3), var(--g4), var(--g1)) 0 0 / 200% 100%;
     opacity: 0;
     transition: opacity 0.3s ease;
     animation: link-gradient 3s linear infinite;
 }
-
-.link-btn:hover,
-.link-btn:focus-visible {
-    color: var(--bg);
-    border-color: transparent;
-    transform: translateY(-2px);
-}
-
-.link-btn:hover::before,
-.link-btn:focus-visible::before { opacity: 1; }
-
-@keyframes link-gradient {
-    to { background-position: 200% 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .link-btn::before { animation: none; }
-}
+.link-btn:hover, .link-btn:focus-visible { color: var(--bg); border-color: transparent; transform: translateY(-2px); }
+.link-btn:hover::before, .link-btn:focus-visible::before { opacity: 1; }
+@keyframes link-gradient { to { background-position: 200% 0; } }
 
 
-/* ---------- tablets and phones ---------- */
-
+/* ---------- small screens ---------- */
 @media (max-width: 800px) {
-    .proj-card {
-        grid-template-columns: 1fr;
-    }
-
-    .proj-img {
-        height: 140px;
-    }
+    .proj-card { grid-template-columns: 1fr; }
+    .proj-img { height: 140px; }
 }
 
 @media (max-width: 600px) {
-    .proj-info {
-        padding: 12px 16px;
-    }
-
-    .proj-info h2 {
-        font-size: 18px;
-    }
-
-    .proj-info p {
-        font-size: 14px;
-    }
-
-    .project-carousel {
-        --shot-h: clamp(180px, 36vh, 320px);
-    }
-
-    .proj-page .embed {
-        width: 100%;
-    }
-
-    .lb-stage {
-        padding: 56px 8px 56px;
-    }
-
-    .lb-prev,
-    .lb-next {
-        top: auto;
-        bottom: 6px;
-        transform: none;
-    }
-
+    .proj-info { padding: 12px 16px; }
+    .proj-info h2 { font-size: 18px; }
+    .proj-info p { font-size: 14px; }
+    .project-carousel { --shot-h: clamp(180px, 36vh, 320px); }
+    .proj-page .embed { width: 100%; }
+    .lb-stage { padding: 56px 8px; }
+    .lb-prev, .lb-next { top: auto; bottom: 6px; transform: none; }
     .lb-prev { left: 12px; }
     .lb-next { right: 12px; }
 }
+
+@media (prefers-reduced-motion: reduce) { .link-btn::before { animation: none; } }

@@ -1,8 +1,13 @@
-// ------------------------------------------------------------
-// CONTACT (Web3Forms)
-// 1. https://app.web3forms.com/dashboard with email
-// email -> shown as fallback if sending fails
-// ------------------------------------------------------------
+// ============================================================
+// CONTENT.JS: everything you edit lives here.
+//   1. CONTACT      4. SKILL_TREE + SKILL_STORIES
+//   2. ROLES        5. TOOL_INFO, HOBBIES
+//   3. PROJECTS     6. ORBS (the clickable stars)
+// ============================================================
+
+
+// ---------- 1. CONTACT (Web3Forms) ----------
+// Get a key at https://app.web3forms.com/dashboard. `email` is shown if sending fails.
 const CONTACT = {
     email: "m.wishaupt@hotmail.nl",
     accessKey: "",
@@ -10,14 +15,26 @@ const CONTACT = {
 };
 
 
-// ------------------------------------------------------------
-// PROJECTS
-// images: a plain filename OR { file: "name.png", caption: "text" }
-// Captions may contain basic HTML (<b>, <a href="...">).
-// tools: comma separated. These feed the "Favourite tools" bubbles
-// (keep the spelling consistent: "Blender", not "Blender 3D").
+// ---------- 2. ROLES (rotating text on the enter screen) ----------
+const ROLES = [
+    "BSc Communication & Multimedia Design",
+    "MA Data-Driven Design",
+    "Game Designer",
+    "Concept Developer",
+    "UX",
+    "OpenSource Lover",
+    "XR experience",
+    "Creative Technologist",
+    "R&D explorer",
+];
+
+
+// ---------- 3. PROJECTS ----------
+// images: a filename OR { file, caption }. Captions may contain basic HTML (<b>, <a href>).
+// tools:  comma separated. Feeds the "Favourite tools" bubbles, so keep the spelling
+//         consistent ("Blender", not "Blender 3D").
 //
-// TEMPLATE for a new project (copy this into Page 2 or 3):
+// TEMPLATE for a new project (copy into page 2 or 3):
 // {
 //     title: "Project name",
 //     summary: "One-line description.",
@@ -28,17 +45,12 @@ const CONTACT = {
 //     tools: "Tool one, Tool two",
 //     about: [ `Paragraph one.`, `Paragraph two.` ],
 //     highlights: [ "Highlight one", "Highlight two" ],
-//     images: [
-//         { file: "image1.png", caption: "What this image shows." },
-//         { file: "image2.png", caption: "What this image shows." },
-//     ],
+//     images: [ { file: "image1.png", caption: "What this image shows." } ],
 //     video: "YouTubeVideoId",
 // },
-// ------------------------------------------------------------
 const PROJECTS = {
-    // Page 1
+    // ---- Page 1 ----
     1: [
-        // Project 1
         {
             title: "EduCAD",
             summary: "An adaptive education tool to accelerate the learning process of inCAD for different employees",
@@ -49,9 +61,7 @@ const PROJECTS = {
             tools: "Godot, Inkscape, LM Studio",
             about: [
                 `For Nunu I worked on their tool called inCAD to let people learn more effectively based on their learning outcomes (<a href="https://incad.nl/" target="_blank" rel="noopener">link inCAD</a>).`,
-
                 `In the end I came up with EduCAD, an additional tool that leverages the power of AI and data to accelerate the learning process of inCAD. Different users come with different needs: inCAD has tasks for an electrical engineer as well as for a project manager. EduCAD lets users create adaptive learning courses based on their wishes and needs. A project manager might need further education in file structuring while an engineer needs a deeper understanding of the schematics. With EduCAD, both can learn at their own pace with the help of AI.`,
-
                 `EduCAD gave me ideas on how to make education more accessible for different users, and it showed me the important ethical decisions when working with personal AI and data. In a future with more AI and data, it becomes more and more important to have designers also working as researchers, working towards the best outcome for different stakeholders.`,
             ],
             highlights: [
@@ -60,29 +70,19 @@ const PROJECTS = {
                 "Deep research from different academic sources and working on my own insights",
             ],
             images: [
-                { file: "Homepage filled example.png",
-                  caption: "The EduCAD homepage with example data, giving the user a quick overview of their courses and progress." },
-                { file: "MyCourse page example 1 filled - layout path.png",
-                  caption: "A filled-in course page in the <b>path</b> layout, where the lessons are shown as a route the learner follows step by step." },
-                { file: "MyCourse page example 2.png",
-                  caption: "A second course page example, showing how the content changes depending on the course and the learner." },
-                { file: "MyCourse page example 3.png",
-                  caption: "A third course page example, showing a different topic and learning focus." },
-                { file: "MyCourse page Layout default-1.png",
-                  caption: "The <b>default</b> course layout: a clear, list-based overview of all lessons." },
-                { file: "MyCourse page Layout tree-1.png",
-                  caption: "The <b>tree</b> layout, which shows how lessons build on each other and lets users see the bigger picture of a course." },
-                { file: "MyCourses Edit course.png",
-                  caption: "The edit screen where users adjust a course to their own wishes and needs." },
-                { file: "MyCourses page Edit AI-1.png",
-                  caption: "Where the user controls how the AI helps shape the course, keeping the user in charge of their own data and learning." },
-                { file: "MyCourses page Join.png",
-                  caption: "The join screen, where users can find and join existing courses." },
+                { file: "Homepage filled example.png", caption: "The EduCAD homepage with example data, giving the user a quick overview of their courses and progress." },
+                { file: "MyCourse page example 1 filled - layout path.png", caption: "A filled-in course page in the <b>path</b> layout, where the lessons are shown as a route the learner follows step by step." },
+                { file: "MyCourse page example 2.png", caption: "A second course page example, showing how the content changes depending on the course and the learner." },
+                { file: "MyCourse page example 3.png", caption: "A third course page example, showing a different topic and learning focus." },
+                { file: "MyCourse page Layout default-1.png", caption: "The <b>default</b> course layout: a clear, list-based overview of all lessons." },
+                { file: "MyCourse page Layout tree-1.png", caption: "The <b>tree</b> layout, which shows how lessons build on each other and lets users see the bigger picture of a course." },
+                { file: "MyCourses Edit course.png", caption: "The edit screen where users adjust a course to their own wishes and needs." },
+                { file: "MyCourses page Edit AI-1.png", caption: "Where the user controls how the AI helps shape the course, keeping the user in charge of their own data and learning." },
+                { file: "MyCourses page Join.png", caption: "The join screen, where users can find and join existing courses." },
             ],
             video: "ZAKFlKwHR0E",
         },
 
-        // Project 2
         {
             title: "Create a High-end Video Game",
             summary: "Working on your own game and a big project with over more than 30 people",
@@ -93,51 +93,34 @@ const PROJECTS = {
             tools: "Unity, Blender, VS Code, Git, Audacity",
             about: [
                 `During the minor, I learned to conceptualize and put my creative ideas into functional ideas. With the first part of the minor, I learned how to differentiate different art approaches for a game environment and worked on my own concepts. During classes I got a lot of theory about game design from User Experience (UX) to overall coverage of what makes a game fun for certain types of audiences.`,
-
                 `Later during the minor, one of the games got chosen to be part of the art team as the environmental artist, which I mostly did. From sketching out ideas to 3D modeling whole animal enclosures to buildings. It was a fun experience where previously learned skills came to use while working with more than 30 other individuals with their own ideas, workflows, and communication preferences.`,
-
                 `I also worked on audio manipulation and programming for game development to get an all-round understanding of what it means to be part of the gaming industry.`,
-
-                `Crazy Croc game: <a href="https://the-crazy-crocs.itch.io/the-crazy-croc" target="_blank" rel="noopener">link group game</a>.`
+                `Crazy Croc game: <a href="https://the-crazy-crocs.itch.io/the-crazy-croc" target="_blank" rel="noopener">link group game</a>.`,
             ],
             highlights: [
                 "Understanding game design fundamentals",
                 "Working with a big group with different tasks",
                 "Creative thinking to prototyping and functional products",
             ],
-            // CHECK these captions: I wrote them from the filenames and your project text.
+            // CHECK these captions: written from the filenames and the project text.
             images: [
-                { file: "20231117_111932.jpg",
-                  caption: "A photo from the minor, taken during the early concept and reference phase of the project." },
-                { file: "caveroof2.png",
-                  caption: "A 3D model of a cave roof, made as part of the environment art for the game." },
-                { file: "DSCN1351.JPG",
-                  caption: "A reference photo used as inspiration for the animal enclosures and buildings I modelled." },
-                { file: "Examples_environment_work (1).png",
-                  caption: "Environment work for the game: one of the 3D enclosures I modelled and textured." },
-                { file: "Examples_environment_work (2).png",
-                  caption: "More environment work, showing how the props and buildings fit together in one scene." },
-                { file: "Examples_environment_work (3).png",
-                  caption: "A further example of the environment art, made in Blender and placed in Unity." },
-                { file: "textureStatue.png",
-                  caption: "Texture work on a statue, exploring how materials and detail bring a 3D model to life." },
-                { file: "Screenshot 2023-09-29 112706.png",
-                  caption: "An early prototype from the first part of the minor, when I was exploring my own game concepts." },
-                { file: "Screenshot 2024-01-19 145839.png",
-                  caption: "A screenshot of the finished Crazy Croc game, showing the environment in-engine." },
-                { file: "Screenshot 2024-01-19 145944.png",
-                  caption: "Another in-game view of Crazy Croc, showing the work of the whole art team together." },
-                { file: "Screenshot 2024-01-19 150025.png",
-                  caption: "The final look of the game, with the environment art I contributed in place." },
-                { file: "Screenshot 2026-11-04 134029.png",
-                  caption: "A closer look at one of the environments I created for the game." },
-                { file: "Screenshot 2026-11-04 134107.png",
-                  caption: "Another close-up of the environment art, showing the level of detail in the models." },
+                { file: "20231117_111932.jpg", caption: "A photo from the minor, taken during the early concept and reference phase of the project." },
+                { file: "caveroof2.png", caption: "A 3D model of a cave roof, made as part of the environment art for the game." },
+                { file: "DSCN1351.JPG", caption: "A reference photo used as inspiration for the animal enclosures and buildings I modelled." },
+                { file: "Examples_environment_work (1).png", caption: "Environment work for the game: one of the 3D enclosures I modelled and textured." },
+                { file: "Examples_environment_work (2).png", caption: "More environment work, showing how the props and buildings fit together in one scene." },
+                { file: "Examples_environment_work (3).png", caption: "A further example of the environment art, made in Blender and placed in Unity." },
+                { file: "textureStatue.png", caption: "Texture work on a statue, exploring how materials and detail bring a 3D model to life." },
+                { file: "Screenshot 2023-09-29 112706.png", caption: "An early prototype from the first part of the minor, when I was exploring my own game concepts." },
+                { file: "Screenshot 2024-01-19 145839.png", caption: "A screenshot of the finished Crazy Croc game, showing the environment in-engine." },
+                { file: "Screenshot 2024-01-19 145944.png", caption: "Another in-game view of Crazy Croc, showing the work of the whole art team together." },
+                { file: "Screenshot 2024-01-19 150025.png", caption: "The final look of the game, with the environment art I contributed in place." },
+                { file: "Screenshot 2026-11-04 134029.png", caption: "A closer look at one of the environments I created for the game." },
+                { file: "Screenshot 2026-11-04 134107.png", caption: "Another close-up of the environment art, showing the level of detail in the models." },
             ],
             video: "7IKRfPL_DA4&t",
         },
 
-        // Project 3
         {
             title: "Planned Obsolescence and humans",
             summary: "Critical design about planned obsolescence and the role of humans and AI",
@@ -148,44 +131,32 @@ const PROJECTS = {
             tools: "Godot, Blender, VS Code, Git, Indesign, Illustrator, Audacity",
             about: [
                 `During my graduation for BSc CMD (Communication & Multimedia Design) I worked with the Avans research group "Brede Welvaart en Nieuwe Ondernemerschap / Broad Prosperity and New Entrepreneurship" on the topic of Planned Obsolescence (PO) and the impacts of it on a large scale. From environmental problems, consumers and general impact on our society.`,
-
                 `During my research I explored many different topics within PO and came up with the idea of PO, humans and AI. With more and more people fearing being replaced with AI I focused on the gaming industry. My concept mainly contained a physical and digital layer.`,
-
                 `The physical layer consisted of a fictional office that was slowly drowned by the replacement and usage of AI.`,
-
                 `The digital layer consisted mostly of two games. 1 game was the so-called human game that was made by me and designed with gamers. The idea was to update the game every time when played with a new test group to show the importance of human labour and communication during the development.`,
-
                 `The other so-called 'AI' game was also designed by me with principles of generative design where I used things like mathematical design to create generative shapes. The idea showed an AI game with an AI that follows you around and pushes you off the map. The idea behind it is to show that while AI can do certain tasks, it should not be a complete replacement of humans and with too much help it can harm the user.`,
-
                 `The project showed me the impact of PO on our world but also new emerging problems with overusage of AI and was for me a foundation that also became part of joining the master program Data-Driven Design.`,
-
                 `Link project itch human game: <a href="https://mikawishaupt49.itch.io/bytejump" target="_blank" rel="noopener">link</a>.<br>
-                Link project itch 'AI' game: <a href="https://mikawishaupt49.itch.io/byterunner-vm" target="_blank" rel="noopener">link</a>.`
+                Link project itch 'AI' game: <a href="https://mikawishaupt49.itch.io/byterunner-vm" target="_blank" rel="noopener">link</a>.`,
             ],
             highlights: [
                 "Researching a topic and add my personal approach to it",
                 "Designing, developing and testing prototypes and products",
             ],
-            // CHECK these captions: I wrote them from the filenames and your project text.
+            // CHECK these captions: written from the filenames and the project text.
             images: [
-                { file: "20250115_123751.jpg",
-                  caption: "The physical layer of the concept: a fictional office that is slowly taken over by AI." },
-                { file: "m-post-1 (1).png",
-                  caption: "A designed post from the project, communicating the theme of planned obsolescence." },
-                { file: "m-post-1 (2).png",
-                  caption: "A second post in the same series, continuing the story about humans and AI." },
-                { file: "Screenshot 2025-01-16 123155.png",
-                  caption: "A screenshot from the human game, which was updated after every test round with new players." },
-                { file: "Screenshot 2025-01-16 124816.png",
-                  caption: "A view of the 'AI' game, built with generative design and mathematical shapes." },
-                { file: "Screenshot 2025-01-17 104921.png",
-                  caption: "The AI that follows the player and pushes them off the map, showing how too much help can harm the user." },
+                { file: "20250115_123751.jpg", caption: "The physical layer of the concept: a fictional office that is slowly taken over by AI." },
+                { file: "m-post-1 (1).png", caption: "A designed post from the project, communicating the theme of planned obsolescence." },
+                { file: "m-post-1 (2).png", caption: "A second post in the same series, continuing the story about humans and AI." },
+                { file: "Screenshot 2025-01-16 123155.png", caption: "A screenshot from the human game, which was updated after every test round with new players." },
+                { file: "Screenshot 2025-01-16 124816.png", caption: "A view of the 'AI' game, built with generative design and mathematical shapes." },
+                { file: "Screenshot 2025-01-17 104921.png", caption: "The AI that follows the player and pushes them off the map, showing how too much help can harm the user." },
             ],
             video: "H43tg9wHPHg",
         },
     ],
 
-    // Page 2
+    // ---- Page 2 ----
     2: [
         {
             title: "Internship Arfected",
@@ -202,26 +173,16 @@ const PROJECTS = {
                 "Learn to design with emerging technology for different clients",
                 "Deeper understanding and use case for Blender",
             ],
-            // CHECK these captions: I wrote them from the filenames and your project text.
             images: [
-                { file: "exa1.JPG",
-                  caption: "example 1" },
-                { file: "exa2.PNG",
-                  caption: "example2" },
-                { file: "exa3.JPG",
-                  caption: "example 3" },
-                { file: "exa4.JPG",
-                  caption: "example 4" },
-                { file: "exa5.JPG",
-                  caption: "example 5" },
-                { file: "exa6.JPG",
-                  caption: "example 6" },
-                { file: "exa7.JPG",
-                  caption: "example 7" },
-                { file: "exa8-own.png",
-                  caption: "example 8" },
-                { file: "exa9-own.png",
-                  caption: "example 9" },
+                { file: "exa1.JPG", caption: "example 1" },
+                { file: "exa2.PNG", caption: "example2" },
+                { file: "exa3.JPG", caption: "example 3" },
+                { file: "exa4.JPG", caption: "example 4" },
+                { file: "exa5.JPG", caption: "example 5" },
+                { file: "exa6.JPG", caption: "example 6" },
+                { file: "exa7.JPG", caption: "example 7" },
+                { file: "exa8-own.png", caption: "example 8" },
+                { file: "exa9-own.png", caption: "example 9" },
             ],
             video: "13HSDn3ub58",
         },
@@ -241,69 +202,36 @@ const PROJECTS = {
                 "Learn to design with emerging technology for different clients",
                 "Deeper understanding and use case for Blender",
             ],
-            // CHECK these captions: I wrote them from the filenames and your project text.
             images: [
-                { file: "exa1.JPG",
-                  caption: "example 1" },
-                { file: "exa2.PNG",
-                  caption: "example2" },
+                { file: "exa1.JPG", caption: "example 1" },
+                { file: "exa2.PNG", caption: "example2" },
             ],
             video: "13HSDn3ub58",
         },
     ],
 
-    // Page 3
+    // ---- Page 3 (placeholders) ----
     3: [
         { title: "Project seven", summary: "A short description of the project goes here." },
         { title: "Project eight", summary: "A short description of the project goes here." },
         { title: "Project nine", summary: "A short description of the project goes here." },
     ],
 
-    // Page 4 (no project cards: this page shows the two link buttons instead, see OTHER_LINKS below)
+    // ---- Page 4 (no cards: shows the OTHER_LINKS buttons below) ----
     4: [],
 };
 
-
-// ------------------------------------------------------------
-// OTHER PROJECT PAGES: the animated buttons
-// Change the text (label) and the link (url). Add or remove lines
-// to get more or fewer buttons.
-// ------------------------------------------------------------
+// Page 4 buttons. Edit label / url, add or remove lines.
 const OTHER_LINKS = [
-    { label: "Itch.io",  url: "https://mikawishaupt49.itch.io/" },
-    { label: "YouTube",  url: "https://www.youtube.com/@Mikania-vt5rq" },
+    { label: "Itch.io", url: "https://mikawishaupt49.itch.io/" },
+    { label: "YouTube", url: "https://www.youtube.com/@Mikania-vt5rq" },
 ];
 
 
-
-
-
-
-
-
-
-
-
-
-
-// Skill tree
-
-
-
-
-
-
-
-
-
-// ------------------------------------------------------------
-// SKILL TREE (your creative journey, top to bottom)
-// size:  "minor" | "notable" | "keystone"
-// state: "done" | "current" | "locked"
+// ---------- 4. SKILL TREE ----------
+// size:  "minor" | "notable" | "keystone"        state: "done" | "current" | "locked"
 // from:  ids of the nodes this one connects to (draws the lines)
-// x / y: position in a 480 x 1400 box
-// open:  true = draws a dashed trail below it (the tree is not finished)
-// ------------------------------------------------------------
+// x / y: position in a width x height box        open: true = dashed trail below (tree not finished)
 const SKILL_TREE = {
     width: 450,
     height: 1500,
@@ -344,8 +272,7 @@ const SKILL_TREE = {
           about: "Shaping sound and audio for games and animation." },
 
         // ---- Bachelor CMD ----
-        { id: "cmd", name: "Bachelor", sub: "Communication & Multimedia Design", icon: "🎓", x: 240, y: 255,
-          size: "keystone", state: "done", branch: "cmd", from: ["yt2", "an1", "an2", "mu1"],
+        { id: "cmd", name: "Bachelor", sub: "Communication & Multimedia Design", icon: "🎓", x: 240, y: 255, size: "keystone", state: "done", branch: "cmd", from: ["yt2", "an1", "an2", "mu1"],
           about: "BSc Communication & Multimedia Design (Engineer title). All my creative hobbies came together here and became a profession." },
         { id: "ux", name: "UX design", x: 50, y: 310, size: "minor", state: "done", branch: "cmd", from: ["cmd"],
           about: "Designing with and for real users." },
@@ -357,8 +284,7 @@ const SKILL_TREE = {
           about: "Researching a topic and adding my own approach to it." },
 
         // ---- Minor (part of the bachelor) ----
-        { id: "minor", name: "Create a High-end Video Game", sub: "Minor", icon: "🎮", x: 120, y: 450,
-          size: "keystone", state: "done", branch: "minor", from: ["cmd"], period: "2023",
+        { id: "minor", name: "Create a High-end Video Game", sub: "Minor", icon: "🎮", x: 120, y: 450, size: "keystone", state: "done", branch: "minor", from: ["cmd"], period: "2023",
           about: "The minor Create a High-end Video Game: game design and game development, from my own concepts to a big production." },
         { id: "gd", name: "Game design", x: 40, y: 520, size: "minor", state: "done", branch: "minor", from: ["minor"],
           about: "UX and what makes a game fun for different audiences." },
@@ -370,8 +296,7 @@ const SKILL_TREE = {
           about: "Working in a team of more than 30 people with different workflows and communication styles." },
 
         // ---- Graduation (part of the bachelor) ----
-        { id: "gr", name: "Graduation", sub: "Planned obsolescence & AI", icon: "🧩", x: 360, y: 450,
-          size: "keystone", state: "done", branch: "grad", from: ["cmd"], period: "2025",
+        { id: "gr", name: "Graduation", sub: "Planned obsolescence & AI", icon: "🧩", x: 360, y: 450, size: "keystone", state: "done", branch: "grad", from: ["cmd"], period: "2025",
           about: "A critical design project on planned obsolescence, humans and AI, with a physical office and two games." },
         { id: "gr1", name: "AI & ethics", x: 330, y: 555, size: "minor", state: "done", branch: "grad", from: ["gr"],
           about: "Looking at where AI helps and where it harms." },
@@ -379,16 +304,14 @@ const SKILL_TREE = {
           about: "Designing, building and testing games with real players." },
 
         // ---- Master ----
-        { id: "ma", name: "Master", sub: "Data-Driven Design", icon: "📊", x: 240, y: 670,
-          size: "keystone", state: "done", branch: "master", from: ["env", "gr1"],
+        { id: "ma", name: "Master", sub: "Data-Driven Design", icon: "📊", x: 240, y: 670, size: "keystone", state: "done", branch: "master", from: ["env", "gr1"],
           about: "MA Data-Driven Design: combining creativity with data and emerging tech. Completed." },
 
         // ---- New journey ----
-        { id: "nj", name: "A new Journey", icon: "🚀", x: 240, y: 790,
-          size: "keystone", state: "current", branch: "journey", from: ["ma"],
+        { id: "nj", name: "A new Journey", icon: "🚀", x: 240, y: 790, size: "keystone", state: "current", branch: "journey", from: ["ma"],
           about: "The next chapter starts here." },
 
-        // ---- Paths of the new journey (left column) ----
+        // ---- Paths of the new journey: left column ----
         { id: "p1", name: "AI use cases", sub: "& ethics", icon: "🧠", x: 110, y: 890, size: "notable", state: "locked", branch: "future", from: ["nj"],
           about: "Write something about AI use cases and ethics." },
         { id: "p2", name: "XR", icon: "🥽", x: 110, y: 975, size: "notable", state: "locked", branch: "future", from: ["nj"],
@@ -400,7 +323,7 @@ const SKILL_TREE = {
         { id: "p5", name: "Teamwork", sub: "& professional exosphere", icon: "🤝", x: 110, y: 1230, size: "notable", state: "locked", branch: "future", from: ["nj"],
           about: "Write something about teamwork and the professional exosphere." },
 
-        // ---- Paths of the new journey (right column) ----
+        // ---- Paths of the new journey: right column ----
         { id: "p6", name: "Design generals", icon: "🧭", x: 370, y: 890, size: "notable", state: "locked", branch: "future", from: ["nj"],
           about: "Write something about design in general." },
         { id: "p7", name: "UX/UI Design", icon: "🖱️", x: 370, y: 975, size: "notable", state: "locked", branch: "future", from: ["nj"],
@@ -418,12 +341,7 @@ const SKILL_TREE = {
     ],
 };
 
-
-// ------------------------------------------------------------
-// SKILL TREE STORIES (small text window on the big nodes)
-// Key = the node id from SKILL_TREE. Write your own text in `text`.
-// To give another node a story window, add its id here.
-// ------------------------------------------------------------
+// Small text window that pops up on a node. Key = node id from SKILL_TREE.
 const SKILL_STORIES = {
     start: { title: "The spark",
              text: "I liked to draw, make videos, make music... Basically I liked to create things from a young age which is for me the start of the journey" },
@@ -440,48 +358,40 @@ const SKILL_STORIES = {
 };
 
 
-// ------------------------------------------------------------
-// TOOL INFO (Favourite tools popup)
-// The bubbles are built automatically from the `tools:` line of
-// every project. Bigger bubble = used in more projects.
-// Key = tool name in lowercase. icon = image path ("" for none yet).
-// ------------------------------------------------------------
+// ---------- 5. TOOLS + HOBBIES ----------
+// Bubbles are built from the `tools:` line of every project (bigger = used in more projects).
+// Key = tool name (any capitalisation). icon = image path ("" for none).
+// Tools without an entry still get a bubble, with a default text.
 const TOOL_INFO = {
-    "blender":   { icon: "", about: "Blender lets me create various kinds of things, from animations to assets for major projects and is one of my favourite tools" },
-    "godot":     { icon: "", about: "Godot makes it possibile to create unique interactive things from simple prototypes to test with an audience to full fletched games" },
-    "unity":     { icon: "", about: "Just like Godot, Unity makes it more accessible to create unique interactive things" },
-    "inkscape":  { icon: "", about: "A free tool that let's me make unique vector art all the way to complete posters to show my research" },
-    "lm studio": { icon: "", about: "During my master's, I looked further into ownership and the importance of AI freedom, which led me to LM Studio, which showed me that using AI is not always necessary to rely on major companies. You can host your own AI for prototypes to assist" },
-    "VS Code":     { icon: "", about: "A code editor that helps me out with developing projects from games to websites" },
-    "Audacity":     { icon: "", about: "An audio editing tool that allows me to improve audio from video's to generating new sound" },
-    "Indesign":     { icon: "", about: "A page layout program that helps me create things from unique documents to infographics" },
-    "Illustrator":     { icon: "", about: "A tool that I mostly used for vector art and schematics for wood laser cutter" },
-    "Lens Studio": {icon: "", about:"Software to create stunning Augmented Reality filters for Snapchat"},
-    "Spark AR": {icon: "", about:"Software to create stunning Augmented Reality filters for Instagram"},
-    "Spark AR": {icon: "", about: "Software to create stunning Augmented Reality filters for Instagram"},
-    "Git": {icon: "", about: "With Git and Github I can easily manage small to big projects from solo to having a big team"},
-    // tools without an entry still get a bubble, with a default text
+    "blender":     { icon: "", about: "Blender lets me create various kinds of things, from animations to assets for major projects and is one of my favourite tools" },
+    "godot":       { icon: "", about: "Godot makes it possibile to create unique interactive things from simple prototypes to test with an audience to full fletched games" },
+    "unity":       { icon: "", about: "Just like Godot, Unity makes it more accessible to create unique interactive things" },
+    "inkscape":    { icon: "", about: "A free tool that let's me make unique vector art all the way to complete posters to show my research" },
+    "lm studio":   { icon: "", about: "During my master's, I looked further into ownership and the importance of AI freedom, which led me to LM Studio, which showed me that using AI is not always necessary to rely on major companies. You can host your own AI for prototypes to assist" },
+    "vs code":     { icon: "", about: "A code editor that helps me out with developing projects from games to websites" },
+    "audacity":    { icon: "", about: "An audio editing tool that allows me to improve audio from video's to generating new sound" },
+    "indesign":    { icon: "", about: "A page layout program that helps me create things from unique documents to infographics" },
+    "illustrator": { icon: "", about: "A tool that I mostly used for vector art and schematics for wood laser cutter" },
+    "lens studio": { icon: "", about: "Software to create stunning Augmented Reality filters for Snapchat" },
+    "spark ar":    { icon: "", about: "Software to create stunning Augmented Reality filters for Instagram" },
+    "git":         { icon: "", about: "With Git and Github I can easily manage small to big projects from solo to having a big team" },
 };
 
-
-// ------------------------------------------------------------
-// HOBBIES
-// ------------------------------------------------------------
 const HOBBIES = [
-    { icon: "🎮", name: "Gaming",  about: "A term that means so much to me. From playing something to creating something on my own. Games are for me so much more than just 'fun' and showed me multiple use cases like an interactive way to educate people in certain topics" },
-    { icon: "🧊", name: "3D art",  about: "Creating things in 3D gives me the space to create whole digital worlds, also it's nice to know how to make something to 3D print like hinges for a closet" },
+    { icon: "🎮", name: "Gaming", about: "A term that means so much to me. From playing something to creating something on my own. Games are for me so much more than just 'fun' and showed me multiple use cases like an interactive way to educate people in certain topics" },
+    { icon: "🧊", name: "3D art", about: "Creating things in 3D gives me the space to create whole digital worlds, also it's nice to know how to make something to 3D print like hinges for a closet" },
     { icon: "🤸", name: "Calisthenics", about: "A new hobby for me that showed me that my capabilities are not bound to just my brain" },
 ];
 
 
-// ------------------------------------------------------------
-// STAR ORBS (the clickable stars)
-// ------------------------------------------------------------
+// ---------- 6. STAR ORBS (the clickable stars) ----------
+// point: index of the star in the constellation (see CONSTELLATIONS in world.js)
+// label: where the name sits ("above" | "below" | "right")   name: optional, else the popup title
 const ORBS = {
     about: [
-        { point: 0, label: "right", popup: "myPopup2", color: "orb-flow",  name: "Skilltree" },
+        { point: 0, label: "right", popup: "myPopup2", color: "orb-flow", name: "Skilltree" },
         { point: 6, label: "below", popup: "myPopup1", color: "orb-tools", name: "Favourite tools" },
-        { point: 7, label: "below", popup: "myPopup3", color: "orb-tech",  name: "Hobbies" },
+        { point: 7, label: "below", popup: "myPopup3", color: "orb-tech", name: "Hobbies" },
     ],
     projects: [
         { point: 1, label: "above", popup: "projPopup1", color: "orb-p1" },

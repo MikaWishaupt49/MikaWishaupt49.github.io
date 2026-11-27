@@ -1,152 +1,68 @@
-/* --------------------
-    TOKENS
--------------------- */
+/* ============================================================
+   STYLE.CSS: tokens, base, panels, nav, star orbs, popups,
+   contact form, enter screen.
+   (projects.css = project pages, about.css = About popups)
+   ============================================================ */
 
+/* ---------- TOKENS ---------- */
 :root {
     --bg: #0d0e12;
     --text: #f2f2f4;
     --text-soft: #b4b4bd;
     --line: rgba(255, 255, 255, 0.12);
     --glass: rgba(20, 21, 27, 0.8);
+    --tint: rgba(128, 128, 140, 0.12);          /* soft grey used for hovers / cards */
 
     --font-display: "Roboto", Arial, Helvetica, sans-serif;
     --font-body: "Roboto", Arial, Helvetica, sans-serif;
     --font-script: "Caveat", "Segoe Script", cursive;
 
     --scene-width: 1300px;
-
-    /* Space left and right of the page. The title text AND the popups both
-       use this, so their left and right edges line up exactly. */
+    /* space left/right of the page: titles AND popups use it, so edges line up */
     --gutter: max(clamp(22px, 6vw, 110px), calc((100vw - var(--scene-width)) / 2 + 40px));
 }
 
 
-/* --------------------
-    RESET
--------------------- */
-
-*,
-*::before,
-*::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-a,
-button {
-    font: inherit;
-    color: inherit;
-    text-decoration: none;
-}
-
-:focus-visible {
-    outline: 2px solid var(--text);
-    outline-offset: 3px;
-}
+/* ---------- BASE ---------- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+a, button { font: inherit; color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
 
 body {
     overflow: hidden;
-    font-family: var(--font-body);
-    font-size: 15px;
+    min-height: 100vh;
+    font: 15px var(--font-body);
     color: var(--text);
     background: var(--bg);
-    transition: background 0.4s ease, color 0.4s ease;
-    min-height: 100vh;
 }
 
+#world-canvas { position: fixed; inset: 0; z-index: 0; display: block; width: 100%; height: 100%; outline: none; }
 
-/* --------------------
-    3D CANVAS BACKGROUND
--------------------- */
+h1 { font: 700 clamp(30px, 3.2vw, 40px)/1.05 var(--font-display); letter-spacing: -0.02em; }
+h2 { font-family: var(--font-display); font-weight: 500; }
+h3 { font-family: var(--font-display); font-weight: 300; }
 
-#world-canvas {
-    position: fixed;
-    inset: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    outline: none;
-}
+.script { font: 1.35em/1 var(--font-script); color: var(--text); }
 
 
-/* --------------------
-    INTRO & PANELS (with fade)
--------------------- */
-
+/* ---------- PANELS (text at the top of each section) ----------
+   All panels share one spot so they can fade over each other (see script.js) */
 .intro {
-    /* All panels share the same spot so they can fade in/out over each other */
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
     width: min(640px, calc(100% - 44px));
     margin: clamp(36px, 5vw, 64px) 0 0 var(--gutter);
-
-    pointer-events: auto;
-
-    /* fades out while a popup is open (see body.popup-open below) */
     transition: opacity 0.3s ease;
 }
+.intro[hidden] { display: none; }
+.intro p { max-width: 580px; font-weight: 300; line-height: 1.65; color: var(--text-soft); }
 
-/* A popup now covers the page text, so the text fades away while it is open */
-body.popup-open .intro {
-    opacity: 0;
-    pointer-events: none;
-}
+/* an open popup covers the panel text, so it fades away */
+body.popup-open .intro { opacity: 0; pointer-events: none; }
 
-/* Fading is handled in script.js (Web Animations API) */
-.intro[hidden] {
-    display: none;
-}
-
-/* h1 = Roboto Bold (big text) */
-h1 {
-    font-family: var(--font-display);
-    font-size: clamp(30px, 3.2vw, 40px);
-    font-weight: 700;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-}
-
-/* h2 = Roboto Medium */
-h2 {
-    font-family: var(--font-display);
-    font-weight: 500;
-}
-
-/* h3 = Roboto Light */
-h3 {
-    font-family: var(--font-display);
-    font-weight: 300;
-}
-
-.intro p {
-    max-width: 580px;
-    font-weight: 300;
-    line-height: 1.65;
-    color: var(--text-soft);
-}
-
-.script {
-    font-family: var(--font-script);
-    font-size: 1.35em;
-    line-height: 1;
-    color: var(--text);
-}
-
-
-/* --------------------
-    HOME TEXT
-    Same font as the other titles (h1), just smaller.
-    It uses the .intro position, so it lines up with About / Projects / Contact.
--------------------- */
-
-.home-title {
-    font-size: clamp(22px, 2.3vw, 29px);   /* titles are 30-40px; change to taste */
-}
-
+.home-title { font-size: clamp(22px, 2.3vw, 29px); }
 .home-title span {
     display: block;
     margin-top: 6px;
@@ -158,29 +74,17 @@ h3 {
 }
 
 
-/* --------------------
-    BOTTOM NAVIGATION
--------------------- */
+/* ---------- BOTTOM NAVIGATION ---------- */
+.bottom-nav { position: fixed; z-index: 10; left: 50%; bottom: 0; transform: translateX(-50%); }
 
-.bottom-nav {
-    position: fixed;
-    z-index: 10;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
-}
-
-.nav-menu,
-.mobile-toggle {
+.nav-menu, .mobile-toggle {
     background: var(--glass);
     border: 1px solid var(--line);
-    backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
 }
 
-.mobile-toggle {
-    display: none;
-}
+.mobile-toggle { display: none; }
 
 .nav-menu {
     display: flex;
@@ -192,11 +96,7 @@ h3 {
     box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.07);
 }
 
-.nav-divider {
-    width: 1px;
-    height: 20px;
-    background: var(--line);
-}
+.nav-divider { width: 1px; height: 20px; background: var(--line); }
 
 .nav-button {
     position: relative;
@@ -224,45 +124,30 @@ h3 {
     opacity: 0.5;
     transition: opacity 0.2s ease;
 }
+.nav-button.active svg, .nav-button:hover svg { opacity: 1; }
 
-.nav-button.active svg,
-.nav-button:hover svg {
-    opacity: 1;
-}
+.nav-label { display: none; font-size: 14px; font-weight: 500; }
 
-.nav-label {
-    display: none;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-/* Hover + tooltip (only on devices with a mouse) */
+/* hover + tooltip (mouse devices only) */
 @media (hover: hover) {
-    .nav-button:hover {
-        background: rgba(128, 128, 140, 0.12);
-    }
+    .nav-button:hover { background: var(--tint); }
 
     .tooltip {
         position: absolute;
         bottom: calc(100% + 12px);
         left: 50%;
         transform: translate(-50%, 4px);
-
         padding: 6px 14px;
         border-radius: 16px;
         background: var(--bg);
         color: var(--text);
-
-        font-family: var(--font-display);
-        font-size: 15px;
+        font: 15px var(--font-display);
         white-space: nowrap;
-
         box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
         opacity: 0;
         pointer-events: none;
         transition: 0.2s;
     }
-
     .tooltip::after {
         content: "";
         position: absolute;
@@ -272,22 +157,291 @@ h3 {
         border: 5px solid transparent;
         border-top-color: var(--bg);
     }
-
-    .nav-button:hover .tooltip {
-        opacity: 1;
-        transform: translate(-50%, 0);
-    }
+    .nav-button:hover .tooltip { opacity: 1; transform: translate(-50%, 0); }
 }
 
 
-/* --------------------
-    MOBILE (< 600px)
--------------------- */
+/* ---------- STAR ORBS (clickable stars on the constellations) ---------- */
+.orb-layer { position: fixed; inset: 0; z-index: 5; pointer-events: none; opacity: 0; visibility: hidden; }
+.orb-layer.off .star-orb { pointer-events: none; }
 
+.star-orb {
+    --glow-rgb: 255, 212, 121;   /* glow colour (set per orb below) */
+    --delay: 0s;
+    --speed: 8s;                 /* one grow + shrink cycle (bigger = slower) */
+    --spark-size: 30px;          /* size of the sparkle (halo + ring scale with it) */
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 52px;                 /* touch target */
+    height: 52px;
+    margin: -26px 0 0 -26px;     /* centre the button on its star */
+    padding: 0;
+    border: 0;
+    background: none;
+    color: #fff;
+    cursor: pointer;
+    pointer-events: auto;
+    will-change: transform;
+    -webkit-tap-highlight-color: transparent;
+}
+.star-orb:focus-visible { outline: none; }
+
+/* About */
+.orb-tools   { --glow-rgb: 255, 212, 121; --delay: 0s; }       /* gold   */
+.orb-flow    { --glow-rgb: 192, 132, 252; --delay: -2.7s; }    /* violet */
+.orb-tech    { --glow-rgb: 94, 234, 212;  --delay: -5.4s; }    /* teal   */
+/* Projects */
+.orb-p1      { --glow-rgb: 244, 114, 182; --delay: 0s; }       /* pink   */
+.orb-p2      { --glow-rgb: 125, 211, 252; --delay: -2s; }      /* sky    */
+.orb-p3      { --glow-rgb: 190, 242, 100; --delay: -4s; }      /* lime   */
+.orb-p4      { --glow-rgb: 252, 211, 77;  --delay: -6s; }      /* amber  */
+/* Contact */
+.orb-contact { --glow-rgb: 251, 146, 60;  --delay: 0s; }       /* orange */
+
+.star-body { position: absolute; inset: 0; transition: transform 0.25s ease; }
+.star-orb:hover .star-body, .star-orb:focus-visible .star-body { transform: scale(1.25); }
+.star-orb.active .star-body { transform: scale(1.4); }
+
+.star-glow {
+    position: absolute;
+    inset: calc(var(--spark-size) * -0.53);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(var(--glow-rgb), 0.6) 0%, rgba(var(--glow-rgb), 0.2) 38%, transparent 70%);
+    animation: orb-breathe var(--speed) ease-in-out var(--delay) infinite;
+}
+
+.star-ring {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: calc(var(--spark-size) * 0.75);
+    height: calc(var(--spark-size) * 0.75);
+    margin: calc(var(--spark-size) * -0.375) 0 0 calc(var(--spark-size) * -0.375);
+    border-radius: 50%;
+    border: 1px solid rgba(var(--glow-rgb), 0.9);
+    animation: orb-ping var(--speed) ease-out var(--delay) infinite;
+}
+
+.star-spark {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: var(--spark-size);
+    height: var(--spark-size);
+    margin: calc(var(--spark-size) / -2) 0 0 calc(var(--spark-size) / -2);
+    filter: drop-shadow(0 0 4px rgba(var(--glow-rgb), 1)) drop-shadow(0 0 12px rgba(var(--glow-rgb), 0.85));
+    animation: orb-twinkle var(--speed) ease-in-out var(--delay) infinite;
+}
+.star-spark::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+}
+
+@keyframes orb-breathe { 0%, 100% { transform: scale(0.8); opacity: 0.6; } 50% { transform: scale(1.3); opacity: 1; } }
+@keyframes orb-ping    { 0% { transform: scale(0.6); opacity: 0.8; } 70%, 100% { transform: scale(2.4); opacity: 0; } }
+@keyframes orb-twinkle { 0%, 100% { transform: scale(0.8); } 50% { transform: scale(1.25); } }
+@keyframes orb-hint    { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+/* label + small "tap to open" hint (label: below by default, or right / above) */
+.star-label {
+    position: absolute;
+    left: 50%;
+    top: calc(50% + 24px);
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    white-space: nowrap;
+    text-align: center;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.95), 0 0 2px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+}
+.star-orb[data-label="right"] .star-label {
+    left: calc(50% + 26px);
+    top: 50%;
+    transform: translateY(-50%);
+    align-items: flex-start;
+    text-align: left;
+}
+.star-orb[data-label="above"] .star-label { top: auto; bottom: calc(50% + 24px); }
+
+.star-name { font: 500 18px/1.1 var(--font-display); color: #fff; }
+
+.star-hint {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgb(var(--glow-rgb));
+    animation: orb-hint var(--speed) ease-in-out var(--delay) infinite;
+}
+.star-hint::before { content: "✦ "; }
+.star-orb.active .star-hint { opacity: 0; animation: none; }
+
+.hint-click { display: none; }
+@media (hover: hover) {
+    .hint-tap { display: none; }
+    .hint-click { display: inline; }
+}
+
+
+/* ---------- POPUPS ----------
+   Same glass + blur as the nav. Starts near the top and covers the panel text. */
+.fade-popup {
+    position: fixed;
+    top: var(--popup-top, 16px);
+    bottom: 88px;                         /* clear of the nav */
+    left: var(--gutter);
+    right: var(--gutter);
+    z-index: 8;                           /* below the nav (10) */
+    display: flex;
+    flex-direction: column;
+    background: var(--glass);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    color: var(--text);
+    border-radius: 28px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    outline: none;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(12px);
+    transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s ease;
+}
+.fade-popup.open { opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
+
+.popup-head {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 14px 12px 24px;
+}
+.popup-head h3 { font-size: clamp(24px, 2.6vw, 32px); line-height: 1; letter-spacing: -0.01em; }
+
+.popup-close {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 14px;
+    background: none;
+    font-size: 26px;
+    line-height: 1;
+    color: var(--text);
+    opacity: 0.6;
+    cursor: pointer;
+    transition: background 0.2s ease, opacity 0.2s ease;
+}
+.popup-close:hover { background: var(--tint); opacity: 1; }
+
+.popup-body {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden auto;                /* long project pages scroll in here */
+    overscroll-behavior: contain;
+    touch-action: pan-y;
+    padding: 20px 24px 24px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(128, 128, 140, 0.45) transparent;
+}
+.popup-body::-webkit-scrollbar { width: 8px; }
+.popup-body::-webkit-scrollbar-thumb { border-radius: 8px; background: rgba(128, 128, 140, 0.45); }
+.popup-body::-webkit-scrollbar-track { background: transparent; }
+.popup-body p { font-weight: 300; line-height: 1.65; color: var(--text-soft); }
+
+
+/* ---------- CONTACT FORM ---------- */
+.contact-form { display: flex; flex-direction: column; gap: 18px; max-width: 560px; margin: 0 auto; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field span { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-soft); }
+
+.field input, .field textarea {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 16px;                      /* 16px stops iOS from zooming in */
+    font-weight: 300;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--tint);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    resize: vertical;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+.field input::placeholder, .field textarea::placeholder { color: var(--text-soft); opacity: 0.6; }
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--text-soft); background: rgba(128, 128, 140, 0.18); }
+
+.form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.send-button {
+    padding: 12px 24px;
+    border: 0;
+    border-radius: 30px;
+    background: var(--text);
+    color: var(--bg);
+    font: 18px var(--font-display);
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.send-button:hover { transform: translateY(-2px); }
+.send-button:disabled { opacity: 0.5; cursor: wait; transform: none; }
+.form-status { font-size: 14px; }
+
+
+/* ---------- ENTER SCREEN ---------- */
+.splash {
+    position: fixed;
+    inset: 0;
+    z-index: 100;                         /* above everything */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px;
+    text-align: center;
+    background: var(--glass);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+}
+.splash[hidden] { display: none; }
+.splash-photo { display: block; width: clamp(130px, 18vw, 200px); height: auto; }   /* photo size */
+
+.splash-roles {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: min(640px, 100%);
+    height: 4.5em;                        /* room for 2 lines so nothing jumps */
+    overflow: hidden;
+}
+.splash-role { max-width: 580px; font-size: clamp(16px, 2vw, 20px); font-weight: 300; line-height: 1.5; color: var(--text-soft); }
+
+.splash-enter {
+    margin-top: 8px;
+    padding: 10px 26px;
+    border: 1px solid var(--text);
+    border-radius: 30px;
+    background: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.5s ease, color 0.5s ease;
+}
+.splash-enter:hover { background: rgba(255, 254, 254, 0.74); color: var(--bg); }
+
+
+/* ---------- SMALL SCREENS (< 600px) ---------- */
 @media (max-width: 600px) {
-    .bottom-nav {
-        bottom: 18px;
-    }
+    .bottom-nav { bottom: 18px; }
 
     .mobile-toggle {
         display: flex;
@@ -307,500 +461,33 @@ h3 {
         flex-direction: column;
         align-items: stretch;
         gap: 4px;
-
         width: 200px;
         padding: 8px;
         border: 1px solid var(--line);
         border-radius: 20px;
         box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
-
         transform: translate(-50%, 10px) scale(0.95);
         opacity: 0;
         visibility: hidden;
         transition: 0.25s;
     }
+    .open .nav-menu { opacity: 1; visibility: visible; transform: translateX(-50%); }
 
-    .open .nav-menu {
-        opacity: 1;
-        visibility: visible;
-        transform: translateX(-50%);
-    }
+    .nav-divider, .tooltip { display: none; }
+    .nav-button { width: 100%; height: 42px; justify-content: flex-start; gap: 12px; padding: 0 14px; border-radius: 12px; }
+    .nav-button.active { background: rgba(128, 128, 140, 0.14); }
+    .nav-label { display: inline; }
 
-    .nav-divider,
-    .tooltip {
-        display: none;
-    }
+    .star-name { font-size: 15px; }
+    .star-hint { font-size: 9px; letter-spacing: 0.1em; }
+    .star-orb[data-label="right"] .star-label { left: calc(50% + 22px); }
 
-    .nav-button {
-        width: 100%;
-        height: 42px;
-        justify-content: flex-start;
-        gap: 12px;
-        padding: 0 14px;
-        border-radius: 12px;
-    }
-
-    .nav-button.active {
-        background: rgba(128, 128, 140, 0.14);
-    }
-
-    .nav-label {
-        display: inline;
-    }
-}
-
-
-/* --------------------
-    STAR ORBS (on the constellations)
--------------------- */
-
-.orb-layer {
-    position: fixed;
-    inset: 0;
-    z-index: 5;
-    pointer-events: none;
-    opacity: 0;
-    visibility: hidden;
-}
-
-.orb-layer.off .star-orb {
-    pointer-events: none;
-}
-
-.star-orb {
-    /* each orb gets its own glow colour */
-    --glow-rgb: 255, 212, 121;
-    --delay: 0s;
-    --speed: 8s;                 /* one full grow + shrink cycle (bigger = slower) */
-    --spark-size: 30px;          /* size of the bright sparkle (halo + ring scale with it) */
-
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 52px;                 /* comfortable touch target */
-    height: 52px;
-    margin: -26px 0 0 -26px;     /* centre the button on its star */
-    padding: 0;
-    border: 0;
-    background: none;
-    color: #fff;
-    cursor: pointer;
-    pointer-events: auto;
-    will-change: transform;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.orb-tools { --glow-rgb: 255, 212, 121; --delay: 0s; }      /* gold   */
-.orb-flow  { --glow-rgb: 192, 132, 252; --delay: -2.7s; }    /* violet */
-.orb-tech  { --glow-rgb: 94, 234, 212;  --delay: -5.4s; }    /* teal   */
-
-/* projects: four pages */
-.orb-p1 { --glow-rgb: 244, 114, 182; --delay: 0s; }      /* pink  */
-.orb-p2 { --glow-rgb: 125, 211, 252; --delay: -2s; }    /* sky   */
-.orb-p3 { --glow-rgb: 190, 242, 100; --delay: -4s; }    /* lime  */
-.orb-p4 { --glow-rgb: 252, 211, 77;  --delay: -6s; }    /* amber */
-
-/* contact: one star */
-.orb-contact { --glow-rgb: 251, 146, 60; --delay: 0s; }  /* orange */
-
-.star-body {
-    position: absolute;
-    inset: 0;
-    transition: transform 0.25s ease;
-}
-
-.star-orb:hover .star-body,
-.star-orb:focus-visible .star-body {
-    transform: scale(1.25);
-}
-
-.star-orb.active .star-body {
-    transform: scale(1.4);
-}
-
-.star-orb:focus-visible {
-    outline: none;
-}
-
-/* soft breathing halo */
-.star-glow {
-    position: absolute;
-    inset: calc(var(--spark-size) * -0.53);
-    border-radius: 50%;
-    background: radial-gradient(circle,
-            rgba(var(--glow-rgb), 0.6) 0%,
-            rgba(var(--glow-rgb), 0.2) 38%,
-            transparent 70%);
-    animation: orb-breathe var(--speed) ease-in-out var(--delay) infinite;
-}
-
-/* ring that pulses outward = "click me" */
-.star-ring {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: calc(var(--spark-size) * 0.75);
-    height: calc(var(--spark-size) * 0.75);
-    margin: calc(var(--spark-size) * -0.375) 0 0 calc(var(--spark-size) * -0.375);
-    border-radius: 50%;
-    border: 1px solid rgba(var(--glow-rgb), 0.9);
-    animation: orb-ping var(--speed) ease-out var(--delay) infinite;
-}
-
-/* bright 4-point sparkle in the middle */
-.star-spark {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: var(--spark-size);
-    height: var(--spark-size);
-    margin: calc(var(--spark-size) / -2) 0 0 calc(var(--spark-size) / -2);
-    filter:
-        drop-shadow(0 0 4px rgba(var(--glow-rgb), 1))
-        drop-shadow(0 0 12px rgba(var(--glow-rgb), 0.85));
-    animation: orb-twinkle var(--speed) ease-in-out var(--delay) infinite;
-}
-
-.star-spark::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: #fff;
-    clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%,
-            50% 100%, 40% 60%, 0 50%, 40% 40%);
-}
-
-@keyframes orb-breathe {
-    0%, 100% { transform: scale(0.8);  opacity: 0.6; }
-    50%      { transform: scale(1.3);  opacity: 1; }
-}
-
-@keyframes orb-ping {
-    0%        { transform: scale(0.6); opacity: 0.8; }
-    70%, 100% { transform: scale(2.4); opacity: 0; }
-}
-
-@keyframes orb-twinkle {
-    0%, 100% { transform: scale(0.8); }
-    50%      { transform: scale(1.25); }
-}
-
-@keyframes orb-hint {
-    0%, 100% { opacity: 0.5; }
-    50%      { opacity: 1; }
-}
-
-/* label + small "tap to open" text */
-.star-label {
-    position: absolute;
-    left: 50%;
-    top: calc(50% + 24px);
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
-    white-space: nowrap;
-    text-align: center;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.95), 0 0 2px rgba(0, 0, 0, 0.8);
-    pointer-events: none;
-}
-
-.star-orb[data-label="right"] .star-label {
-    left: calc(50% + 26px);
-    top: 50%;
-    transform: translateY(-50%);
-    align-items: flex-start;
-    text-align: left;
-}
-
-.star-orb[data-label="above"] .star-label {
-    top: auto;
-    bottom: calc(50% + 24px);
-}
-
-.star-name {
-    font-family: var(--font-display);
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 1.1;
-    color: #fff;
-}
-
-.star-hint {
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgb(var(--glow-rgb));
-    animation: orb-hint var(--speed) ease-in-out var(--delay) infinite;
-}
-
-.star-hint::before {
-    content: "✦ ";
-}
-
-.hint-click {
-    display: none;
-}
-
-@media (hover: hover) {
-    .hint-tap {
-        display: none;
-    }
-
-    .hint-click {
-        display: inline;
-    }
-}
-
-.star-orb.active .star-hint {
-    opacity: 0;
-    animation: none;
-}
-
-@media (max-width: 600px) {
-    .star-name {
-        font-size: 15px;
-    }
-
-    .star-hint {
-        font-size: 9px;
-        letter-spacing: 0.1em;
-    }
-
-    .star-orb[data-label="right"] .star-label {
-        left: calc(50% + 22px);
-    }
+    .fade-popup { border-radius: 22px; }
+    .popup-head { padding: 14px 12px 12px 20px; }
+    .popup-body { padding: 18px 20px 24px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .star-glow,
-    .star-ring,
-    .star-spark,
-    .star-hint {
-        animation: none;
-    }
-}
-
-
-/* --------------------
-    POPUP PAGES
-    Same glass, radius and blur as the bottom navigation.
-    The popup starts near the top of the screen and covers the page text.
--------------------- */
-
-.fade-popup {
-    position: fixed;
-    top: var(--popup-top, 16px);          /* near the top: covers the page text */
-    bottom: 88px;                         /* stays clear of the nav */
-    left: var(--gutter);
-    right: var(--gutter);
-
-    display: flex;
-    flex-direction: column;
-
-    background: var(--glass);
-    border: 0;                            /* no outline around the popup */
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
-    color: var(--text);
-    border-radius: 28px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
-    z-index: 8;                           /* below the nav (10) */
-    outline: none;
-
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transform: translateY(12px);
-    transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s ease;
-}
-
-.fade-popup.open {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: translateY(0);
-}
-
-.popup-head {
-    flex: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 14px 14px 12px 24px;
-}
-
-.popup-head h3 {
-    font-family: var(--font-display);
-    font-size: clamp(24px, 2.6vw, 32px);
-    font-weight: 300;
-    line-height: 1;
-    letter-spacing: -0.01em;
-}
-
-.popup-close {
-    flex: none;
-    width: 44px;
-    height: 44px;
-    border: 0;
-    border-radius: 14px;
-    background: none;
-    font-size: 26px;
-    line-height: 1;
-    color: var(--text);
-    opacity: 0.6;
-    cursor: pointer;
-    transition: background 0.2s ease, opacity 0.2s ease;
-}
-
-.popup-close:hover {
-    background: rgba(128, 128, 140, 0.12);
-    opacity: 1;
-}
-
-.popup-body {
-    flex: 1;
-    min-height: 0;
-    overflow-x: hidden;
-    overflow-y: auto;                     /* long project pages scroll in here */
-    overscroll-behavior: contain;
-    touch-action: pan-y;
-    padding: 20px 24px 24px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(128, 128, 140, 0.45) transparent;
-}
-
-.popup-body::-webkit-scrollbar {
-    width: 8px;
-}
-
-.popup-body::-webkit-scrollbar-thumb {
-    border-radius: 8px;
-    background: rgba(128, 128, 140, 0.45);
-}
-
-.popup-body::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.popup-body p {
-    font-weight: 300;
-    line-height: 1.65;
-    color: var(--text-soft);
-}
-
-
-/* --------------------
-    CONTACT FORM
--------------------- */
-
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    max-width: 560px;
-    margin: 0 auto;
-}
-
-.field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.field span {
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-soft);
-}
-
-.field input,
-.field textarea {
-    width: 100%;
-    padding: 12px 16px;
-    font: inherit;
-    font-size: 16px;                      /* 16px stops iOS from zooming in */
-    font-weight: 300;
-    color: var(--text);
-    background: rgba(128, 128, 140, 0.12);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    resize: vertical;
-    transition: border-color 0.2s ease, background 0.2s ease;
-}
-
-.field input::placeholder,
-.field textarea::placeholder {
-    color: var(--text-soft);
-    opacity: 0.6;
-}
-
-.field input:focus,
-.field textarea:focus {
-    outline: none;
-    border-color: var(--text-soft);
-    background: rgba(128, 128, 140, 0.18);
-}
-
-.form-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 14px;
-}
-
-.send-button {
-    padding: 12px 24px;
-    border: 0;
-    border-radius: 30px;
-    background: var(--text);
-    color: var(--bg);
-    font-family: var(--font-display);
-    font-size: 18px;
-    letter-spacing: 0.2px;
-    cursor: pointer;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.send-button:hover {
-    transform: translateY(-2px);
-}
-
-.send-button:disabled {
-    opacity: 0.5;
-    cursor: wait;
-    transform: none;
-}
-
-.form-status {
-    font-size: 14px;
-}
-
-
-/* --------------------
-    POPUPS ON SMALL SCREENS
--------------------- */
-
-@media (max-width: 600px) {
-    .fade-popup {
-        border-radius: 22px;
-    }
-
-    .popup-head {
-        padding: 14px 12px 12px 20px;
-    }
-
-    .popup-body {
-        padding: 18px 20px 24px;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .fade-popup {
-        transition: opacity 0.2s ease, visibility 0.2s ease;
-    }
+    .star-glow, .star-ring, .star-spark, .star-hint { animation: none; }
+    .fade-popup { transition: opacity 0.2s ease, visibility 0.2s ease; }
 }
